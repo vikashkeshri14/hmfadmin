@@ -1,9 +1,29 @@
 import React, { useState } from "react";
+import Commitment from "./Commitment";
 import Graph from "./Graph";
+import IncomingConveration from "./IncomingConveration";
+import InfoIncoming from "./InfoIncoming";
+import InfoOutgoing from "./InfoOutgoing";
+import OrderReceive from "./OrderReceive";
+import OutgoingConversation from "./OutgoingConversation";
+import OutgoingOrder from "./OutgoingOrder";
 import Products from "./Products";
 
 export default function Content() {
   const [productShow, setProductShow] = useState(false);
+  const [commitmentShow, setCommitmentShow] = useState(false);
+  const [receiveShow, setReceiveShow] = useState(false);
+  const [outgoingShow, setOutgoingShow] = useState(false);
+  const [infoShow, setInfoShow] = useState(false);
+  const [conversationShow, setConversationShow] = useState(false);
+
+  const [infoShowIncoming, setInfoShowIncoming] = useState(false);
+  const [infoShowOutgoing, setInfoShowOutgoing] = useState(false);
+  const [conversationShowOutgoing, setConversationShowOutgoing] =
+    useState(false);
+  const [conversationShowIncoming, setConversationShowIncoming] =
+    useState(true);
+
   return (
     <div className="app-content content">
       <div className="content-overlay"></div>
@@ -118,7 +138,21 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+                  <div
+                    onClick={() => {
+                      setProductShow(true);
+                      setCommitmentShow(false);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(false);
+                      setReceiveShow(false);
+                      setInfoShow(false);
+                      setConversationShow(false);
+                    }}
+                    className="flex-none cursor-pointer	 p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
@@ -131,7 +165,21 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+                  <div
+                    onClick={() => {
+                      setProductShow(false);
+                      setCommitmentShow(true);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(false);
+                      setReceiveShow(false);
+                      setInfoShow(false);
+                      setConversationShow(false);
+                    }}
+                    className="flex-none cursor-pointer p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
@@ -144,7 +192,21 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+                  <div
+                    onClick={() => {
+                      setProductShow(false);
+                      setCommitmentShow(false);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(false);
+                      setReceiveShow(true);
+                      setInfoShow(false);
+                      setConversationShow(false);
+                    }}
+                    className="flex-none cursor-pointer p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
@@ -157,7 +219,21 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+                  <div
+                    onClick={() => {
+                      setProductShow(false);
+                      setCommitmentShow(false);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(true);
+                      setReceiveShow(false);
+                      setInfoShow(false);
+                      setConversationShow(false);
+                    }}
+                    className="flex-none cursor-pointer p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
@@ -170,7 +246,13 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+                  <div
+                    onClick={() => {
+                      setInfoShow((infoShow) => !infoShow);
+                      setConversationShow(false);
+                    }}
+                    className="flex-none cursor-pointer p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
@@ -181,9 +263,59 @@ export default function Content() {
                       <div className="text-[#959494] text-[16px] font-sstbold">
                         سجل البلاغات
                       </div>
+                      <div
+                        class={
+                          infoShow
+                            ? "absolute shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                            : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                        }
+                      >
+                        <div
+                          onClick={() => {
+                            setProductShow(false);
+                            setCommitmentShow(false);
+                            setConversationShowIncoming(false);
+                            setConversationShowOutgoing(false);
+                            setInfoShowIncoming(false);
+                            setInfoShowOutgoing(true);
+                            setOutgoingShow(false);
+                            setReceiveShow(false);
+                            setInfoShow(false);
+                          }}
+                          class="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
+                        >
+                          بلاغات صادرة
+                        </div>
+                        <div class="dropdown-divider mb-0"></div>
+                        <div
+                          onClick={() => {
+                            setProductShow(false);
+                            setCommitmentShow(false);
+                            setConversationShowIncoming(false);
+                            setConversationShowOutgoing(false);
+                            setInfoShowIncoming(true);
+                            setInfoShowOutgoing(false);
+                            setOutgoingShow(false);
+                            setReceiveShow(false);
+                            setInfoShow(false);
+                          }}
+                          class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
+                        >
+                          بلاغات واردة
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex-none p-[15px] pr-[0px]">
+
+                  <div
+                    onClick={() => {
+                      setConversationShow(
+                        (conversationShow) => !conversationShow
+                      );
+                      setInfoShow(false);
+                    }}
+                    className="flex-none cursor-pointer p-[15px] pr-[0px]"
+                  >
                     <div className="flex-col  h-[66px] pl-[10px] ">
                       <div className="flex justify-center">
                         <img
@@ -193,6 +325,49 @@ export default function Content() {
                       </div>
                       <div className="text-[#959494] text-[16px] font-sstbold">
                         سجل المحادثات
+                      </div>
+                      <div
+                        class={
+                          conversationShow
+                            ? "absolute shadow w-[189px] mt-[-10px] left-[90px] z-50 bg-white"
+                            : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                        }
+                      >
+                        <div
+                          onClick={() => {
+                            setProductShow(false);
+                            setCommitmentShow(false);
+                            setConversationShowIncoming(false);
+                            setConversationShowOutgoing(true);
+                            setInfoShowIncoming(false);
+                            setInfoShowOutgoing(false);
+                            setOutgoingShow(false);
+                            setReceiveShow(false);
+                            setInfoShow(false);
+                            setConversationShow(false);
+                          }}
+                          class="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
+                        >
+                          محادثات صادرة
+                        </div>
+                        <div class="dropdown-divider mb-0"></div>
+                        <div
+                          onClick={() => {
+                            setProductShow(false);
+                            setCommitmentShow(false);
+                            setConversationShowIncoming(true);
+                            setConversationShowOutgoing(false);
+                            setInfoShowIncoming(false);
+                            setInfoShowOutgoing(false);
+                            setOutgoingShow(false);
+                            setReceiveShow(false);
+                            setInfoShow(false);
+                            setConversationShow(false);
+                          }}
+                          class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                        >
+                          محادثات واردة
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -252,146 +427,13 @@ export default function Content() {
           <section id="product ">
             {productShow && <Products />}
 
-            <div class="row mt-[10px]">
-              <div class="col-md-6 col-sm-12  rounded-[6px]">
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المتاجر
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          700
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المستخدمين
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          1,400
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المتاجر
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          700
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المستخدمين
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          1,400
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المتاجر
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          700
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المستخدمين
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          1,400
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المتاجر
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          700
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                    <div class="card mb-[10px] pb-[10px]">
-                      <div class="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
-                          عدد المستخدمين
-                        </div>
-                        <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          1,400
-                        </div>
-                        <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
-                          5,09% أعلى من الشهر الماضي
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                <div class="card mb-[10px] pb-[10px]">
-                  <h4 class="p-[10px] text-[18px] font-sstbold text-[#959494]">
-                    أوقات النشاط في التطبيق
-                  </h4>
-                  <Graph />
-                </div>
-              </div>
-            </div>
+            {commitmentShow && <Commitment />}
+            {receiveShow && <OrderReceive />}
+            {outgoingShow && <OutgoingOrder />}
+            {infoShowIncoming && <InfoIncoming />}
+            {infoShowOutgoing && <InfoOutgoing />}
+            {conversationShowOutgoing && <OutgoingConversation />}
+            {conversationShowIncoming && <IncomingConveration />}
           </section>
         </div>
       </div>
