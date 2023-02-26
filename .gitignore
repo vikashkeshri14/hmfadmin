@@ -1,5 +1,6 @@
+# dependencies
 node_modules/
-.expo/
+
 dist/
 npm-debug.*
 *.jks
@@ -9,6 +10,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+*/node_modules/*
 # macOS
 .DS_Store
+# eslint cache
+.eslintcachenode_modules

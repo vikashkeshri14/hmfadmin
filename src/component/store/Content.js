@@ -8,7 +8,8 @@ import OrderReceive from "./OrderReceive";
 import OutgoingConversation from "./OutgoingConversation";
 import OutgoingOrder from "./OutgoingOrder";
 import Products from "./Products";
-
+import { DateRange } from 'react-date-range';
+import { addDays } from 'date-fns';
 export default function Content() {
   const [productShow, setProductShow] = useState(false);
   const [commitmentShow, setCommitmentShow] = useState(false);
@@ -22,12 +23,26 @@ export default function Content() {
   const [conversationShowOutgoing, setConversationShowOutgoing] =
     useState(false);
   const [conversationShowIncoming, setConversationShowIncoming] =
-    useState(true);
-
+    useState(false);
+  const [ban, showBan] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+  const [perblocked, setPerBlocked] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false);
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection'
+    }
+  ]);
   return (
-    <div className="app-content content">
-      <div className="content-overlay"></div>
-      <div className="content-wrapper">
+    <div className="app-content  content">
+      <div className="content-overlay "></div>
+      <div
+        className={
+          blocked || perblocked ? "content-wrapper blur-sm" : "content-wrapper"
+        }
+      >
         <div className="content-header row"></div>
         <div className="content-body">
           <section id="store-analytics">
@@ -266,7 +281,7 @@ export default function Content() {
                       <div
                         class={
                           infoShow
-                            ? "absolute shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                            ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
                             : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
                         }
                       >
@@ -303,6 +318,7 @@ export default function Content() {
                         >
                           بلاغات واردة
                         </div>
+                        <div class="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -313,6 +329,7 @@ export default function Content() {
                         (conversationShow) => !conversationShow
                       );
                       setInfoShow(false);
+                      setDeleteShow(false)
                     }}
                     className="flex-none cursor-pointer p-[15px] pr-[0px]"
                   >
@@ -329,7 +346,7 @@ export default function Content() {
                       <div
                         class={
                           conversationShow
-                            ? "absolute shadow w-[189px] mt-[-10px] left-[90px] z-50 bg-white"
+                            ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
                             : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
                         }
                       >
@@ -368,6 +385,7 @@ export default function Content() {
                         >
                           محادثات واردة
                         </div>
+                        <div class="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -406,13 +424,61 @@ export default function Content() {
                           src="../app-assets/images/notification.png"
                         />
                       </div>
-                      <div className="mr-[10px] ml-[10px]">
+                      <div
+                        onClick={() => {
+                          showBan((ban) => !ban);
+                        }}
+                        className="mr-[10px] cursor-pointer ml-[10px]"
+                      >
                         <img
                           className="h-[24px] w-[24px]"
                           src="../app-assets/images/danger.png"
                         />
+                        <div
+                          class={
+                            ban
+                              ? "absolute shadow w-[332px] mt-[20px] left-[90px] z-50 bg-white"
+                              : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                          }
+                        >
+                          <div
+                            onClick={() => {
+                              setBlocked(true);
+                              setPerBlocked(false);
+                              setDeleteShow(false)
+                            }}
+                            class="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                          >
+                            حظر مؤقت
+                          </div>
+                          <div class="dropdown-divider mb-0"></div>
+                          <div
+                            onClick={() => {
+                              setPerBlocked(true);
+                              setBlocked(false)
+                              setDeleteShow(false)
+                            }}
+                            class=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                          >
+                            حظر دائم
+                          </div>
+                          <div class="dropdown-divider mb-0"></div>
+                          <div
+                            onClick={() => {
+                              setConversationShow(false);
+                            }}
+                            class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                          >
+                            إلغاء الحظر
+                          </div>
+                          <div class="dropdown-divider mb-0"></div>
+                        </div>
                       </div>
-                      <div className="mr-[10px] ">
+                      <div onClick={() => {
+                        setDeleteShow(deleteShow => !deleteShow);
+                        setBlocked(false);
+                        setPerBlocked(false);
+                      }} className="mr-[10px] cursor-pointer ">
                         <img
                           className="h-[24px] w-[24px]"
                           src="../app-assets/images/trash.png"
@@ -437,6 +503,147 @@ export default function Content() {
           </section>
         </div>
       </div>
+      {blocked && (
+        <>
+          <div
+
+            class="initial"
+          >
+            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+                  هل أنت متأكد من حظر
+                </h3>
+
+                <div class="flex justify-center mt-[10px]">
+                  <img
+                    className="w-[68px] self-center h-[68px] rounded-[34px]"
+                    src="../../../app-assets/images/store.png"
+                  />
+                </div>
+                <div className="text-[#484848] text-[20px] font-sstbold text-center">
+                  محمد علي محمد
+                </div>
+                <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
+                  #23456
+                </div>
+                <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
+                  سبب الحظر
+                </div>
+                <fieldset class=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea class="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                </fieldset>
+                <div className="flex justify-center pb-[30px]">
+                  <button
+                    onClick={() => setBlocked(false)}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                  >
+                    إلغاء
+                  </button>
+                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {perblocked && (
+        <>
+          <div class="initial"
+          >
+            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+                  هل أنت متأكد من حظر
+                </h3>
+
+                <div class="flex justify-center mt-[10px]">
+                  <img
+                    className="w-[68px] self-center h-[68px] rounded-[34px]"
+                    src="../../../app-assets/images/store.png"
+                  />
+                </div>
+                <div className="text-[#484848] text-[20px] font-sstbold text-center">
+                  محمد علي محمد
+                </div>
+                <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
+                  #23456
+                </div>
+                <div className="mr-[30px] ml-[30px]"></div>
+                <div dir="ltr" className="flex justify-center"><DateRange
+                  editableDateInputs={true}
+                  onChange={item => setState([item.selection])}
+                  moveRangeOnFirstSelection={false}
+                  ranges={state}
+                /></div>
+                <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
+                  سبب الحظر
+                </div>
+                <fieldset class=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea class="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                </fieldset>
+
+                <div className="flex justify-center pb-[30px]">
+                  <button
+                    onClick={() => setPerBlocked(false)}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                  >
+                    إلغاء
+                  </button>
+                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {deleteShow && (
+        <>
+          <div class="initial"
+          >
+            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+                  هل أنت متأكد من حظر
+                </h3>
+
+                <div class="flex justify-center mt-[10px]">
+                  <img
+                    className="w-[68px] self-center h-[68px] rounded-[34px]"
+                    src="../../../app-assets/images/store.png"
+                  />
+                </div>
+                <div className="text-[#484848] text-[20px] font-sstbold text-center">
+                  محمد علي محمد
+                </div>
+                <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
+                  #23456
+                </div>
+                <div className="mr-[30px] ml-[30px]"></div>
+
+
+
+                <div className="flex justify-center mt-[30px] pb-[30px]">
+                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حذف
+                  </button>
+                  <button
+                    onClick={() => setDeleteShow(false)}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
+                  >
+                    إلغاء
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
