@@ -7,6 +7,11 @@ import Users from "./screen/user/Users";
 import Store from "./screen/user/Store";
 import UserDetails from "./screen/user/UserDetails";
 import Order from "./screen/order/Order";
+import Report from "./screen/report/Report";
+import Sms from "./screen/sms/Sms";
+import TechSupport from "./screen/techsupport/TechSupport";
+import Notification from "./screen/notification/Notification";
+import Commitment from "./screen/commitment/Commitment";
 
 function App() {
   return (
@@ -19,6 +24,11 @@ function App() {
         <Route path="/user-details" element={<UserDetails />} />
         <Route path="/store" element={<Store />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/report" element={<Report />} />
+        <Route path="/sms" element={<Sms />} />
+        <Route path="/tech-support" element={<TechSupport />} />
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/commitment" element={<Commitment />} />
       </Routes>
     </Router>
   );
