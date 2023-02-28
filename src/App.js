@@ -12,6 +12,10 @@ import Sms from "./screen/sms/Sms";
 import TechSupport from "./screen/techsupport/TechSupport";
 import Notification from "./screen/notification/Notification";
 import Commitment from "./screen/commitment/Commitment";
+import Profit from "./screen/profit/Profit";
+import Management from "./screen/management/Management";
+import AddManagement from "./screen/management/AddManagement";
+import BlackList from "./screen/blacklist/BlackList";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
         <Route path="/tech-support" element={<TechSupport />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/commitment" element={<Commitment />} />
+        <Route path="/profit" element={<Profit />} />
+        <Route path="/management" element={<Management />} />
+        <Route path="/add-management" element={<AddManagement />} />
+        <Route path="/blacklist" element={<BlackList />} />
       </Routes>
     </Router>
   );
