@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [buttonClick, setButtonClick] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [authSuccess, setAuthSuccess] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const local = JSON.parse(localStorage.getItem("loginUser"));
-    console.log(local);
+    if (local != null) {
+      setAuthSuccess(true);
+    }
   });
-  const checkLogin = () => {
+  const checkLogin = async () => {
     setButtonClick(true);
     if (!email) {
       setEmailError(true);
@@ -26,25 +34,56 @@ export default function Login() {
         return;
       }
     }
-    if (!password || password.length < 7) {
+    if (!password || password.length < 4) {
       setPasswordError(true);
       setButtonClick((buttonClick) => !buttonClick);
       return;
     } else {
       setPasswordError(false);
     }
+    const obj = {
+      email: email,
+      password: password,
+    };
+
+    let params = { url: apiList.login, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      if (response.success) {
+        setButtonClick(false);
+        localStorage.setItem("loginUser", JSON.stringify(response.results));
+        setAuthSuccess(true);
+      }
+      if (response.userStatus == "2") {
+        //console.log("hello");
+        setErrorMessage("Wrong password!");
+      }
+      if (response.userStatus == "3") {
+        //console.log("hello");
+        setErrorMessage("Wrong email id!");
+      }
+      setButtonClick(false);
+    }
   };
+  if (authSuccess) {
+    navigate("/dashboard");
+  }
   return (
     <div className="">
       <section className="bg-gray-50 dark:bg-gray-900 ">
         <div className="flex bg-[url('./login.png')] bg-center flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className=" bg-[#FAFAFA] h-[565px] w-[565px]  shadow-[0_3px_6px_1px_rgba(0,0,0,0.41)]  md:mt-0 rounded-[20px] ">
             <div className="p-6 space-y-4  md:space-y-6 sm:p-8">
-              <h1 className="text-[24px] font-sstbold text-center ">
+              <h1 className="text-[24px] mb-[45px] font-sstbold text-center ">
                 تسجيل الدخول
               </h1>
               <form autoComplete="nope" className="" action="#">
-                <div className="mt-[45px] flex justify-center">
+                {errorMessage && (
+                  <div className="text-center mb-[10px] text-[#E80000]">
+                    {errorMessage}
+                  </div>
+                )}
+                <div className=" flex-col justify-center">
                   <input
                     autoFocus=""
                     autoComplete="off"
@@ -57,8 +96,8 @@ export default function Login() {
                     value={email}
                     className={
                       emailError
-                        ? "w-[526px] border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
-                        : "w-[526px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        ? "w-[526px] text-right border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        : "w-[526px] text-right text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
                     }
                     placeholder="البريد الإلكتروني"
                   />
@@ -76,8 +115,8 @@ export default function Login() {
                     placeholder="كلمة المرور"
                     className={
                       passwordError
-                        ? "w-[526px] border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
-                        : "w-[526px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        ? "w-[526px] text-right border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        : "w-[526px] text-right text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
                     }
                   />
                 </div>

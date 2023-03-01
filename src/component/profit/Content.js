@@ -30,13 +30,13 @@ export default function Content() {
                 </div>
               </div>
               <div className="w-[40%] bg-white rounded-[6px] mr-[10px]  dashboard-users">
-                <div class="pt-[5px] pb-[5px]    ">
-                  <table class=" w-full h-[52px] mb-[0px]">
+                <div className="pt-[5px] pb-[5px]    ">
+                  <table className=" w-full h-[52px] mb-[0px]">
                     <tbody>
                       <tr>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class=" text-center  "
+                          className=" text-center  "
                         >
                           <div className="flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             يومي
@@ -44,7 +44,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class="  text-center  "
+                          className="  text-center  "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             أسبوعي
@@ -52,7 +52,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class=" text-center "
+                          className=" text-center "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             شهري
@@ -60,7 +60,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 0 }}
-                          class=" text-center "
+                          className=" text-center "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             سنوي
@@ -74,13 +74,13 @@ export default function Content() {
             </div>
 
             <div className=" row mt-[10px]">
-              <div class="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
-                <div class=" mt-[10px]">
-                  <div class="col-md-12 col-sm-12  rounded-[6px]">
-                    <div class="row">
-                      <div class="col-md-4 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+              <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
+                <div className=" mt-[10px]">
+                  <div className="col-md-12 col-sm-12  rounded-[6px]">
+                    <div className="row">
+                      <div className="col-md-4 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               إجمالي الأرباح
                             </div>
@@ -93,9 +93,9 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               الأرباح من قوقل
                             </div>
@@ -108,9 +108,9 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               الأرباح من أبل
                             </div>
@@ -129,14 +129,14 @@ export default function Content() {
               </div>
             </div>
             <div className=" w-full mt-[10px]">
-              <div class="flex justify-around pl-[0px]">
+              <div className="flex justify-around pl-[0px]">
                 <div className="w-[50%] mr-[0px] pr-[0px] bg-white rounded-[6px]">
                   <div className="flex justify-evenly p-[10px]">
                     <div className="w-[70%] text-[#959494] text-[24px] font-sstbold justify-end flex">
                       مقارنة الأرباح الحالية والارباح السابقة
                     </div>
                     <div className="w-[30%] justify-end flex">
-                      <button class="btn btn-sm text-[#ffffff] text-[16px] font-sstbold h-[52px] bg-[#FF9800] glow  mb-1">
+                      <button className="btn btn-sm text-[#ffffff] text-[16px] font-sstbold h-[52px] bg-[#FF9800] glow  mb-1">
                         تنزل التقرير
                       </button>
                     </div>
@@ -151,7 +151,7 @@ export default function Content() {
                       الأرباح
                     </div>
                     <div className="w-[30%] justify-end flex">
-                      <button class="btn btn-sm text-[#ffffff] text-[16px] font-sstbold h-[52px] bg-[#FF9800] glow  mb-1">
+                      <button className="btn btn-sm text-[#ffffff] text-[16px] font-sstbold h-[52px] bg-[#FF9800] glow  mb-1">
                         تنزل التقرير
                       </button>
                     </div>

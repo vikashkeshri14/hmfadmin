@@ -19,11 +19,12 @@ import BlackList from "./screen/blacklist/BlackList";
 
 function App() {
   return (
-    <Router>
+    <Router basename={"/panel"}>
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/user-details" element={<UserDetails />} />
         <Route path="/store" element={<Store />} />

@@ -4,11 +4,11 @@ import OrderGraph from "./OrderGraph";
 export default function OrderHistory() {
   return (
     <>
-      <div class="row mt-[10px]">
-        <div class="col-md-5 col-sm-12  pl-[0px] rounded-[6px] ">
-          <div class="card mb-[10px]">
-            <div class="p-[10px] flex justify-center h-[240px]">
-              <table class="table justify-center self-center h-[180px] mb-0">
+      <div className="row mt-[10px]">
+        <div className="col-md-5 col-sm-12  pl-[0px] rounded-[6px] ">
+          <div className="card mb-[10px]">
+            <div className="p-[10px] flex justify-center h-[240px]">
+              <table className="table justify-center self-center h-[180px] mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -18,7 +18,7 @@ export default function OrderHistory() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         إجمالي الطلبات
@@ -32,7 +32,7 @@ export default function OrderHistory() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 0 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         إجمالي قيمة الطلبات
@@ -50,21 +50,21 @@ export default function OrderHistory() {
             </div>
           </div>
         </div>
-        <div class="col-md-7  col-sm-12 pl-[0px] rounded-[6px] ">
+        <div className="col-md-7  col-sm-12 pl-[0px] rounded-[6px] ">
           <div className="card h-[240px] bg-white">
             <div className="flex">
               <div className="text-[#959494] text-[18px] font-sstbold p-[10px]">
                 الطلبات
               </div>
               <div className=" p-[10px]">
-                <div class="absolute  left-[20px] has-icon-right">
+                <div className="absolute  left-[20px] has-icon-right">
                   <div className="absolute top-[20px] left-0">
-                    <i class="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
                   <input
                     type="number"
                     id="contact-info-icon"
-                    class="form-control w-[315px] bg-[#F9F9F9] text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                    className="form-control w-[315px] bg-[#F9F9F9] text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
                   />
@@ -75,15 +75,15 @@ export default function OrderHistory() {
           </div>
         </div>
       </div>
-      <div class="row  rounded-[6px] mr-[0px] mt-[10px]">
-        <div class="col-12 p-[0px]">
-          <div class="divider">
-            <div class="divider-text">2023</div>
+      <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+        <div className="col-12 p-[0px]">
+          <div className="divider">
+            <div className="divider-text">2023</div>
           </div>
         </div>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -91,7 +91,10 @@ export default function OrderHistory() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -99,7 +102,10 @@ export default function OrderHistory() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   متجر مختلف
                 </div>
@@ -107,7 +113,10 @@ export default function OrderHistory() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -115,7 +124,10 @@ export default function OrderHistory() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -123,7 +135,10 @@ export default function OrderHistory() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -131,13 +146,13 @@ export default function OrderHistory() {
                   معلق
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -146,8 +161,8 @@ export default function OrderHistory() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -155,7 +170,10 @@ export default function OrderHistory() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -163,7 +181,10 @@ export default function OrderHistory() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -171,7 +192,10 @@ export default function OrderHistory() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -179,7 +203,10 @@ export default function OrderHistory() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -187,7 +214,10 @@ export default function OrderHistory() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -195,13 +225,13 @@ export default function OrderHistory() {
                   مدفوعة
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -210,8 +240,8 @@ export default function OrderHistory() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -219,7 +249,10 @@ export default function OrderHistory() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -227,7 +260,10 @@ export default function OrderHistory() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -235,7 +271,10 @@ export default function OrderHistory() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -243,7 +282,10 @@ export default function OrderHistory() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -251,7 +293,10 @@ export default function OrderHistory() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -259,24 +304,24 @@ export default function OrderHistory() {
                   مرفوضة
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   سبب الرفض
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>

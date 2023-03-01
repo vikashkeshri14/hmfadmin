@@ -17,13 +17,13 @@ export default function Content() {
           <section className="sms-management">
             <div className="row flex mr-[5px] ">
               <div className="w-[40%] bg-white rounded-[6px]  dashboard-users">
-                <div class="pt-[5px] pb-[5px]    ">
-                  <table class=" w-full h-[52px] mb-[0px]">
+                <div className="pt-[5px] pb-[5px]    ">
+                  <table className=" w-full h-[52px] mb-[0px]">
                     <tbody>
                       <tr>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class=" text-center  "
+                          className=" text-center  "
                         >
                           <div className="flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             يومي
@@ -31,7 +31,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class="  text-center  "
+                          className="  text-center  "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             أسبوعي
@@ -39,7 +39,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          class=" text-center "
+                          className=" text-center "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             شهري
@@ -47,7 +47,7 @@ export default function Content() {
                         </td>
                         <td
                           style={{ borderLeftWidth: 0 }}
-                          class=" text-center "
+                          className=" text-center "
                         >
                           <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                             سنوي
@@ -75,10 +75,10 @@ export default function Content() {
               </div>
             </div>
             <div className=" row mt-[10px]">
-              <div class="col-md-9 col-sm-12 pl-[0px] rounded-[6px] ">
-                <div class="card mb-[10px]">
-                  <div class="p-[10px]">
-                    <table class="table  mb-0">
+              <div className="col-md-9 col-sm-12 pl-[0px] rounded-[6px] ">
+                <div className="card mb-[10px]">
+                  <div className="p-[10px]">
+                    <table className="table  mb-0">
                       <tbody>
                         <tr
                           style={{
@@ -87,7 +87,7 @@ export default function Content() {
                         >
                           <td
                             style={{ borderLeftWidth: 1 }}
-                            class="  text-center w-[25%]"
+                            className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                               إجمالي قيمة الإلتزامات
@@ -101,7 +101,7 @@ export default function Content() {
                           </td>
                           <td
                             style={{ borderLeftWidth: 1 }}
-                            class="  text-center w-[25%]"
+                            className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                               قيمة الإلتزامات المدفوعة
@@ -113,7 +113,7 @@ export default function Content() {
                               5,09% أعلى من السنة الماضية
                             </div>
                           </td>
-                          <td class="  text-center w-[25%]">
+                          <td className="  text-center w-[25%]">
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                               قيمة الإلتزامات المعلقة
                             </div>
@@ -129,12 +129,12 @@ export default function Content() {
                     </table>
                   </div>
                 </div>
-                <div class=" mt-[10px]">
-                  <div class="col-md-12 col-sm-12  rounded-[6px]">
-                    <div class="row">
-                      <div class="col-md-4 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+                <div className=" mt-[10px]">
+                  <div className="col-md-12 col-sm-12  rounded-[6px]">
+                    <div className="row">
+                      <div className="col-md-4 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               إجمالي عدد الإلتزامات
                             </div>
@@ -147,9 +147,9 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               عدد الإلتزامات المدفوعة
                             </div>
@@ -162,9 +162,9 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
-                        <div class="card mb-[10px] pb-[20px] pt-[20px]">
-                          <div class="p-[10px]">
+                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               عدد الالتزامات المعلقة
                             </div>
@@ -181,7 +181,7 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-12 pl-[0px]  ">
+              <div className="col-md-3 col-sm-12 pl-[0px]  ">
                 <div className="flex-col p-[10px] rounded-[6px] bg-white">
                   <div className=" h-[150px]">
                     <Graph />
@@ -200,8 +200,8 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div class="row m-[0px] rounded-[6px] mr-[0px] w-[100%]">
-              <div class="col-xl-4  col-md-12 p-[5px]">
+            <div className="row m-[0px] rounded-[6px] mr-[0px] w-[100%]">
+              <div className="col-xl-4  col-md-12 p-[5px]">
                 <div className="bg-white rounded-[6px]">
                   <div className="flex">
                     <div className="flex-col w-[70%]">
@@ -234,7 +234,7 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div class="col-xl-8 col-md-12   p-[5px]">
+              <div className="col-xl-8 col-md-12   p-[5px]">
                 <div className="bg-white rounded-[6px] ">
                   <LineCharts />
                 </div>
@@ -242,11 +242,11 @@ export default function Content() {
             </div>
             <div className="row flex mt-[20px] pl-[15px] pr-[15px]  ">
               <div className="w-[30%] pl-[5px]">
-                <div class="col-md-12 col-sm-12  rounded-[6px]">
-                  <div class="row">
-                    <div class="col-md-12 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
-                      <div class="card mb-[10px] pb-[5px] pt-[5px]">
-                        <div class="p-[10px]">
+                <div className="col-md-12 col-sm-12  rounded-[6px]">
+                  <div className="row">
+                    <div className="col-md-12 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
+                      <div className="card mb-[10px] pb-[5px] pt-[5px]">
+                        <div className="p-[10px]">
                           <div className="text-[#959494] text-center font-sstbold text-[18px]">
                             عدد الإلتزامات المسقطة
                           </div>
@@ -261,11 +261,11 @@ export default function Content() {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-12 col-sm-12  rounded-[6px]">
-                  <div class="row">
-                    <div class="col-md-12 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
-                      <div class="card mb-[10px] pb-[5px] pt-[5px]">
-                        <div class="p-[10px]">
+                <div className="col-md-12 col-sm-12  rounded-[6px]">
+                  <div className="row">
+                    <div className="col-md-12 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
+                      <div className="card mb-[10px] pb-[5px] pt-[5px]">
+                        <div className="p-[10px]">
                           <div className="text-[#959494] text-center font-sstbold text-[18px]">
                             عدد الإلتزامات المسقطة
                           </div>
@@ -282,7 +282,7 @@ export default function Content() {
                 </div>
               </div>
               <div className="w-[70%]">
-                <div class="col-md-12 col-sm-12 pl-[0px] ">
+                <div className="col-md-12 col-sm-12 pl-[0px] ">
                   <div className="bg-white rounded-[6px] pb-[10px]">
                     <div className="flex justify-evenly">
                       <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
@@ -294,20 +294,20 @@ export default function Content() {
                     </div>
                     <div className="row mt-[20px] pl-[15px] pr-[15px]  ">
                       <div className="overflow-x-auto overflow-y-hidden flex ">
-                        <div class="w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                          <div class="top-[44px] relative mr-50 ">
+                        <div className="w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                          <div className="top-[44px] relative mr-50 ">
                             <img
                               className="w-[88px] h-[88px] rounded-[44px]"
-                              src="../../../app-assets/images/store.png"
+                              src="../../../panel/app-assets/images/store.png"
                               alt="sidebar  user image"
                             />
                           </div>
                           <div className="w-[100%]  bg-[#F9F9F9]">
-                            <div class="chat-sidebar-name mt-[40px] mb-[10px]">
-                              <h6 class="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
+                            <div className="chat-sidebar-name mt-[40px] mb-[10px]">
+                              <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
                                 متجر أسرتي
                               </h6>
-                              <div class="text-muted pb-[10px] mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
+                              <div className="text-muted pb-[10px] mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
                                 #959494
                               </div>
                               <div className="pl-[20px]  pr-[20px]">
@@ -325,7 +325,7 @@ export default function Content() {
               </div>
             </div>
             <div className="row mt-[20px]">
-              <div class="col-md-12 col-sm-12 pl-[0px] ">
+              <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
                     <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
@@ -337,14 +337,14 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -371,7 +371,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -384,14 +384,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -418,7 +418,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -431,14 +431,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -465,7 +465,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -478,14 +478,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -512,7 +512,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -525,14 +525,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -559,7 +559,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -572,14 +572,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -606,7 +606,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -619,14 +619,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[64px] h-[64px] rounded-[32px]"
-                                  src="../../../app-assets/images/store.png"
+                                  src="../../../panel/app-assets/images/store.png"
                                   alt="user image"
                                 />
                               </div>
@@ -653,7 +653,7 @@ export default function Content() {
                                   <div className="mt-[5px] ml-[5px]">
                                     <img
                                       className="w-[24px] h-[24px]"
-                                      src="../../../app-assets/images/bell.png"
+                                      src="../../../panel/app-assets/images/bell.png"
                                       alt="user image"
                                     />
                                   </div>
@@ -672,7 +672,7 @@ export default function Content() {
               </div>
             </div>
             <div className="row mt-[20px]">
-              <div class="col-md-12 col-sm-12 pl-[0px] ">
+              <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
                     <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
@@ -684,14 +684,14 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -716,14 +716,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -748,14 +748,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -780,14 +780,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -812,14 +812,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -844,14 +844,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>
@@ -876,14 +876,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div class="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                      <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-full flex-col pr-[5px] pl-[5px]">
                               <div className="flex justify-center mt-[10px]">
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../app-assets/images/user-profile.png"
+                                  src="../../../panel/app-assets/images/user-profile.png"
                                   alt="user image"
                                 />
                               </div>

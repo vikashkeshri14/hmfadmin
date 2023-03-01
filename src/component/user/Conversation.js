@@ -3,15 +3,15 @@ import React from "react";
 export default function Conversation() {
   return (
     <>
-      <div class="row  rounded-[6px] mr-[0px] mt-[10px]">
-        <div class="col-12 p-[0px]">
-          <div class="divider">
-            <div class="divider-text">2023</div>
+      <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+        <div className="col-12 p-[0px]">
+          <div className="divider">
+            <div className="divider-text">2023</div>
           </div>
         </div>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -19,7 +19,10 @@ export default function Conversation() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -27,7 +30,10 @@ export default function Conversation() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   متجر مختلف
                 </div>
@@ -35,7 +41,10 @@ export default function Conversation() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -43,7 +52,10 @@ export default function Conversation() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -51,7 +63,10 @@ export default function Conversation() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -59,13 +74,13 @@ export default function Conversation() {
                   معلق
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -74,8 +89,8 @@ export default function Conversation() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -83,7 +98,10 @@ export default function Conversation() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -91,7 +109,10 @@ export default function Conversation() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -99,7 +120,10 @@ export default function Conversation() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -107,7 +131,10 @@ export default function Conversation() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -115,7 +142,10 @@ export default function Conversation() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -123,13 +153,13 @@ export default function Conversation() {
                   مدفوعة
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -138,8 +168,8 @@ export default function Conversation() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -147,7 +177,10 @@ export default function Conversation() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -155,7 +188,10 @@ export default function Conversation() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -163,7 +199,10 @@ export default function Conversation() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -171,7 +210,10 @@ export default function Conversation() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -179,7 +221,10 @@ export default function Conversation() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -187,24 +232,24 @@ export default function Conversation() {
                   مرفوضة
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   سبب الرفض
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>

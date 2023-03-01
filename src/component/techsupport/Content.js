@@ -43,7 +43,7 @@ export default function Content() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
@@ -71,7 +71,7 @@ export default function Content() {
                       <div>
                         <img
                           className="self-center ml-[5px] mt-[10px] w-[24px] h-[24px]"
-                          src="../app-assets/images/delete.png"
+                          src="../panel/app-assets/images/delete.png"
                         />
                       </div>
                       <div>حذف</div>
@@ -129,7 +129,7 @@ export default function Content() {
                             <div className="flex justify-center mt-[10px]">
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
-                                src="../../../app-assets/images/user-profile.png"
+                                src="../../../panel/app-assets/images/user-profile.png"
                                 alt="user image"
                               />
                             </div>

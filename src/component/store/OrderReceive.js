@@ -4,11 +4,11 @@ import LineCharts from "./LineCharts";
 export default function OrderReceive() {
   return (
     <>
-      <div class="row mt-[10px]">
-        <div class="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
-          <div class="card mb-[10px]">
-            <div class="p-[10px]">
-              <table class="table  mb-0">
+      <div className="row mt-[10px]">
+        <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
+          <div className="card mb-[10px]">
+            <div className="p-[10px]">
+              <table className="table  mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -18,7 +18,7 @@ export default function OrderReceive() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         إجمالي الطلبات
@@ -32,7 +32,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         إجمالي قيمة الطلبات{" "}
@@ -46,7 +46,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         الطلبات المعلقة{" "}
@@ -58,7 +58,7 @@ export default function OrderReceive() {
                         5,09% أعلى من الشهر الماضي{" "}
                       </div>
                     </td>
-                    <td class="  text-center w-[25%]">
+                    <td className="  text-center w-[25%]">
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         إجمالي مبلغ الطلبات{" "}
                       </div>
@@ -75,10 +75,10 @@ export default function OrderReceive() {
             </div>
           </div>
         </div>
-        <div class="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
-          <div class="card mb-[10px]">
-            <div class="p-[10px]">
-              <table class="table   mb-0">
+        <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
+          <div className="card mb-[10px]">
+            <div className="p-[10px]">
+              <table className="table   mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -88,7 +88,7 @@ export default function OrderReceive() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         الطلبات المقبولة{" "}
@@ -102,7 +102,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         قيمة الطلبات المقبولة
@@ -116,7 +116,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         الطلبات المرفوضة
@@ -128,7 +128,7 @@ export default function OrderReceive() {
                         1,06% أقل من الشهر الماضي
                       </div>
                     </td>
-                    <td class="  text-center w-[25%]">
+                    <td className="  text-center w-[25%]">
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         قيمة الطلبات المرفوضة
                       </div>
@@ -145,10 +145,10 @@ export default function OrderReceive() {
             </div>
           </div>
         </div>
-        <div class="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
-          <div class="card mb-[10px]">
-            <div class="p-[10px]">
-              <table class="table   mb-0">
+        <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
+          <div className="card mb-[10px]">
+            <div className="p-[10px]">
+              <table className="table   mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -158,7 +158,7 @@ export default function OrderReceive() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         الطلبات المدفوعة
@@ -172,7 +172,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         قيمة الطلبات المدفوعة
@@ -186,7 +186,7 @@ export default function OrderReceive() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="  text-center w-[25%]"
+                      className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         الطلبات المرفوضة بعد الإتفاق المبدئي{" "}
@@ -198,7 +198,7 @@ export default function OrderReceive() {
                         1,06% أقل من الشهر الماضي
                       </div>
                     </td>
-                    <td class="  text-center w-[25%]">
+                    <td className="  text-center w-[25%]">
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
                         قيمة الطلبات المرفوضة بعد الإتفاق المبدئي
                       </div>
@@ -215,15 +215,15 @@ export default function OrderReceive() {
             </div>
           </div>
         </div>
-        <div class="row m-[0px] bg-[#ffffff] rounded-[6px] mr-[15px] w-[100%]">
-          <div class="col-xl-3 col-md-6 col-12 p-[10px] border-l-[1px]">
-            <fieldset class="form-group h-[57px] bg-[#F9F9F9]">
+        <div className="row m-[0px] bg-[#ffffff] rounded-[6px] mr-[15px] w-[100%]">
+          <div className="col-xl-3 col-md-6 col-12 p-[10px] border-l-[1px]">
+            <fieldset className="form-group h-[57px] bg-[#F9F9F9]">
               <select
                 style={{
                   background:
-                    "url('../app-assets/images/dropdown.png') no-repeat 16px",
+                    "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
                 }}
-                class="form-control bg-[#F9F9F9] h-[57px]"
+                className="form-control bg-[#F9F9F9] h-[57px]"
                 id="basicSelect"
               >
                 <option>IT</option>
@@ -231,34 +231,34 @@ export default function OrderReceive() {
                 <option>Thor Ragnarok</option>
               </select>
             </fieldset>
-            <div class="position-relative has-icon-right">
+            <div className="position-relative has-icon-right">
               <div className="absolute top-[20px] left-0">
-                <i class="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
               </div>
               <input
                 type="number"
                 id="contact-info-icon"
-                class="form-control text-[16px] font-sstroman h-[57px] border-0 bg-[#F9F9F9] rounded-[6px]"
+                className="form-control text-[16px] font-sstroman h-[57px] border-0 bg-[#F9F9F9] rounded-[6px]"
                 name="contact-icon"
                 placeholder="16/12/2022 - 16/12/2022"
               />
             </div>
           </div>
-          <div class="col-xl-9 col-md-6 col-12 p-[10px]">
+          <div className="col-xl-9 col-md-6 col-12 p-[10px]">
             <LineCharts />
           </div>
         </div>
       </div>
 
-      <div class="row  rounded-[6px] mr-[0px] mt-[10px]">
-        <div class="col-12 p-[0px]">
-          <div class="divider">
-            <div class="divider-text">2023</div>
+      <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+        <div className="col-12 p-[0px]">
+          <div className="divider">
+            <div className="divider-text">2023</div>
           </div>
         </div>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -266,7 +266,10 @@ export default function OrderReceive() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -274,7 +277,10 @@ export default function OrderReceive() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -282,7 +288,10 @@ export default function OrderReceive() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -290,7 +299,10 @@ export default function OrderReceive() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -298,7 +310,10 @@ export default function OrderReceive() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -306,13 +321,13 @@ export default function OrderReceive() {
                   مقبولة
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -321,8 +336,8 @@ export default function OrderReceive() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -330,7 +345,10 @@ export default function OrderReceive() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -338,7 +356,10 @@ export default function OrderReceive() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -346,7 +367,10 @@ export default function OrderReceive() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -354,7 +378,10 @@ export default function OrderReceive() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -362,7 +389,10 @@ export default function OrderReceive() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -370,13 +400,13 @@ export default function OrderReceive() {
                   معلقة
                 </div>
               </td>
-              <td class="w-[25%]  text-center ">
+              <td className="w-[25%]  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -385,8 +415,8 @@ export default function OrderReceive() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -394,7 +424,10 @@ export default function OrderReceive() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -402,7 +435,10 @@ export default function OrderReceive() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -410,7 +446,10 @@ export default function OrderReceive() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -418,7 +457,10 @@ export default function OrderReceive() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -426,7 +468,10 @@ export default function OrderReceive() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -434,24 +479,24 @@ export default function OrderReceive() {
                   مرفوضة
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   سبب الرفض
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -460,8 +505,8 @@ export default function OrderReceive() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -469,7 +514,10 @@ export default function OrderReceive() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class="w-[15%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[15%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -477,7 +525,10 @@ export default function OrderReceive() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -485,7 +536,10 @@ export default function OrderReceive() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -493,7 +547,10 @@ export default function OrderReceive() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -501,7 +558,10 @@ export default function OrderReceive() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[15%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[15%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -509,13 +569,13 @@ export default function OrderReceive() {
                   مدفوعة
                 </div>
               </td>
-              <td class=" w-[25%] text-center ">
+              <td className=" w-[25%] text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
@@ -524,8 +584,8 @@ export default function OrderReceive() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -533,7 +593,10 @@ export default function OrderReceive() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class="w-[12%]  text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className="w-[12%]  text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -541,7 +604,10 @@ export default function OrderReceive() {
                   303
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[12%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[12%] text-center "
+              >
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   محمد علي محمد
                 </div>
@@ -549,7 +615,10 @@ export default function OrderReceive() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[12%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[12%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -557,7 +626,10 @@ export default function OrderReceive() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[12%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[12%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -565,7 +637,10 @@ export default function OrderReceive() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class=" w-[27%] text-center ">
+              <td
+                style={{ borderLeftWidth: 1 }}
+                className=" w-[27%] text-center "
+              >
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -573,24 +648,24 @@ export default function OrderReceive() {
                   مرفوضة بعد الإتفاق المبدئي
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   سبب الرفض
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   ملخص الطلب{" "}
                 </div>
                 <div className="text-[#484848] flex justify-center text-center text-[16px] font-sstbold ">
                   <img
-                    src="../app-assets/images/dropdown.png"
+                    src="../panel/app-assets/images/dropdown.png"
                     className="h-[24px] w-[24px]"
                   />
                 </div>

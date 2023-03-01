@@ -6,254 +6,254 @@ export default function Chat() {
       <h1 className="text-[#959494] text-[18px] font-sstbold pt-[20px] pr-[15px]">
         أخر ظهور للأعضاء
       </h1>
-      <ul class="chat-sidebar-list p-[10px]">
+      <ul className="chat-sidebar-list p-[10px]">
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>
           </div>
         </li>
         <li className="bg-[#F9F9F9] p-[10px] rounded-[3px] mt-[10px] mb-[10px]">
-          <div class="d-flex align-items-center">
-            <div class="avatar m-0 mr-50 w-[25%]">
+          <div className="d-flex align-items-center">
+            <div className="avatar m-0 mr-50 w-[25%]">
               <img
                 className="w-[60px] h-[60px] rounded-[30px]"
-                src="../../../app-assets/images/portrait/small/avatar-s-8.jpg"
+                src="../../../panel/app-assets/images/portrait/small/avatar-s-8.jpg"
                 alt="sidebar user image"
               />
-              <span class="avatar-status-away"></span>
+              <span className="avatar-status-away"></span>
             </div>
-            <div class="chat-sidebar-name w-[48%]">
-              <h6 class="mb-0 text-[16px] font-sstbold text-[#484848]">
+            <div className="chat-sidebar-name w-[48%]">
+              <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
                 أسم العضو
               </h6>
-              <span class="text-muted text-[12px] font-sstbold text-[#959494]">
+              <span className="text-muted text-[12px] font-sstbold text-[#959494]">
                 المسمى الوظيفي
               </span>
             </div>
-            <div class="chat-sidebar-name text-right w-[22%]">
+            <div className="chat-sidebar-name text-right w-[22%]">
               <div className="text-center">
-                <i class="ficon bx bx-chat"></i>
+                <i className="ficon bx bx-chat"></i>
               </div>
-              <span class="text-muted text-[12px] font-sstroman text-[#959494]">
+              <span className="text-muted text-[12px] font-sstroman text-[#959494]">
                 قبل ساعة
               </span>
             </div>

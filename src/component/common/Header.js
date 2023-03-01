@@ -1,6 +1,19 @@
-import React from "react";
-
+import { set } from "date-fns";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Header() {
+  const [authFails, setAuthFails] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("loginUser"));
+    if (auth == null) {
+      setAuthFails(true);
+    }
+  }, []);
+  if (authFails) {
+    console.log("he");
+    navigate("/login");
+  }
   return (
     <>
       <div className="header-navbar-shadow"></div>
@@ -29,7 +42,7 @@ export default function Header() {
                       <span>
                         <img
                           className="round w-[68px] h-[68px] rounded-[34px]"
-                          src="../app-assets/images/portrait/small/avatar-s-11.jpg"
+                          src="../panel/app-assets/images/portrait/small/avatar-s-11.jpg"
                           alt="avatar"
                         />
                       </span>

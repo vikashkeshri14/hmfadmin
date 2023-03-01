@@ -1,57 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>HMF Admin</title>
 
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="%PUBLIC_URL%/favicon.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+      rel="stylesheet"
+    />
 
-  <title>HMF Admin</title>
+    <!-- BEGIN: Vendor CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/vendors/css/vendors-rtl.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/vendors/css/charts/apexcharts.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/vendors/css/extensions/dragula.min.css"
+    />
+    <!-- END: Vendor CSS-->
 
-  <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
-    rel="stylesheet">
+    <!-- BEGIN: Theme CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/bootstrap.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/bootstrap-extended.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/colors.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/components.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/themes/dark-layout.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/themes/semi-dark-layout.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/custom-rtl.css"
+    />
+    <!-- END: Theme CSS-->
 
-  <!-- BEGIN: Vendor CSS-->
-  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors-rtl.min.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/charts/apexcharts.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/dragula.min.css">
-  <!-- END: Vendor CSS-->
+    <!-- BEGIN: Page CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/core/menu/menu-types/vertical-menu.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/pages/widgets.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/app-assets/css-rtl/pages/dashboard-analytics.css"
+    />
+    <!-- END: Page CSS-->
 
-  <!-- BEGIN: Theme CSS-->
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/bootstrap-extended.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/colors.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/components.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/themes/dark-layout.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/themes/semi-dark-layout.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/custom-rtl.css">
-  <!-- END: Theme CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../panel/assets/css/style-rtl.css"
+    />
+    <!-- END: Custom CSS-->
+  </head>
 
-  <!-- BEGIN: Page CSS-->
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/core/menu/menu-types/vertical-menu.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/pages/widgets.css">
-  <link rel="stylesheet" type="text/css" href="../app-assets/css-rtl/pages/dashboard-analytics.css">
-  <!-- END: Page CSS-->
-
-  <!-- BEGIN: Custom CSS-->
-  <link rel="stylesheet" type="text/css" href="../assets/css/style-rtl.css">
-  <!-- END: Custom CSS-->
-
-</head>
-
-<body
-  class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns  navbar-sticky footer-static  "
-  data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-
-</body>
-
+  <body
+    class="vertical-layout vertical-menu-modern boxicon-layout no-card-shadow 2-columns navbar-sticky footer-static"
+    data-open="click"
+    data-menu="vertical-menu-modern"
+    data-col="2-columns"
+  >
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>

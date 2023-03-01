@@ -18,52 +18,52 @@ export default function ContentUserDetails() {
         <div className="content-header row"></div>
         <div className="content-body">
           <section id="store-analytics">
-            <div class="row flex ">
-              <div class="w-[34%] mr-[15px] dashboard-users">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="position-relative has-icon-left">
-                      <div class=" absolute top-[20px] left-[10px] w-[24px] h-[24px]">
-                        <i class="bx bx-slider-alt"></i>
+            <div className="row flex ">
+              <div className="w-[34%] mr-[15px] dashboard-users">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="position-relative has-icon-left">
+                      <div className=" absolute top-[20px] left-[10px] w-[24px] h-[24px]">
+                        <i className="bx bx-slider-alt"></i>
                       </div>
                       <input
                         type="number"
                         id="contact-info-icon"
-                        class="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                        className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
                       />
-                      <div class="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                      <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="w-[24%]  dashboard-users mr-[10px]">
-                <div class="position-relative has-icon-right">
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
                   <div className="absolute top-[20px] left-0">
-                    <i class="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
                   <input
                     type="number"
                     id="contact-info-icon"
-                    class="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
                   />
                 </div>
               </div>
             </div>
-            <div class="  mt-[10px]">
+            <div className="  mt-[10px]">
               <div className=" flex-col bg-white rounded-[6px] ">
                 <div className="flex overflow-x-auto overflow-y-hidden">
                   <div className="flex-none p-[15px]">
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="">
                         <img
-                          src="../app-assets/images/user-profile.png"
+                          src="../panel/app-assets/images/user-profile.png"
                           className="h-[64px] w-[64px] rounded-[32px]"
                         />
                       </div>
@@ -85,7 +85,7 @@ export default function ContentUserDetails() {
                     <div className="flex-col h-[66px]  pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/frame.png"
+                          src="../panel/app-assets/images/frame.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -98,7 +98,7 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/location.png"
+                          src="../panel/app-assets/images/location.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -111,7 +111,7 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/phone.png"
+                          src="../panel/app-assets/images/phone.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -124,7 +124,7 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/order-history.png"
+                          src="../panel/app-assets/images/order-history.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -142,7 +142,7 @@ export default function ContentUserDetails() {
                     >
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/info-grey.png"
+                          src="../panel/app-assets/images/info-grey.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -162,22 +162,22 @@ export default function ContentUserDetails() {
                             setInfoIncomingReport(false);
                             setInfoShow(false);
                           }}
-                          class="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
+                          className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
                         >
                           بلاغات صادرة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                         <div
                           onClick={() => {
                             setInfoIncomingReport(true);
                             setInfoOutgoingReport(false);
                             setInfoShow(false);
                           }}
-                          class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
+                          className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
                         >
                           بلاغات واردة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -185,7 +185,7 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] ">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/chat.png"
+                          src="../panel/app-assets/images/chat.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -198,31 +198,31 @@ export default function ContentUserDetails() {
                     <div className=" self-center flex justify-end h-[66px] pl-[10px]">
                       <div className="flex justify-end cursor-pointer self-center">
                         <img
-                          src="../app-assets/images/support.png"
+                          src="../panel/app-assets/images/support.png"
                           className="h-[24px] w-[24px]"
                         />
                       </div>
                       <div className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
-                          src="../app-assets/images/message.png"
+                          src="../panel/app-assets/images/message.png"
                           className="h-[24px] w-[24px]"
                         />
                       </div>
                       <div className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
-                          src="../app-assets/images/notification.png"
+                          src="../panel/app-assets/images/notification.png"
                           className="h-[24px] w-[24px]"
                         />
                       </div>
                       <div className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
-                          src="../app-assets/images/danger.png"
+                          src="../panel/app-assets/images/danger.png"
                           className="h-[24px] w-[24px]"
                         />
                       </div>
                       <div className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
-                          src="../app-assets/images/trash.png"
+                          src="../panel/app-assets/images/trash.png"
                           className="h-[24px] w-[24px]"
                         />
                       </div>

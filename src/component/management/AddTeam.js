@@ -8,15 +8,15 @@ export default function AddTeam() {
         <div className="content-header row"></div>
         <div className="content-body">
           <section id="basic-vertical-layouts">
-            <div class="row match-height">
-              <div class="col-md-6 col-12">
-                <div class="card">
-                  <div class="card-body">
-                    <form class="form form-vertical">
-                      <div class="form-body">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="form-group">
+            <div className="row match-height">
+              <div className="col-md-6 col-12">
+                <div className="card">
+                  <div className="card-body">
+                    <form className="form form-vertical">
+                      <div className="form-body">
+                        <div className="row">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="full-name-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الاسم بالكامل
@@ -25,13 +25,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="fname"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="iqama-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الهوية الوطنية / الإقامة
@@ -40,13 +40,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="iqama"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="site-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الموقع
@@ -55,13 +55,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="fname"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="job-title-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   المسمى الوظيفي
@@ -70,13 +70,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="job_title"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="mobile-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   رقم الجوال
@@ -85,13 +85,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="mobile"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="full-name-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الإيميل
@@ -100,13 +100,13 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="email"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="password-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   كلمة المرور
@@ -115,13 +115,13 @@ export default function AddTeam() {
                               <input
                                 type="password"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="password"
                               />
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
+                          <div className="col-12">
+                            <div className="form-group">
                               <label for="confirm-password-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   إعادة كلمة المرور
@@ -130,7 +130,7 @@ export default function AddTeam() {
                               <input
                                 type="text"
                                 id="first-name-vertical"
-                                class="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="cpassword"
                               />
                             </div>
@@ -141,25 +141,25 @@ export default function AddTeam() {
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title text-[#959494] text-[18px] font-sstbold">
+              <div className="col-md-6 col-12">
+                <div className="card">
+                  <div className="card-header">
+                    <h4 className="card-title text-[#959494] text-[18px] font-sstbold">
                       صلاحيات العضو الجديد
                     </h4>
                   </div>
-                  <div class="card-body">
-                    <form class="form form-vertical">
-                      <div class="form-body">
-                        <div class="row">
-                          <div class="col-12 pt-[10px] pb-[10px]">
+                  <div className="card-body">
+                    <form className="form form-vertical">
+                      <div className="form-body">
+                        <div className="row">
+                          <div className="col-12 pt-[10px] pb-[10px]">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox1"
                                       value="dashboard"
                                     />
@@ -173,11 +173,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox2"
                                       value="commitment"
                                     />
@@ -192,14 +192,14 @@ export default function AddTeam() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 pt-[30px] pb-[10px] border-t-[1px] ">
+                          <div className="col-12 pt-[30px] pb-[10px] border-t-[1px] ">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox3"
                                       value="users"
                                     />
@@ -213,11 +213,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox4"
                                       value="profit"
                                     />
@@ -232,14 +232,14 @@ export default function AddTeam() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 pt-[30px] pb-[10px border-t-[1px] ">
+                          <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox5"
                                       value="order-management"
                                     />
@@ -253,11 +253,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox6"
                                       value="team-management"
                                     />
@@ -272,14 +272,14 @@ export default function AddTeam() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 pt-[30px] pb-[10px border-t-[1px] ">
+                          <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox7"
                                       value="info"
                                     />
@@ -293,11 +293,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox8"
                                       value="black-list"
                                     />
@@ -312,14 +312,14 @@ export default function AddTeam() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 pt-[30px] pb-[10px border-t-[1px] ">
+                          <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox9"
                                       value="sms"
                                     />
@@ -333,11 +333,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox10"
                                       value="item-modification"
                                     />
@@ -352,14 +352,14 @@ export default function AddTeam() {
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 pt-[30px] pb-[10px border-t-[1px] ">
+                          <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
                             <div className="flex">
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox11"
                                       value="technical-support"
                                     />
@@ -373,11 +373,11 @@ export default function AddTeam() {
                                 </div>
                               </div>
                               <div className="w-[50%]">
-                                <div class="form-group">
-                                  <div class="checkbox">
+                                <div className="form-group">
+                                  <div className="checkbox">
                                     <input
                                       type="checkbox"
-                                      class="checkbox-input"
+                                      className="checkbox-input"
                                       id="checkbox12"
                                       value="alert"
                                     />
@@ -393,10 +393,10 @@ export default function AddTeam() {
                             </div>
                           </div>
 
-                          <div class="col-12 d-flex mt-[120px] mb-[30px] justify-center">
+                          <div className="col-12 d-flex mt-[120px] mb-[30px] justify-center">
                             <button
                               type="submit"
-                              class="btn w-[370px] bg-[#959494] text-[18px] h-[62px] font-sstbold text-[#FFFFFF] mr-1"
+                              className="btn w-[370px] bg-[#959494] text-[18px] h-[62px] font-sstbold text-[#FFFFFF] mr-1"
                             >
                               حفظ
                             </button>

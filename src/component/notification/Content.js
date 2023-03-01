@@ -27,7 +27,7 @@ export default function Content() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
@@ -60,15 +60,15 @@ export default function Content() {
                 </button>
               </div>
             </div>
-            <div class="row  rounded-[6px] mr-[0px] mt-[10px]">
-              <div class="col-12 p-[0px]">
-                <div class="divider">
-                  <div class="divider-text">2023</div>
+            <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+              <div className="col-12 p-[0px]">
+                <div className="divider">
+                  <div className="divider-text">2023</div>
                 </div>
               </div>
             </div>
-            <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table class="table mb-0">
+            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+              <table className="table mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -78,7 +78,7 @@ export default function Content() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class=" w-[15%] text-center "
+                      className=" w-[15%] text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         السنة
@@ -86,7 +86,7 @@ export default function Content() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="w-[15%]  text-center "
+                      className="w-[15%]  text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         1/12/2022
@@ -94,21 +94,21 @@ export default function Content() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 0 }}
-                      class="w-[15%]  text-center "
+                      className="w-[15%]  text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         بواسطة اسم الموظف
                       </div>
                     </td>
 
-                    <td class="w-[25%]">
+                    <td className="w-[25%]">
                       <div className="flex justify-end">
                         <div className="   text-[#484848] text-[16px] font-sstbold ">
                           عرض نص التنبية
                         </div>
                         <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] w-[24px]"
                           />
                         </div>
@@ -118,8 +118,8 @@ export default function Content() {
                 </tbody>
               </table>
             </div>
-            <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table class="table mb-0">
+            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+              <table className="table mb-0">
                 <tbody>
                   <tr
                     style={{
@@ -129,7 +129,7 @@ export default function Content() {
                   >
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class=" w-[15%] text-center "
+                      className=" w-[15%] text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         السنة
@@ -137,7 +137,7 @@ export default function Content() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      class="w-[15%]  text-center "
+                      className="w-[15%]  text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         1/12/2022
@@ -145,21 +145,21 @@ export default function Content() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 0 }}
-                      class="w-[15%]  text-center "
+                      className="w-[15%]  text-center "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         بواسطة اسم الموظف
                       </div>
                     </td>
 
-                    <td class="w-[25%]">
+                    <td className="w-[25%]">
                       <div className="flex justify-end">
                         <div className="   text-[#484848] text-[16px] font-sstbold ">
                           عرض نص التنبية
                         </div>
                         <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] w-[24px]"
                           />
                         </div>
@@ -174,15 +174,18 @@ export default function Content() {
       </div>
       {alertShow && (
         <>
-          <div class="initial">
-            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
-              <div class="relative bg-[#FAFAFA] rounded-[6px]   shadow-[0_1px_4px_1px_rgba(21,34,50,0.2)]">
+          <div className="initial">
+            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-[6px]   shadow-[0_1px_4px_1px_rgba(21,34,50,0.2)]">
                 <div className="flex p-[10px] pt-[20px] mb-[10px] pl-[0px]">
                   <div className="text-[#484848] w-[30%] text-[16px] font-sstbold ">
                     محمد علي محمد
                   </div>
                   <div className="w-[65%]">
-                    <select class="form-control bg-[#EBEBEB]" id="basicSelect">
+                    <select
+                      className="form-control bg-[#EBEBEB]"
+                      id="basicSelect"
+                    >
                       <option>الجميع</option>
                       <option>Blade Runner</option>
                       <option>Thor Ragnarok</option>
@@ -193,8 +196,8 @@ export default function Content() {
                   <div className="text-[#484848] text-center w-[30%] mt-[5px] text-[16px] font-sstbold  mb-[5px] ">
                     نص التنبية
                   </div>
-                  <div class=" w-[65%] mb-[30px] ">
-                    <textarea class=" w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                  <div className=" w-[65%] mb-[30px] ">
+                    <textarea className=" w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
                   </div>
                 </div>
                 <div className="flex justify-center pb-[30px]">

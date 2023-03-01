@@ -3,15 +3,15 @@ import React from "react";
 export default function IncomingConveration() {
   return (
     <>
-      <div class="row  rounded-[6px] mr-[0px] mt-[10px]">
-        <div class="col-12 p-[0px]">
-          <div class="divider">
-            <div class="divider-text">2023</div>
+      <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+        <div className="col-12 p-[0px]">
+          <div className="divider">
+            <div className="divider-text">2023</div>
           </div>
         </div>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -19,7 +19,7 @@ export default function IncomingConveration() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -27,7 +27,7 @@ export default function IncomingConveration() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   متجر مختلف
                 </div>
@@ -35,7 +35,7 @@ export default function IncomingConveration() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -43,7 +43,7 @@ export default function IncomingConveration() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -51,7 +51,7 @@ export default function IncomingConveration() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -59,14 +59,14 @@ export default function IncomingConveration() {
                   مقبولة
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className="flex justify-end ">
                   <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                     عرض المحادثة
                   </div>
                   <div className="text-[#484848] flex justify-center pr-[10px] mt-[2px] text-center text-[16px] font-sstbold ">
                     <img
-                      src="../app-assets/images/dropdown.png"
+                      src="../panel/app-assets/images/dropdown.png"
                       className="h-[24px] w-[24px]"
                     />
                   </div>
@@ -76,8 +76,8 @@ export default function IncomingConveration() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -85,7 +85,7 @@ export default function IncomingConveration() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -93,7 +93,7 @@ export default function IncomingConveration() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   متجر مختلف
                 </div>
@@ -101,7 +101,7 @@ export default function IncomingConveration() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -109,7 +109,7 @@ export default function IncomingConveration() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -117,7 +117,7 @@ export default function IncomingConveration() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -125,14 +125,14 @@ export default function IncomingConveration() {
                   معلقة
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className="flex justify-end ">
                   <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                     عرض المحادثة
                   </div>
                   <div className="text-[#484848] pr-[10px] mt-[2px] flex justify-center text-center text-[16px] font-sstbold ">
                     <img
-                      src="../app-assets/images/dropdown.png"
+                      src="../panel/app-assets/images/dropdown.png"
                       className="h-[24px] w-[24px]"
                     />
                   </div>
@@ -142,8 +142,8 @@ export default function IncomingConveration() {
           </tbody>
         </table>
       </div>
-      <div class="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table class="table mb-0">
+      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+        <table className="table mb-0">
           <tbody>
             <tr
               style={{
@@ -151,7 +151,7 @@ export default function IncomingConveration() {
               }}
               className=""
             >
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   رقم الطلب
                 </div>
@@ -159,7 +159,7 @@ export default function IncomingConveration() {
                   70
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                   متجر مختلف
                 </div>
@@ -167,7 +167,7 @@ export default function IncomingConveration() {
                   #23
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   تاريخ الطلب
                 </div>
@@ -175,7 +175,7 @@ export default function IncomingConveration() {
                   23/11/2022
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   مبلغ الطلب
                 </div>
@@ -183,7 +183,7 @@ export default function IncomingConveration() {
                   25 ريال
                 </div>
               </td>
-              <td style={{ borderLeftWidth: 1 }} class="  text-center ">
+              <td style={{ borderLeftWidth: 1 }} className="  text-center ">
                 <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                   حالة الطلب
                 </div>
@@ -191,14 +191,14 @@ export default function IncomingConveration() {
                   مرفوضة بعد الإتفاق المبدئي
                 </div>
               </td>
-              <td class="  text-center ">
+              <td className="  text-center ">
                 <div className="flex justify-end ">
                   <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
                     عرض المحادثة
                   </div>
                   <div className="text-[#484848] pr-[10px] mt-[2px] flex justify-center text-center text-[16px] font-sstbold ">
                     <img
-                      src="../app-assets/images/dropdown.png"
+                      src="../panel/app-assets/images/dropdown.png"
                       className="h-[24px] w-[24px]"
                     />
                   </div>

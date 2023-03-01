@@ -8,8 +8,8 @@ import OrderReceive from "./OrderReceive";
 import OutgoingConversation from "./OutgoingConversation";
 import OutgoingOrder from "./OutgoingOrder";
 import Products from "./Products";
-import { DateRange } from 'react-date-range';
-import { addDays } from 'date-fns';
+import { DateRange } from "react-date-range";
+import { addDays } from "date-fns";
 export default function Content() {
   const [productShow, setProductShow] = useState(false);
   const [commitmentShow, setCommitmentShow] = useState(false);
@@ -32,8 +32,8 @@ export default function Content() {
     {
       startDate: new Date(),
       endDate: null,
-      key: 'selection'
-    }
+      key: "selection",
+    },
   ]);
   return (
     <div className="app-content  content">
@@ -46,52 +46,52 @@ export default function Content() {
         <div className="content-header row"></div>
         <div className="content-body">
           <section id="store-analytics">
-            <div class="row flex ">
-              <div class="w-[34%] mr-[15px] dashboard-users">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="position-relative has-icon-left">
-                      <div class=" absolute top-[20px] left-[10px] w-[24px] h-[24px]">
-                        <i class="bx bx-slider-alt"></i>
+            <div className="row flex ">
+              <div className="w-[34%] mr-[15px] dashboard-users">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="position-relative has-icon-left">
+                      <div className=" absolute top-[20px] left-[10px] w-[24px] h-[24px]">
+                        <i className="bx bx-slider-alt"></i>
                       </div>
                       <input
                         type="number"
                         id="contact-info-icon"
-                        class="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                        className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
                       />
-                      <div class="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                      <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="w-[24%]  dashboard-users mr-[10px]">
-                <div class="position-relative has-icon-right">
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
                   <div className="absolute top-[20px] left-0">
-                    <i class="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
                   <input
                     type="number"
                     id="contact-info-icon"
-                    class="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
                   />
                 </div>
               </div>
             </div>
-            <div class="  mt-[10px]">
+            <div className="  mt-[10px]">
               <div className=" flex-col bg-white rounded-[6px] ">
                 <div className="flex overflow-x-auto overflow-y-hidden">
                   <div className="flex-none p-[15px]">
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="">
                         <img
-                          src="../app-assets/images/store.png"
+                          src="../panel/app-assets/images/store.png"
                           className="h-[64px] w-[64px] rounded-[32px]"
                         />
                       </div>
@@ -103,7 +103,7 @@ export default function Content() {
                           <div className="mt-[10px] mr-[10px]">
                             <img
                               className="h-[15px] w-[15px]"
-                              src="../app-assets/images/star.png"
+                              src="../panel/app-assets/images/star.png"
                             />
                           </div>
                           <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
@@ -117,7 +117,7 @@ export default function Content() {
                           <div className="mt-[10px] mr-[12px]">
                             <img
                               className="h-[15.55px] w-[15.55px]"
-                              src="../app-assets/images/frame-green.png"
+                              src="../panel/app-assets/images/frame-green.png"
                             />
                           </div>
                           <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
@@ -131,7 +131,7 @@ export default function Content() {
                     <div className="flex-col h-[66px]  pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/frame.png"
+                          src="../panel/app-assets/images/frame.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -144,7 +144,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/location.png"
+                          src="../panel/app-assets/images/location.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -171,7 +171,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/shop-grey.png"
+                          src="../panel/app-assets/images/shop-grey.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -198,7 +198,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/commitment.png"
+                          src="../panel/app-assets/images/commitment.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -225,7 +225,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/receive-grey.png"
+                          src="../panel/app-assets/images/receive-grey.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -252,7 +252,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/send.png"
+                          src="../panel/app-assets/images/send.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -271,7 +271,7 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/info-grey.png"
+                          src="../panel/app-assets/images/info-grey.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -297,11 +297,11 @@ export default function Content() {
                             setReceiveShow(false);
                             setInfoShow(false);
                           }}
-                          class="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
+                          className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
                         >
                           بلاغات صادرة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                         <div
                           onClick={() => {
                             setProductShow(false);
@@ -314,11 +314,11 @@ export default function Content() {
                             setReceiveShow(false);
                             setInfoShow(false);
                           }}
-                          class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
+                          className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
                         >
                           بلاغات واردة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -329,14 +329,14 @@ export default function Content() {
                         (conversationShow) => !conversationShow
                       );
                       setInfoShow(false);
-                      setDeleteShow(false)
+                      setDeleteShow(false);
                     }}
                     className="flex-none cursor-pointer p-[15px] pr-[0px]"
                   >
                     <div className="flex-col  h-[66px] pl-[10px] ">
                       <div className="flex justify-center">
                         <img
-                          src="../app-assets/images/chat.png"
+                          src="../panel/app-assets/images/chat.png"
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -363,11 +363,11 @@ export default function Content() {
                             setInfoShow(false);
                             setConversationShow(false);
                           }}
-                          class="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
+                          className="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
                         >
                           محادثات صادرة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                         <div
                           onClick={() => {
                             setProductShow(false);
@@ -381,11 +381,11 @@ export default function Content() {
                             setInfoShow(false);
                             setConversationShow(false);
                           }}
-                          class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                          className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                         >
                           محادثات واردة
                         </div>
-                        <div class="dropdown-divider mb-0"></div>
+                        <div className="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -403,25 +403,25 @@ export default function Content() {
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/phone.png"
+                          src="../panel/app-assets/images/phone.png"
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/support.png"
+                          src="../panel/app-assets/images/support.png"
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/message.png"
+                          src="../panel/app-assets/images/message.png"
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/notification.png"
+                          src="../panel/app-assets/images/notification.png"
                         />
                       </div>
                       <div
@@ -432,7 +432,7 @@ export default function Content() {
                       >
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/danger.png"
+                          src="../panel/app-assets/images/danger.png"
                         />
                         <div
                           class={
@@ -445,43 +445,46 @@ export default function Content() {
                             onClick={() => {
                               setBlocked(true);
                               setPerBlocked(false);
-                              setDeleteShow(false)
+                              setDeleteShow(false);
                             }}
-                            class="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                            className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
                           >
                             حظر مؤقت
                           </div>
-                          <div class="dropdown-divider mb-0"></div>
+                          <div className="dropdown-divider mb-0"></div>
                           <div
                             onClick={() => {
                               setPerBlocked(true);
-                              setBlocked(false)
-                              setDeleteShow(false)
+                              setBlocked(false);
+                              setDeleteShow(false);
                             }}
-                            class=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                            className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
                           >
                             حظر دائم
                           </div>
-                          <div class="dropdown-divider mb-0"></div>
+                          <div className="dropdown-divider mb-0"></div>
                           <div
                             onClick={() => {
                               setConversationShow(false);
                             }}
-                            class=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                            className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                           >
                             إلغاء الحظر
                           </div>
-                          <div class="dropdown-divider mb-0"></div>
+                          <div className="dropdown-divider mb-0"></div>
                         </div>
                       </div>
-                      <div onClick={() => {
-                        setDeleteShow(deleteShow => !deleteShow);
-                        setBlocked(false);
-                        setPerBlocked(false);
-                      }} className="mr-[10px] cursor-pointer ">
+                      <div
+                        onClick={() => {
+                          setDeleteShow((deleteShow) => !deleteShow);
+                          setBlocked(false);
+                          setPerBlocked(false);
+                        }}
+                        className="mr-[10px] cursor-pointer "
+                      >
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../app-assets/images/trash.png"
+                          src="../panel/app-assets/images/trash.png"
                         />
                       </div>
                     </div>
@@ -505,20 +508,17 @@ export default function Content() {
       </div>
       {blocked && (
         <>
-          <div
-
-            class="initial"
-          >
-            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
-              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
-                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+          <div className="initial">
+            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حظر
                 </h3>
 
-                <div class="flex justify-center mt-[10px]">
+                <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../app-assets/images/store.png"
+                    src="../../../panel/app-assets/images/store.png"
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
@@ -530,8 +530,8 @@ export default function Content() {
                 <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
                   سبب الحظر
                 </div>
-                <fieldset class=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea class="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
                   <button
@@ -551,18 +551,17 @@ export default function Content() {
       )}
       {perblocked && (
         <>
-          <div class="initial"
-          >
-            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
-              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
-                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+          <div className="initial">
+            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حظر
                 </h3>
 
-                <div class="flex justify-center mt-[10px]">
+                <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../app-assets/images/store.png"
+                    src="../../../panel/app-assets/images/store.png"
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
@@ -572,17 +571,19 @@ export default function Content() {
                   #23456
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
-                <div dir="ltr" className="flex justify-center"><DateRange
-                  editableDateInputs={true}
-                  onChange={item => setState([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={state}
-                /></div>
+                <div dir="ltr" className="flex justify-center">
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setState([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={state}
+                  />
+                </div>
                 <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
                   سبب الحظر
                 </div>
-                <fieldset class=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea class="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
@@ -603,18 +604,17 @@ export default function Content() {
       )}
       {deleteShow && (
         <>
-          <div class="initial"
-          >
-            <div class="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
-              <div class="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
-                <h3 class="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+          <div className="initial">
+            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حظر
                 </h3>
 
-                <div class="flex justify-center mt-[10px]">
+                <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../app-assets/images/store.png"
+                    src="../../../panel/app-assets/images/store.png"
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
@@ -624,8 +624,6 @@ export default function Content() {
                   #23456
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
-
-
 
                 <div className="flex justify-center mt-[30px] pb-[30px]">
                   <button className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
@@ -637,7 +635,6 @@ export default function Content() {
                   >
                     إلغاء
                   </button>
-
                 </div>
               </div>
             </div>

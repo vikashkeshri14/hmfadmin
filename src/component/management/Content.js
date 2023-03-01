@@ -11,27 +11,27 @@ export default function Content() {
         <div className="content-header row"></div>
         <div className="content-body">
           <section className="sms-management">
-            <div class="row flex ">
-              <div class="w-[37%] mr-[15px] dashboard-users">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="position-relative has-icon-left">
+            <div className="row flex ">
+              <div className="w-[37%] mr-[15px] dashboard-users">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="position-relative has-icon-left">
                       <input
                         type="number"
                         id="contact-info-icon"
-                        class="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                        className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
                       />
-                      <div class="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                      <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="w-[60%] flex justify-end  dashboard-users mr-[10px]">
+              <div className="w-[60%] flex justify-end  dashboard-users mr-[10px]">
                 <button className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] ">
                   إضافة عضو جديد
                 </button>
@@ -50,7 +50,7 @@ export default function Content() {
                               <div className="flex  justify-center h-[23px] w-[23px] rounded-full">
                                 <img
                                   className="w-[24px] h-[24px]"
-                                  src="../../../app-assets/images/chat.png"
+                                  src="../../../panel/app-assets/images/chat.png"
                                   alt="user image"
                                 />
                               </div>
@@ -59,7 +59,7 @@ export default function Content() {
                           <div className="flex justify-center mt-[0px]">
                             <img
                               className="w-[66px] h-[66px] rounded-[33px]"
-                              src="../../../app-assets/images/user-profile.png"
+                              src="../../../panel/app-assets/images/user-profile.png"
                               alt="user image"
                             />
                           </div>
