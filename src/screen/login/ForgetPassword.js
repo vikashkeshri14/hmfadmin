@@ -18,7 +18,7 @@ export default function ForgetPassword() {
                     type="email"
                     name="email"
                     id="email"
-                    className="w-[526px] text-right text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                    className="w-[526px] text-left text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
                     placeholder="البريد الإلكتروني"
                     required=""
                   />

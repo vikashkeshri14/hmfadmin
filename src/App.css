@@ -54,5 +54,13 @@ html .content.app-content {
 input[type="checkbox"] {
   accent-color: #ff9800;
 }
+.header-navbar.fixed-top {
+  margin-right: 260px;
+  right: 0px;
+  position: relative;
+}
+html .navbar-sticky .app-content .content-wrapper {
+  margin-top: 0px;
+}
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";

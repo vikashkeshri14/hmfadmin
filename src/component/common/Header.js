@@ -1,6 +1,6 @@
 import { set } from "date-fns";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export default function Header() {
   const [authFails, setAuthFails] = useState(false);
   const navigate = useNavigate();
@@ -11,7 +11,6 @@ export default function Header() {
     }
   }, []);
   if (authFails) {
-    console.log("he");
     navigate("/login");
   }
   return (
@@ -24,17 +23,17 @@ export default function Header() {
               <div className="mr-auto float-left bookmark-wrapper d-flex align-items-center">
                 <ul className="nav navbar-nav">
                   <li className="nav-item mobile-menu d-xl-none mr-auto">
-                    <a
+                    <Link
                       className="nav-link nav-menu-main menu-toggle hidden-xs"
                       href="javascript:void(0);"
                     >
                       <i className="ficon bx bx-menu"></i>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
                 <ul className="nav navbar-nav bookmark-icons">
                   <li className="dropdown dropdown-user nav-item">
-                    <a
+                    <Link
                       className="dropdown-toggle nav-link dropdown-user-link"
                       href="javascript:void(0);"
                       data-toggle="dropdown"
@@ -51,23 +50,23 @@ export default function Header() {
                           أهلاً عبدالعزيز
                         </span>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
               <ul className="nav navbar-nav float-right">
                 <li className="nav-item d-none d-lg-block">
-                  <a className="nav-link nav-link-expand">
+                  <Link className="nav-link nav-link-expand">
                     <i className="ficon bx bx-calendar-alt"></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item nav-search">
-                  <a className="nav-link nav-link-search">
+                  <Link className="nav-link nav-link-search">
                     <i className="ficon bx bx-chat"></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="dropdown dropdown-notification nav-item">
-                  <a
+                  <Link
                     className="nav-link nav-link-label"
                     href="javascript:void(0);"
                     data-toggle="dropdown"
@@ -76,7 +75,7 @@ export default function Header() {
                     <span className="badge badge-pill badge-danger badge-up">
                       5
                     </span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

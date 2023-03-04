@@ -26,7 +26,7 @@ export default function Content() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../app-assets/images/search.png" />
+                        <img src="../panel/app-assets/images/search.png" />
                       </div>
                     </div>
                   </div>
@@ -297,7 +297,7 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
@@ -315,21 +315,21 @@ export default function Content() {
                               <div className="text-[#FF9800] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/star.png"
+                                  src="../../../panel/app-assets/images/star.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/location.png"
+                                  src="../../../panel/app-assets/images/location.png"
                                 />
                                 &nbsp;جدة
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/receipt.png"
+                                  src="../../../panel/app-assets/images/receipt.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -338,21 +338,21 @@ export default function Content() {
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px] mt-[2px]"
-                                  src="../../../app-assets/images/frame.png"
+                                  src="../../../panel/app-assets/images/frame.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/cake.png"
+                                  src="../../../panel/app-assets/images/cake.png"
                                 />
                                 &nbsp;10
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/wallet.png"
+                                  src="../../../panel/app-assets/images/wallet.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -364,7 +364,7 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
@@ -382,21 +382,21 @@ export default function Content() {
                               <div className="text-[#FF9800] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/star.png"
+                                  src="../../../panel/app-assets/images/star.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/location.png"
+                                  src="../../../panel/app-assets/images/location.png"
                                 />
                                 &nbsp;جدة
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/receipt.png"
+                                  src="../../../panel/app-assets/images/receipt.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -405,21 +405,21 @@ export default function Content() {
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px] mt-[2px]"
-                                  src="../../../app-assets/images/frame.png"
+                                  src="../../../panel/app-assets/images/frame.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/cake.png"
+                                  src="../../../panel/app-assets/images/cake.png"
                                 />
                                 &nbsp;10
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/wallet.png"
+                                  src="../../../panel/app-assets/images/wallet.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -431,7 +431,7 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
@@ -449,21 +449,21 @@ export default function Content() {
                               <div className="text-[#FF9800] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/star.png"
+                                  src="../../../panel/app-assets/images/star.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/location.png"
+                                  src="../../../panel/app-assets/images/location.png"
                                 />
                                 &nbsp;جدة
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/receipt.png"
+                                  src="../../../panel/app-assets/images/receipt.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -472,21 +472,21 @@ export default function Content() {
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px] mt-[2px]"
-                                  src="../../../app-assets/images/frame.png"
+                                  src="../../../panel/app-assets/images/frame.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/cake.png"
+                                  src="../../../panel/app-assets/images/cake.png"
                                 />
                                 &nbsp;10
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/wallet.png"
+                                  src="../../../panel/app-assets/images/wallet.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -498,7 +498,7 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
@@ -516,21 +516,21 @@ export default function Content() {
                               <div className="text-[#FF9800] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/star.png"
+                                  src="../../../panel/app-assets/images/star.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/location.png"
+                                  src="../../../panel/app-assets/images/location.png"
                                 />
                                 &nbsp;جدة
                               </div>
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/receipt.png"
+                                  src="../../../panel/app-assets/images/receipt.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -539,21 +539,21 @@ export default function Content() {
                               <div className="text-[#484848] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px] mt-[2px]"
-                                  src="../../../app-assets/images/frame.png"
+                                  src="../../../panel/app-assets/images/frame.png"
                                 />
                                 &nbsp;4.9
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/cake.png"
+                                  src="../../../panel/app-assets/images/cake.png"
                                 />
                                 &nbsp;10
                               </div>
                               <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                                 <img
                                   className="h-[24px] w-[24px]"
-                                  src="../../../app-assets/images/wallet.png"
+                                  src="../../../panel/app-assets/images/wallet.png"
                                 />
                                 &nbsp;102
                               </div>
@@ -703,14 +703,14 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
                         <div className="w-[100%]  bg-[#F9F9F9]">
                           <div className="flex justify-end ">
                             <img
-                              src="../../../app-assets/images/support.png"
+                              src="../../../panel/app-assets/images/support.png"
                               className="h-[28.8px] mt-[20px] ml-[30px] w-[28.8px]"
                             />
                           </div>
@@ -733,14 +733,14 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
                         <div className="w-[100%]  bg-[#F9F9F9]">
                           <div className="flex justify-end ">
                             <img
-                              src="../../../app-assets/images/support.png"
+                              src="../../../panel/app-assets/images/support.png"
                               className="h-[28.8px] mt-[20px] ml-[30px] w-[28.8px]"
                             />
                           </div>
@@ -763,14 +763,14 @@ export default function Content() {
                         <div className="top-[44px] relative mr-50 ">
                           <img
                             className="w-[88px] h-[88px] rounded-[44px]"
-                            src="../../../app-assets/images/store.png"
+                            src="../../../panel/app-assets/images/store.png"
                             alt="sidebar  user image"
                           />
                         </div>
                         <div className="w-[100%]  bg-[#F9F9F9]">
                           <div className="flex justify-end ">
                             <img
-                              src="../../../app-assets/images/support.png"
+                              src="../../../panel/app-assets/images/support.png"
                               className="h-[28.8px] mt-[20px] ml-[30px] w-[28.8px]"
                             />
                           </div>
@@ -819,7 +819,7 @@ export default function Content() {
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/user-profile.png"
+                              src="../../../panel/app-assets/images/user-profile.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -833,14 +833,14 @@ export default function Content() {
                         <div className="flex-col self-center justify-center">
                           <img
                             className="h-[26px] self-center w-[64px]"
-                            src="../../../app-assets/images/arrow.png"
+                            src="../../../panel/app-assets/images/arrow.png"
                           />
                         </div>
                         <div className="flex-col">
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/store.png"
+                              src="../../../panel/app-assets/images/store.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -898,7 +898,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>
@@ -926,7 +926,7 @@ export default function Content() {
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/user-profile.png"
+                              src="../../../panel/app-assets/images/user-profile.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -940,14 +940,14 @@ export default function Content() {
                         <div className="flex-col self-center justify-center">
                           <img
                             className="h-[26px] self-center w-[64px]"
-                            src="../../../app-assets/images/arrow.png"
+                            src="../../../panel/app-assets/images/arrow.png"
                           />
                         </div>
                         <div className="flex-col">
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/store.png"
+                              src="../../../panel/app-assets/images/store.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -1008,7 +1008,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>
@@ -1021,7 +1021,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>
@@ -1049,7 +1049,7 @@ export default function Content() {
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/user-profile.png"
+                              src="../../../panel/app-assets/images/user-profile.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -1063,14 +1063,14 @@ export default function Content() {
                         <div className="flex-col self-center justify-center">
                           <img
                             className="h-[26px] self-center w-[64px]"
-                            src="../../../app-assets/images/arrow.png"
+                            src="../../../panel/app-assets/images/arrow.png"
                           />
                         </div>
                         <div className="flex-col">
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/store.png"
+                              src="../../../panel/app-assets/images/store.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -1128,7 +1128,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>
@@ -1156,7 +1156,7 @@ export default function Content() {
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/user-profile.png"
+                              src="../../../panel/app-assets/images/user-profile.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -1170,14 +1170,14 @@ export default function Content() {
                         <div className="flex-col self-center justify-center">
                           <img
                             className="h-[26px] self-center w-[64px]"
-                            src="../../../app-assets/images/arrow.png"
+                            src="../../../panel/app-assets/images/arrow.png"
                           />
                         </div>
                         <div className="flex-col">
                           <div className=" flex justify-center ">
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
-                              src="../../../app-assets/images/store.png"
+                              src="../../../panel/app-assets/images/store.png"
                               alt="sidebar  user image"
                             />
                           </div>
@@ -1238,7 +1238,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>
@@ -1251,7 +1251,7 @@ export default function Content() {
                         </div>
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                           <img
-                            src="../app-assets/images/dropdown.png"
+                            src="../panel/app-assets/images/dropdown.png"
                             className="h-[24px] mt-[3px] w-[24px]"
                           />
                         </div>

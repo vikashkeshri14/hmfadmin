@@ -13,14 +13,14 @@ export default function Content() {
         <div className="content-body">
           <section id="dashboard-analytics">
             <div className="row flex justify-around">
-              <div className="w-[34%]    dashboard-users">
+              <div className="w-[34%] dashboard-users">
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative has-icon-left">
                       <input
                         type="number"
                         id="contact-info-icon"
-                        className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                        className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
                       />
@@ -33,7 +33,7 @@ export default function Content() {
               </div>
               <div className="w-[34%]  dashboard-users">
                 <div className="row">
-                  <div className="bg-[#ffffff] flex  h-[62px] shadow-sm rounded-[6px]">
+                  <div className="bg-[#ffffff] flex  h-[62px] shadow rounded-[6px]">
                     <div className="pl-[30px] text-[16px] font-sstbold justify-center self-center  pr-[30px]">
                       يومي
                     </div>
@@ -60,7 +60,7 @@ export default function Content() {
                   <input
                     type="number"
                     id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
                   />
@@ -68,17 +68,17 @@ export default function Content() {
               </div>
             </div>
             <div className="row flex justify-around mt-[30px]">
-              <div className="w-[68%] flex-col ">
+              <div className="w-[72%] flex-col h-[430px]  ">
                 <div className="w-[100%] justify-around flex">
-                  <div className="w-[37%]  bg-white p-[10px] dashboard-users">
+                  <div className="w-[37%] bg-white p-[10px] rounded-[6px] dashboard-users">
                     <Graph />
                   </div>
-                  <div className="w-[60%] bg-white p-[10px]  dashboard-users">
+                  <div className="w-[60%] bg-white p-[10px] rounded-[6px] dashboard-users">
                     <Barchart />
                   </div>
                 </div>
-                <div className="w-[100%] mt-[20px]">
-                  <div className="table-responsive bg-white shadow-sm rounded-[6px]  p-[10px]">
+                <div className="w-[98%] mr-[10px] mt-[20px]">
+                  <div className="table-responsive h-[345px] bg-white shadow rounded-[6px]  p-[20px]">
                     <table className="table  table-bordered mb-0">
                       <tbody>
                         <tr className="border-0">
@@ -168,13 +168,13 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="w-[24%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
+              <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
                 <Chat />
               </div>
             </div>
             <div className="row flex justify-around mt-[30px]">
-              <div className="w-[70%]">
-                <div className="table-responsive bg-white shadow-sm rounded-[6px]  p-[10px]">
+              <div className="w-[70%] mr-[10px]">
+                <div className="table-responsive bg-white shadow h-[175px] rounded-[6px]  p-[10px]">
                   <table className="table  table-bordered mb-0">
                     <tbody>
                       <tr className="border-0">
@@ -221,7 +221,7 @@ export default function Content() {
                     </tbody>
                   </table>
                 </div>
-                <div className="table-responsive bg-white shadow-sm rounded-[6px] mt-[20px] p-[10px]">
+                <div className="table-responsive bg-white  h-[175px] shadow rounded-[6px] mt-[20px] p-[10px]">
                   <table className="table  table-bordered mb-0">
                     <tbody>
                       <tr className="border-0">
@@ -269,13 +269,13 @@ export default function Content() {
                   </table>
                 </div>
               </div>
-              <div className="w-[24%] rounded-[6px] shadow-sm p-[10px] bg-[#ffffff]">
+              <div className="w-[27%] mr-[10px] rounded-[6px] shadow p-[10px] bg-[#ffffff]">
                 <GraphNext />
               </div>
             </div>
-            <div className="row flex mt-[30px]">
-              <div className="w-[98%] mr-[5px]">
-                <div className="table-responsive bg-white shadow-sm rounded-[6px]  p-[10px]">
+            <div className="flex mt-[30px]">
+              <div className="w-[100%] mr-[5px]">
+                <div className="table-responsive bg-white shadow rounded-[6px]  p-[10px]">
                   <table className="table  table-bordered mb-0">
                     <tbody>
                       <tr className="border-0">
@@ -352,9 +352,9 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div className="row flex mt-[30px]">
-              <div className="w-[28%] mr-[5px]">
-                <div className="table-responsive bg-white shadow-sm rounded-[6px]  p-[10px]">
+            <div className=" flex mt-[30px]">
+              <div className="w-[30%] mr-[5px]">
+                <div className="table-responsive bg-white shadow rounded-[6px]  p-[10px]">
                   <table className="table  table-bordered mb-0">
                     <tbody>
                       <tr className="border-0">
@@ -376,7 +376,7 @@ export default function Content() {
                     </tbody>
                   </table>
                 </div>
-                <div className="table-responsive bg-white shadow-sm rounded-[6px] mt-[10px]  p-[10px]">
+                <div className="table-responsive bg-white shadow rounded-[6px] mt-[10px]  p-[10px]">
                   <table className="table  table-bordered mb-0">
                     <tbody>
                       <tr className="border-0">
@@ -399,7 +399,7 @@ export default function Content() {
                   </table>
                 </div>
               </div>
-              <div className="w-[69%] mr-[10px] bg-white p-[10px] rounded-[6px] shadow">
+              <div className="w-[70%] mr-[10px] bg-white p-[10px] rounded-[6px] shadow">
                 <div className="flex justify-evenly">
                   <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
                     المتاجر التي لديها التزام مسقط

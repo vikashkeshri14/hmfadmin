@@ -98,7 +98,12 @@ export default function Graph() {
             bottom: 5,
           }}
         >
-          <Area type="monotone" dataKey="uv" stroke="#FF9800" fill="#FF9800" />
+          <Area
+            type="monotone"
+            dataKey="uv"
+            stroke="#FF9800"
+            fill="rgb(255,152, 0, 0.16)"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>

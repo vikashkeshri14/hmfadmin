@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 export default function LeftMenu({ route }) {
   const [pathUrl, setPathUrl] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     setPathUrl(location.pathname);
   }, []);
-
+  const logoutClick = async () => {
+    localStorage.clear();
+    navigate("/");
+  }
   // console.log();
   return (
     <div
@@ -281,6 +285,37 @@ export default function LeftMenu({ route }) {
           </li>
           <li
             className={
+              pathUrl == "/transfer"
+                ? "  h-[61px] flex  nav-item  active-menu-left "
+                : " h-[61px] flex  nav-item"
+            }
+          >
+            <Link to="/transfer">
+              {pathUrl == "/transfer" ? (
+                <img
+                  className="h-[24px] w-[24px] ml-[24px]"
+                  src="../../panel/app-assets/images/transfer-select.png"
+                />
+              ) : (
+                <img
+                  className="h-[24px] w-[24px] ml-[24px]"
+                  src="../../panel/app-assets/images/transfer.png"
+                />
+              )}
+              <span
+                className={
+                  pathUrl == "/transfer"
+                    ? "menu-title text-truncate text-[#ffffff] text-[16px] font-sstbold"
+                    : "menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
+                }
+                data-i18n="transfer"
+              >
+                الحوالات المحلية الواردة
+              </span>
+            </Link>
+          </li>
+          <li
+            className={
               pathUrl == "/profit"
                 ? "  h-[61px] flex  nav-item  active-menu-left "
                 : " h-[61px] flex  nav-item"
@@ -290,7 +325,7 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/profit" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/profit.png"
+                  src="../../panel/app-assets/images/profit-select.png"
                 />
               ) : (
                 <img
@@ -321,7 +356,7 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/management" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/team-management.png"
+                  src="../../panel/app-assets/images/management-select.png"
                 />
               ) : (
                 <img
@@ -349,10 +384,10 @@ export default function LeftMenu({ route }) {
             }
           >
             <Link to="/blacklist">
-              {pathUrl == "/management" ? (
+              {pathUrl == "/blacklist" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/black-list.png"
+                  src="../../panel/app-assets/images/blacklist-select.png"
                 />
               ) : (
                 <img
@@ -362,7 +397,7 @@ export default function LeftMenu({ route }) {
               )}
               <span
                 className={
-                  pathUrl == "/management"
+                  pathUrl == "/blacklist"
                     ? "menu-title text-truncate text-[#ffffff] text-[16px] font-sstbold"
                     : "menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
                 }
@@ -373,7 +408,7 @@ export default function LeftMenu({ route }) {
             </Link>
           </li>
           <li className=" h-[61px] flex  nav-item">
-            <a href="app-email.html">
+            <Link>
               <img
                 className="h-[24px] w-[24px] ml-[24px]"
                 src="../../panel/app-assets/images/icon/edit.png"
@@ -384,10 +419,12 @@ export default function LeftMenu({ route }) {
               >
                 تعديل الأصناف
               </span>
-            </a>
+            </Link>
           </li>
-          <li className=" h-[61px] flex  nav-item">
-            <a href="app-email.html">
+          <li onClick={() => {
+            logoutClick();
+          }} className=" h-[61px] flex  nav-item">
+            <Link>
               <img
                 className="h-[24px] w-[24px] ml-[24px]"
                 src="../../panel/app-assets/images/logout.png"
@@ -398,7 +435,7 @@ export default function LeftMenu({ route }) {
               >
                 تسجيل خروج
               </span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

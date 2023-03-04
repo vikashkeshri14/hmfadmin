@@ -96,8 +96,8 @@ export default function Login() {
                     value={email}
                     className={
                       emailError
-                        ? "w-[526px] text-right border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
-                        : "w-[526px] text-right text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        ? "w-[526px] text-left border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        : "w-[526px] text-left text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
                     }
                     placeholder="البريد الإلكتروني"
                   />
@@ -115,8 +115,8 @@ export default function Login() {
                     placeholder="كلمة المرور"
                     className={
                       passwordError
-                        ? "w-[526px] text-right border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
-                        : "w-[526px] text-right text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        ? "w-[526px] text-left border-[#E80000] border-[1px] text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
+                        : "w-[526px] text-left text-[16px] font-sstroman pr-[20px] rounded-[20px] h-[74px] bg-white"
                     }
                   />
                 </div>

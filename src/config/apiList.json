@@ -1,3 +1,4 @@
 {
-  "login": "/admin/checkLogin"
+  "login": "/admin/checkLogin",
+  "getAllTransfer": "/orders/getAllTransfer"
 }

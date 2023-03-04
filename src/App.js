@@ -16,6 +16,9 @@ import Profit from "./screen/profit/Profit";
 import Management from "./screen/management/Management";
 import AddManagement from "./screen/management/AddManagement";
 import BlackList from "./screen/blacklist/BlackList";
+import Transfer from "./screen/transfer/Transfer";
+
+
 
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/transfer" element={<Transfer />} />
         <Route path="/user-details" element={<UserDetails />} />
         <Route path="/store" element={<Store />} />
         <Route path="/order" element={<Order />} />
