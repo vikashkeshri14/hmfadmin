@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Commitment from "./Commitment";
 import Graph from "./Graph";
 import IncomingConveration from "./IncomingConveration";
@@ -10,7 +10,13 @@ import OutgoingOrder from "./OutgoingOrder";
 import Products from "./Products";
 import { DateRange } from "react-date-range";
 import { addDays } from "date-fns";
+import { NavLink, useParams } from "react-router-dom";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
 export default function Content() {
+  const params = useParams();
   const [productShow, setProductShow] = useState(false);
   const [commitmentShow, setCommitmentShow] = useState(false);
   const [receiveShow, setReceiveShow] = useState(false);
@@ -35,6 +41,20 @@ export default function Content() {
       key: "selection",
     },
   ]);
+  const [storeDetails, setStoreDetails] = useState(null);
+  useEffect(() => {
+    getStoreById(params.slug);
+  }, [params.slug]);
+  const getStoreById = async (id) => {
+    const obj = {
+      userId: id,
+    };
+    let params = { url: apiList.getUserById, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.result.length > 0) {
+      setStoreDetails(response.result[0]);
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -62,7 +82,12 @@ export default function Content() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../panel/app-assets/images/search.png" />
+                        <img
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/search.png"
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -91,19 +116,25 @@ export default function Content() {
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="">
                         <img
-                          src="../panel/app-assets/images/store.png"
+                          src={
+                            storeDetails != null &&
+                            config.imgUri + "/" + storeDetails.user_pic
+                          }
                           className="h-[64px] w-[64px] rounded-[32px]"
                         />
                       </div>
                       <div className="flex-col mr-[15px]">
                         <div className="flex">
                           <div className="text-[#484848] text-[16px] font-sstbold">
-                            متجر أسرتي
+                            {storeDetails != null && storeDetails.username}
                           </div>
                           <div className="mt-[10px] mr-[10px]">
                             <img
                               className="h-[15px] w-[15px]"
-                              src="../panel/app-assets/images/star.png"
+                              src={
+                                config.domainUrl +
+                                "/panel/app-assets/images/star.png"
+                              }
                             />
                           </div>
                           <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
@@ -112,12 +143,15 @@ export default function Content() {
                         </div>
                         <div className="flex mt-[5px]">
                           <div className="text-[#959494] text-[16px] font-sstroman ">
-                            #2345555
+                            #{storeDetails != null && storeDetails.id}
                           </div>
                           <div className="mt-[10px] mr-[12px]">
                             <img
                               className="h-[15.55px] w-[15.55px]"
-                              src="../panel/app-assets/images/frame-green.png"
+                              src={
+                                config.domainUrl +
+                                "/panel/app-assets/images/frame-green.png"
+                              }
                             />
                           </div>
                           <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
@@ -131,7 +165,10 @@ export default function Content() {
                     <div className="flex-col h-[66px]  pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/frame.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/frame.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -144,7 +181,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/location.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/location.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -171,7 +211,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/shop-grey.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/shop-grey.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -198,7 +241,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/commitment.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/commitment.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -225,7 +271,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/receive-grey.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/receive-grey.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -252,7 +301,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/send.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/send.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -271,7 +323,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/info-grey.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/info-grey.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -336,7 +391,10 @@ export default function Content() {
                     <div className="flex-col  h-[66px] pl-[10px] ">
                       <div className="flex justify-center">
                         <img
-                          src="../panel/app-assets/images/chat.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/chat.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -403,25 +461,37 @@ export default function Content() {
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/phone.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/phone.png"
+                          }
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/support.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/support.png"
+                          }
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/message.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/message.png"
+                          }
                         />
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/notification.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/notification.png"
+                          }
                         />
                       </div>
                       <div
@@ -432,7 +502,10 @@ export default function Content() {
                       >
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/danger.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/danger.png"
+                          }
                         />
                         <div
                           class={
@@ -484,7 +557,10 @@ export default function Content() {
                       >
                         <img
                           className="h-[24px] w-[24px]"
-                          src="../panel/app-assets/images/trash.png"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/trash.png"
+                          }
                         />
                       </div>
                     </div>

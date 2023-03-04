@@ -1,4 +1,9 @@
 {
   "login": "/admin/checkLogin",
-  "getAllTransfer": "/orders/getAllTransfer"
+  "getAllTransfer": "/orders/getAllTransfer",
+  "totalOrder": "/orders/totalOrder",
+  "totalOrderCommitment": "/orders/totalOrderCommitment",
+  "storePendingCommitment": "/orders/storePendingCommitment",
+  "numberOfOrderByRange": "/orders/numberOfOrderByRange",
+  "getUserById": "/users/getUserById"
 }

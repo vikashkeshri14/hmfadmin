@@ -18,8 +18,6 @@ import AddManagement from "./screen/management/AddManagement";
 import BlackList from "./screen/blacklist/BlackList";
 import Transfer from "./screen/transfer/Transfer";
 
-
-
 function App() {
   return (
     <Router basename={"/panel"}>
@@ -31,7 +29,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/transfer" element={<Transfer />} />
         <Route path="/user-details" element={<UserDetails />} />
-        <Route path="/store" element={<Store />} />
+        <Route path="/store/:slug" element={<Store />} />
         <Route path="/order" element={<Order />} />
         <Route path="/report" element={<Report />} />
         <Route path="/sms" element={<Sms />} />

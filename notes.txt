@@ -1,0 +1,16 @@
+1.Dropdown will show the recipts in pending transfer
+2.إجمالي قيمة الإلتزامات ---total amount of commitment
+3.إجمالي عدد الإلتزامات---total number of commitment
+4.عدد الإلتزامات المدفوعة--total number of paid commitment
+5.قيمة الإلتزامات المدفوعة--total amount of paid commitment
+6.عدد الالتزامات المعلقة-- total number of pending commitment
+7.قيمة الإلتزامات المعلقة---total amount of pending commitment
+
+8إجمالي الطلبات--total number of order
+9.الطلبات المقبولة--total number of accepted order
+10.الطلبات المدفوعة--total number of paid order
+11.الطلبات المعلقة--total number of pending order
+12.الطلبات المرفوضة--total number of cancel order
+13.الطلبات المرفوضة بعد الإتفاق المبدئي--total number of cancel order after accepting
+
+14.

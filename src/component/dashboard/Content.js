@@ -1,10 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Barchart from "./Barchart";
 import Chat from "./Chat";
 import Graph from "./Graph";
 import GraphNext from "./GraphNext";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
 export default function Content() {
+  const [totalOrder, setTotalOrder] = useState("0");
+  const [totalPendingOrder, setTotalPendingOrder] = useState("0");
+  const [totalAcceptOrder, setTotalAcceptOrder] = useState("0");
+  const [totalCancelOrder, setTotalCancelOrder] = useState("0");
+  const [totalPaidOrder, setTotalPaidOrder] = useState("0");
+  const [totalRejectAfterAcceptOrder, setTotalRejectAfterAcceptOrder] =
+    useState("0");
+  const [totalOrderCommitment, setTotalOrderCommitment] = useState("0");
+  const [totalPendingOrderCommitment, setTotalPendingOrderCommitment] =
+    useState("0");
+  const [totalPaidOrderCommitment, setTotalPaidOrderCommitment] = useState("0");
+  const [totalliabilityOrder, setTotalliabilityOrder] = useState("0");
+  const [totalliabilityPaidOrder, setTotalliabilityPaidOrder] = useState("0");
+  const [totalUnPaidLiabilityOrder, setTotalUnPaidLiabilityOrder] =
+    useState("0");
+  const [storePendingCommitment, setStorePendingCommitment] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    getOrderDetails();
+    getOrderCommitment();
+    getStorePendingCommitment();
+  }, []);
+  const getOrderDetails = async () => {
+    let params = { url: apiList.totalOrder };
+    let response = await ApiService.getData(params);
+    if (response) {
+      if (response.totalOrder[0].total_order) {
+        setTotalOrder(response.totalOrder[0].total);
+      }
+      if (response.totalPendingOrder[0].total_order) {
+        setTotalPendingOrder(response.totalPendingOrder[0].total);
+      }
+      if (response.totalAcceptOrder[0].total_order) {
+        setTotalAcceptOrder(response.totalAcceptOrder[0].total);
+      }
+      if (response.totalCancelOrder[0].total_order) {
+        setTotalCancelOrder(response.totalCancelOrder[0].total);
+      }
+      if (response.totalPaidOrder[0].total_order) {
+        setTotalPaidOrder(response.totalPaidOrder[0].total);
+      }
+      if (response.totalRejectAfterAcceptOrder[0].total_order) {
+        setTotalRejectAfterAcceptOrder(
+          response.totalRejectAfterAcceptOrder[0].total
+        );
+      }
+    }
+  };
+  const getOrderCommitment = async () => {
+    let params = { url: apiList.totalOrderCommitment };
+    let response = await ApiService.getData(params);
+    if (response) {
+      if (response.totalOrderCommitment[0].total_order) {
+        setTotalOrderCommitment(response.totalOrderCommitment[0].total);
+      }
+      if (response.totalPendingOrderCommitment[0].total_order) {
+        setTotalPendingOrderCommitment(
+          response.totalPendingOrderCommitment[0].total
+        );
+      }
+      if (response.totalPaidOrderCommitment[0].total_order) {
+        setTotalPaidOrderCommitment(response.totalPaidOrderCommitment[0].total);
+      }
+    }
+  };
+  const getStorePendingCommitment = async () => {
+    let params = { url: apiList.storePendingCommitment };
+    let response = await ApiService.getData(params);
+    setStorePendingCommitment(response.storeCommitment);
+  };
   return (
     <div className="app-content content">
       <div className="content-overlay"></div>
@@ -34,19 +108,19 @@ export default function Content() {
               <div className="w-[34%]  dashboard-users">
                 <div className="row">
                   <div className="bg-[#ffffff] flex  h-[62px] shadow rounded-[6px]">
-                    <div className="pl-[30px] text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div className="pl-[30px] daily text-[16px] font-sstbold justify-center self-center  pr-[30px]">
                       يومي
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div className="pl-[30px] weekly text-[16px] font-sstbold justify-center self-center  pr-[30px]">
                       أسبوعي
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] text-[16px] font-sstbold justify-center self-center pr-[30px]">
+                    <div className="pl-[30px] monthly text-[16px] font-sstbold justify-center self-center pr-[30px]">
                       شهري
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div className="pl-[30px] annual text-[16px] font-sstbold justify-center self-center  pr-[30px]">
                       سنوي
                     </div>
                   </div>
@@ -90,7 +164,7 @@ export default function Content() {
                               إجمالي الطلبات
                             </div>
                             <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                              700000
+                              {totalOrder}
                             </div>
                             <div className="text-[#60BA62] text-[16px] font-sstbold">
                               5,09% أعلى من الشهر الماضي
@@ -101,7 +175,7 @@ export default function Content() {
                               الطلبات المقبولة
                             </div>
                             <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                              400000
+                              {totalAcceptOrder}
                             </div>
                             <div className="text-[#60BA62] text-[16px] font-sstbold">
                               5,09% أعلى من الشهر الماضي
@@ -115,7 +189,7 @@ export default function Content() {
                               الطلبات المدفوعة
                             </div>
                             <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                              300000
+                              {totalPaidOrder}
                             </div>
                             <div className="text-[#E80000] text-[16px] font-sstbold">
                               1,06% أقل من الشهر الماضي
@@ -131,7 +205,7 @@ export default function Content() {
                               الطلبات المعلقة
                             </div>
                             <div className="text-[#FF9800] text-[35px] font-sstbold ">
-                              10000
+                              {totalPendingOrder}
                             </div>
                             <div className="text-[#E80000] text-[16px] font-sstbold">
                               5,09% أعلى من الشهر الماضي
@@ -139,10 +213,10 @@ export default function Content() {
                           </td>
                           <td className="text-center">
                             <div className="text-[#959494] text-[18px] font-sstbold">
-                              الطلبات المرفوضة{" "}
+                              الطلبات المرفوضة
                             </div>
                             <div className="text-[#AD0000] text-[35px] font-sstbold ">
-                              2000
+                              {totalCancelOrder}
                             </div>
                             <div className="text-[#E80000] text-[16px] font-sstbold">
                               1,06% أقل من الشهر الماضي
@@ -156,7 +230,7 @@ export default function Content() {
                               الطلبات المرفوضة بعد الإتفاق المبدئي{" "}
                             </div>
                             <div className="text-[#AD0000] text-[35px] font-sstbold ">
-                              2000
+                              {totalRejectAfterAcceptOrder}
                             </div>
                             <div className="text-[#E80000] text-[16px] font-sstbold">
                               1,06% أقل من الشهر الماضي
@@ -186,21 +260,21 @@ export default function Content() {
                             إجمالي عدد الإلتزامات
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            700000
+                            {totalOrderCommitment}
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
-                            5,09% أعلى من الشهر الماضي{" "}
+                            5,09% أعلى من الشهر الماضي
                           </div>
                         </td>
                         <td className="text-center">
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            عدد الإلتزامات المدفوعة{" "}
+                            عدد الإلتزامات المدفوعة
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            40000
+                            {totalPaidOrderCommitment}
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
-                            5,09% أعلى من الشهر الماضي{" "}
+                            5,09% أعلى من الشهر الماضي
                           </div>
                         </td>
                         <td
@@ -208,13 +282,13 @@ export default function Content() {
                           className="text-bold-500 text-center "
                         >
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            عدد الالتزامات المعلقة{" "}
+                            عدد الالتزامات المعلقة
                           </div>
                           <div className="text-[#FF9800] text-[35px] font-sstbold ">
-                            3000
+                            {totalPendingOrderCommitment}
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
-                            1,06% أقل من الشهر الماضي{" "}
+                            1,06% أقل من الشهر الماضي
                           </div>
                         </td>
                       </tr>
@@ -230,24 +304,24 @@ export default function Content() {
                           className="  text-center"
                         >
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            إجمالي قيمة الإلتزامات{" "}
+                            إجمالي قيمة الإلتزامات
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            2,000 ريال
+                            {totalliabilityOrder} ريال
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
-                            5,09% أعلى من الشهر الماضي{" "}
+                            5,09% أعلى من الشهر الماضي
                           </div>
                         </td>
                         <td className="text-center">
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            قيمة الإلتزامات المدفوعة{" "}
+                            قيمة الإلتزامات المدفوعة
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            1,500 ريال
+                            {totalliabilityPaidOrder} ريال
                           </div>
                           <div className="text-[#E80000] text-[16px] font-sstbold">
-                            1,06% أقل من الشهر الماضي{" "}
+                            1,06% أقل من الشهر الماضي
                           </div>
                         </td>
                         <td
@@ -255,13 +329,13 @@ export default function Content() {
                           className="text-bold-500 text-center "
                         >
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            قيمة الإلتزامات المعلقة{" "}
+                            قيمة الإلتزامات المعلقة
                           </div>
                           <div className="text-[#FF9800] text-[35px] font-sstbold ">
-                            500 ريال
+                            {totalUnPaidLiabilityOrder} ريال
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
-                            1,06% أقل من الشهر الماضي{" "}
+                            1,06% أقل من الشهر الماضي
                           </div>
                         </td>
                       </tr>
@@ -363,7 +437,7 @@ export default function Content() {
                           className=" border-0 text-center"
                         >
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            عدد البلاغات
+                            عدد الإلتزامات المسقطة
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
                             50
@@ -385,7 +459,7 @@ export default function Content() {
                           className=" border-0 text-center"
                         >
                           <div className="text-[#959494] text-[18px] font-sstbold">
-                            عدد البلاغات
+                            قيمة الإلتزامات المسقطة
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
                             50
@@ -409,102 +483,40 @@ export default function Content() {
                   </div>
                 </div>
                 <div className="flex justify-evenly">
-                  <div className="w-[24%] justify-center flex flex-col align-items-center">
-                    <div className="avatar  top-[44px] mr-50 ">
-                      <img
-                        className="w-[88px] h-[88px] rounded-[44px]"
-                        src="../../../panel/app-assets/images/store.png"
-                        alt="sidebar   user image"
-                      />
-                      <span className="avatar-status-away"></span>
-                    </div>
-                    <div className="w-[100%] bg-[#F9F9F9]">
-                      <div className="chat-sidebar-name mt-[50px] mb-[10px]">
-                        <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
-                          متجر أسرتي
-                        </h6>
-                        <div className="text-muted mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
-                          #959494
+                  {storePendingCommitment.length > 0 &&
+                    storePendingCommitment.map((data, i) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            navigate("/store/" + data.store_id);
+                          }}
+                          key={i}
+                          className="w-[24%] justify-center flex flex-col align-items-center"
+                        >
+                          <div className="avatar  top-[44px] mr-50 ">
+                            <img
+                              className="w-[88px] h-[88px] rounded-[44px]"
+                              src={config.imgUri + "/" + data.user_pic}
+                              alt="user image"
+                            />
+                          </div>
+                          <div className="w-[100%] bg-[#F9F9F9]">
+                            <div className="chat-sidebar-name mt-[50px] mb-[10px]">
+                              <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
+                                متجر أسرتي
+                              </h6>
+                              <div className="text-muted mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
+                                #{data.store_id}
+                              </div>
+                            </div>
+                            <div className="border-[1px] m-auto border-[#EBEBEB] w-[90%]"></div>
+                            <div className="p-[10px] text-[18px] font-sstbold text-[#9D40AD] text-center">
+                              {data.cnt} التزام مسقط
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="border-[1px] m-auto border-[#EBEBEB] w-[90%]"></div>
-                      <div className="p-[10px] text-[18px] font-sstbold text-[#9D40AD] text-center">
-                        3 التزام مسقط
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-[24%] justify-center flex flex-col align-items-center">
-                    <div className="avatar  top-[44px] mr-50 ">
-                      <img
-                        className="w-[88px] h-[88px] rounded-[44px]"
-                        src="../../../panel/app-assets/images/store.png"
-                        alt="sidebar   user image"
-                      />
-                      <span className="avatar-status-away"></span>
-                    </div>
-                    <div className="w-[100%] bg-[#F9F9F9]">
-                      <div className="chat-sidebar-name mt-[50px] mb-[10px]">
-                        <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
-                          متجر أسرتي
-                        </h6>
-                        <div className="text-muted mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
-                          #959494
-                        </div>
-                      </div>
-                      <div className="border-[1px] m-auto border-[#EBEBEB] w-[90%]"></div>
-                      <div className="p-[10px] text-[18px] font-sstbold text-[#9D40AD] text-center">
-                        3 التزام مسقط
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-[24%] justify-center flex flex-col align-items-center">
-                    <div className="avatar  top-[44px] mr-50 ">
-                      <img
-                        className="w-[88px] h-[88px] rounded-[44px]"
-                        src="../../../panel/app-assets/images/store.png"
-                        alt="sidebar   user image"
-                      />
-                      <span className="avatar-status-away"></span>
-                    </div>
-                    <div className="w-[100%] bg-[#F9F9F9]">
-                      <div className="chat-sidebar-name mt-[50px] mb-[10px]">
-                        <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
-                          متجر أسرتي
-                        </h6>
-                        <div className="text-muted mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
-                          #959494
-                        </div>
-                      </div>
-                      <div className="border-[1px] m-auto border-[#EBEBEB] w-[90%]"></div>
-                      <div className="p-[10px] text-[18px] font-sstbold text-[#9D40AD] text-center">
-                        3 التزام مسقط
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-[24%] justify-center flex flex-col align-items-center">
-                    <div className="avatar  top-[44px] mr-50 ">
-                      <img
-                        className="w-[88px] h-[88px] rounded-[44px]"
-                        src="../../../panel/app-assets/images/store.png"
-                        alt="sidebar   user image"
-                      />
-                      <span className="avatar-status-away"></span>
-                    </div>
-                    <div className="w-[100%] bg-[#F9F9F9]">
-                      <div className="chat-sidebar-name mt-[50px] mb-[10px]">
-                        <h6 className="mb-0 text-[16px] text-center font-sstbold text-[#484848]">
-                          متجر أسرتي
-                        </h6>
-                        <div className="text-muted mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
-                          #959494
-                        </div>
-                      </div>
-                      <div className="border-[1px] m-auto border-[#EBEBEB] w-[90%]"></div>
-                      <div className="p-[10px] text-[18px] font-sstbold text-[#9D40AD] text-center">
-                        3 التزام مسقط
-                      </div>
-                    </div>
-                  </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

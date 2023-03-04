@@ -1,5 +1,6 @@
 {
   "apiRoot": "https://hmf.team:3010",
   "imgUri": "https://hmf.team/hmfapi",
-  "apiUrl": "https://hmf.team:3010"
+  "apiUrl": "https://hmf.team:3010",
+  "domainUrl": "http://localhost:3000"
 }
