@@ -1,6 +1,7 @@
 import { set } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import config from "../../config/config.json";
 export default function Header() {
   const [authFails, setAuthFails] = useState(false);
   const navigate = useNavigate();
@@ -41,7 +42,10 @@ export default function Header() {
                       <span>
                         <img
                           className="round w-[68px] h-[68px] rounded-[34px]"
-                          src="../panel/app-assets/images/portrait/small/avatar-s-11.jpg"
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/portrait/small/avatar-s-11.jpg"
+                          }
                           alt="avatar"
                         />
                       </span>

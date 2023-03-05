@@ -13,46 +13,50 @@ import {
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import { Squares } from "react-activity";
+import "react-activity/dist/library.css";
 export default function Barchart(props) {
-  const [data, setData] = useState([
-    { name: "12am", order: 0 },
-    { name: "1am", order: 0 },
-    { name: "2am", order: 0 },
-    { name: "3am", order: 0 },
-    { name: "4am", order: 0 },
-    { name: "5am", order: 0 },
-    { name: "6am", order: 0 },
-    { name: "7am", order: 0 },
-    { name: "8am", order: 0 },
-    { name: "9am", order: 0 },
-    { name: "10am", order: 0 },
-    { name: "11am", order: 0 },
-    { name: "12pm", order: 0 },
-    { name: "1pm", order: 0 },
-    { name: "2pm", order: 0 },
-    { name: "3pm", order: 0 },
-    { name: "4pm", order: 0 },
-    { name: "5pm", order: 0 },
-    { name: "6pm", order: 0 },
-    { name: "7pm", order: 0 },
-    { name: "8pm", order: 0 },
-    { name: "9pm", order: 0 },
-    { name: "10pm", order: 0 },
-    { name: "11pm", order: 0 },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
   useEffect(() => {
-    getData();
-  }, []);
-  const getData = async () => {
+    getData(props.range);
+  }, [props]);
+  const getData = async (args) => {
     const obj = {
-      range: 30,
+      range: args,
     };
     let val;
-    let oderdata = data;
+    let oderdata = [
+      { name: "12am", order: 0 },
+      { name: "1am", order: 0 },
+      { name: "2am", order: 0 },
+      { name: "3am", order: 0 },
+      { name: "4am", order: 0 },
+      { name: "5am", order: 0 },
+      { name: "6am", order: 0 },
+      { name: "7am", order: 0 },
+      { name: "8am", order: 0 },
+      { name: "9am", order: 0 },
+      { name: "10am", order: 0 },
+      { name: "11am", order: 0 },
+      { name: "12pm", order: 0 },
+      { name: "1pm", order: 0 },
+      { name: "2pm", order: 0 },
+      { name: "3pm", order: 0 },
+      { name: "4pm", order: 0 },
+      { name: "5pm", order: 0 },
+      { name: "6pm", order: 0 },
+      { name: "7pm", order: 0 },
+      { name: "8pm", order: 0 },
+      { name: "9pm", order: 0 },
+      { name: "10pm", order: 0 },
+      { name: "11pm", order: 0 },
+    ];
 
     let more = 2;
     let params = { url: apiList.numberOfOrderByRange, body: obj };
     let response = await ApiService.postData(params);
+    console.log(response);
     if (response) {
       let valres = response.result;
       for (let i = 0; i < response.result.length; i++) {
@@ -308,11 +312,21 @@ export default function Barchart(props) {
         }
       }
       setData(oderdata);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="h-[400px]">
+    <div className="h-[400px] relative">
+      <div className="text-[18px] text-[#959494] font-sstbold ">
+        عدد الطلبات في الساعة
+      </div>
+      {loading && (
+        <div className="absolute left-[50%] top-[50%]">
+          <Squares />
+        </div>
+      )}
+
       <ResponsiveContainer
         className="flex justify-center "
         width="100%"
@@ -326,7 +340,7 @@ export default function Barchart(props) {
             top: 5,
             right: 30,
             left: 20,
-            bottom: 5,
+            bottom: 25,
           }}
           barSize={2}
         >

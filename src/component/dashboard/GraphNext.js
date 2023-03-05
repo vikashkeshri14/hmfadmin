@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -8,84 +8,94 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-export default function GraphNext() {
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page H",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import { Squares } from "react-activity";
+import "react-activity/dist/library.css";
+export default function GraphNext(props) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [range, setRange] = useState("30");
+  useEffect(() => {
+    graphChange("1", props.range);
+    setRange(props.range);
+    console.log(props.range);
+  }, [props]);
+  const graphChange = async (status, rang) => {
+    setLoading(true);
+    let obj = {
+      range: rang,
+      status: "1",
+    };
+
+    if (status == "1") {
+      obj = {
+        range: rang,
+        status: "1",
+      };
+      let params = { url: apiList.getNumberOfCommitment, body: obj };
+      let response = await ApiService.postData(params);
+
+      if (response) {
+        let valres = [];
+        let res = response.result;
+        for (let i = 0; i < response.result.length; i++) {
+          valres.push({ name: "Order " + res[i].hr, order: res[i].cnt });
+        }
+        setData(valres);
+        setLoading(false);
+      }
+    } else {
+      obj = {
+        range: rang,
+        status: "0",
+      };
+      console.log(obj);
+      let params = { url: apiList.getNumberOfCommitment, body: obj };
+      let response = await ApiService.postData(params);
+
+      if (response) {
+        let valres = [];
+        let res = response.result;
+        for (let i = 0; i < response.result.length; i++) {
+          valres.push({ name: "Order " + res[i].hr, order: res[i].cnt });
+        }
+        setData(valres);
+        setLoading(false);
+      }
+    }
+  };
   return (
-    <div className=" h-[350px]">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className=" h-[230px] relative">
+      {loading && (
+        <div className="absolute left-[50%] top-[50%]">
+          <Squares />
+        </div>
+      )}
+      <div className="text-[#959494] flex justify-end text-[18px] font-sstbold pt-[10px] pl-[10px] ">
+        <fieldset className="form-group w-[100%] h-[57px] bg-[#F9F9F9]">
+          <select
+            onChange={(e) => {
+              graphChange(e.target.value, range);
+            }}
+            style={{
+              background:
+                "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
+            }}
+            className="form-control bg-[#F9F9F9] h-[57px]"
+            id="basicSelect"
+          >
+            <option attr="paid commitment" value="1">
+              الالتزامات المدفوعة
+            </option>
+            <option attr="unpaid commitment" value="0">
+              الالتزامات المعلقة
+            </option>
+          </select>
+        </fieldset>
+      </div>
+      <ResponsiveContainer width="100%" className="mt-[40px]" height="100%">
         <AreaChart
           height={60}
           data={data}
@@ -96,7 +106,15 @@ export default function GraphNext() {
             bottom: 5,
           }}
         >
-          <Area type="monotone" dataKey="uv" stroke="#60BA62" fill="#60BA62" />
+          <XAxis dataKey="name" />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="order"
+            stroke="#60BA62"
+            fill="#60BA62"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>

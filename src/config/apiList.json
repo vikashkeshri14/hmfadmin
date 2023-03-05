@@ -5,5 +5,11 @@
   "totalOrderCommitment": "/orders/totalOrderCommitment",
   "storePendingCommitment": "/orders/storePendingCommitment",
   "numberOfOrderByRange": "/orders/numberOfOrderByRange",
-  "getUserById": "/users/getUserById"
+  "getUserById": "/users/getUserById",
+  "numberOfOrderByStatus": "/orders/numberOfOrderByStatus",
+  "numberOfPaidOrderByRange": "/orders/numberOfPaidOrderByRange",
+  "numberOfRejectedOrderByRange": "/orders/numberOfRejectedOrderByRange",
+  "getNumberOfCommitment": "/orders/getNumberOfCommitment",
+  "getUserAndStore": "/users/getUserAndStore",
+  "getDevice": "/users/getDevice"
 }

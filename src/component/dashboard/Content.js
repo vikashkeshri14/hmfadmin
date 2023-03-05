@@ -20,10 +20,12 @@ export default function Content() {
   const [totalPendingOrderCommitment, setTotalPendingOrderCommitment] =
     useState("0");
   const [totalPaidOrderCommitment, setTotalPaidOrderCommitment] = useState("0");
-  const [totalliabilityOrder, setTotalliabilityOrder] = useState("0");
-  const [totalliabilityPaidOrder, setTotalliabilityPaidOrder] = useState("0");
-  const [totalUnPaidLiabilityOrder, setTotalUnPaidLiabilityOrder] =
+  const [totalAmountOfCommitment, setTotalAmountOfCommitment] = useState("0");
+  const [totalAmountOfPaidCommitment, setTotalAmountOfPaidCommitment] =
     useState("0");
+  const [totalAmountOfPendingCommitment, setTotalAmountOfPendingCommitment] =
+    useState("0");
+  const [rangeVal, setRangeVal] = useState("30");
   const [storePendingCommitment, setStorePendingCommitment] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -36,23 +38,23 @@ export default function Content() {
     let response = await ApiService.getData(params);
     if (response) {
       if (response.totalOrder[0].total_order) {
-        setTotalOrder(response.totalOrder[0].total);
+        setTotalOrder(response.totalOrder[0].total_order);
       }
       if (response.totalPendingOrder[0].total_order) {
-        setTotalPendingOrder(response.totalPendingOrder[0].total);
+        setTotalPendingOrder(response.totalPendingOrder[0].total_order);
       }
       if (response.totalAcceptOrder[0].total_order) {
-        setTotalAcceptOrder(response.totalAcceptOrder[0].total);
+        setTotalAcceptOrder(response.totalAcceptOrder[0].total_order);
       }
       if (response.totalCancelOrder[0].total_order) {
-        setTotalCancelOrder(response.totalCancelOrder[0].total);
+        setTotalCancelOrder(response.totalCancelOrder[0].total_order);
       }
       if (response.totalPaidOrder[0].total_order) {
-        setTotalPaidOrder(response.totalPaidOrder[0].total);
+        setTotalPaidOrder(response.totalPaidOrder[0].total_order);
       }
       if (response.totalRejectAfterAcceptOrder[0].total_order) {
         setTotalRejectAfterAcceptOrder(
-          response.totalRejectAfterAcceptOrder[0].total
+          response.totalRejectAfterAcceptOrder[0].total_order
         );
       }
     }
@@ -62,15 +64,24 @@ export default function Content() {
     let response = await ApiService.getData(params);
     if (response) {
       if (response.totalOrderCommitment[0].total_order) {
-        setTotalOrderCommitment(response.totalOrderCommitment[0].total);
+        setTotalOrderCommitment(response.totalOrderCommitment[0].total_order);
+        setTotalAmountOfCommitment(response.totalOrderCommitment[0].total);
       }
       if (response.totalPendingOrderCommitment[0].total_order) {
         setTotalPendingOrderCommitment(
+          response.totalPendingOrderCommitment[0].total_order
+        );
+        setTotalAmountOfPendingCommitment(
           response.totalPendingOrderCommitment[0].total
         );
       }
       if (response.totalPaidOrderCommitment[0].total_order) {
-        setTotalPaidOrderCommitment(response.totalPaidOrderCommitment[0].total);
+        setTotalPaidOrderCommitment(
+          response.totalPaidOrderCommitment[0].total_order
+        );
+        setTotalAmountOfPaidCommitment(
+          response.totalPaidOrderCommitment[0].total
+        );
       }
     }
   };
@@ -108,19 +119,55 @@ export default function Content() {
               <div className="w-[34%]  dashboard-users">
                 <div className="row">
                   <div className="bg-[#ffffff] flex  h-[62px] shadow rounded-[6px]">
-                    <div className="pl-[30px] daily text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div
+                      onClick={() => {
+                        setRangeVal(1);
+                      }}
+                      className={
+                        rangeVal == "1"
+                          ? "pl-[30px] cursor-pointer text-[#FF9800] daily text-[16px] font-sstbold justify-center self-center  pr-[30px]"
+                          : "pl-[30px] cursor-pointer daily text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[30px]"
+                      }
+                    >
                       يومي
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] weekly text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div
+                      onClick={() => {
+                        setRangeVal(7);
+                      }}
+                      className={
+                        rangeVal == "7"
+                          ? "pl-[30px] cursor-pointer text-[#FF9800] weekly text-[16px] font-sstbold justify-center self-center  pr-[30px]"
+                          : "pl-[30px] cursor-pointer weekly text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[30px]"
+                      }
+                    >
                       أسبوعي
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] monthly text-[16px] font-sstbold justify-center self-center pr-[30px]">
+                    <div
+                      onClick={() => {
+                        setRangeVal(30);
+                      }}
+                      className={
+                        rangeVal == "30"
+                          ? "pl-[30px] cursor-pointer text-[#FF9800] monthly text-[16px] font-sstbold justify-center self-center  pr-[30px]"
+                          : "pl-[30px] cursor-pointer monthly text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[30px]"
+                      }
+                    >
                       شهري
                     </div>
                     <div className="border-r-[1px] border-[#EBEBEB]"></div>
-                    <div className="pl-[30px] annual text-[16px] font-sstbold justify-center self-center  pr-[30px]">
+                    <div
+                      onClick={() => {
+                        setRangeVal(365);
+                      }}
+                      className={
+                        rangeVal == "365"
+                          ? "pl-[30px] cursor-pointer text-[#FF9800] annual text-[16px] font-sstbold justify-center self-center  pr-[30px]"
+                          : "pl-[30px] cursor-pointer annual text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[30px]"
+                      }
+                    >
                       سنوي
                     </div>
                   </div>
@@ -145,10 +192,10 @@ export default function Content() {
               <div className="w-[72%] flex-col h-[430px]  ">
                 <div className="w-[100%] justify-around flex">
                   <div className="w-[37%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                    <Graph />
+                    <Graph range={rangeVal} />
                   </div>
                   <div className="w-[60%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                    <Barchart />
+                    <Barchart range={rangeVal} />
                   </div>
                 </div>
                 <div className="w-[98%] mr-[10px] mt-[20px]">
@@ -243,7 +290,7 @@ export default function Content() {
                 </div>
               </div>
               <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
-                <Chat />
+                <Chat range={rangeVal} />
               </div>
             </div>
             <div className="row flex justify-around mt-[30px]">
@@ -303,11 +350,11 @@ export default function Content() {
                           style={{ borderRightWidth: 0 }}
                           className="  text-center"
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] total-amount-of-commitment text-[18px] font-sstbold">
                             إجمالي قيمة الإلتزامات
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            {totalliabilityOrder} ريال
+                            {totalAmountOfCommitment} ريال
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
                             5,09% أعلى من الشهر الماضي
@@ -318,7 +365,7 @@ export default function Content() {
                             قيمة الإلتزامات المدفوعة
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
-                            {totalliabilityPaidOrder} ريال
+                            {totalAmountOfPaidCommitment} ريال
                           </div>
                           <div className="text-[#E80000] text-[16px] font-sstbold">
                             1,06% أقل من الشهر الماضي
@@ -332,7 +379,7 @@ export default function Content() {
                             قيمة الإلتزامات المعلقة
                           </div>
                           <div className="text-[#FF9800] text-[35px] font-sstbold ">
-                            {totalUnPaidLiabilityOrder} ريال
+                            {totalAmountOfPendingCommitment} ريال
                           </div>
                           <div className="text-[#60BA62] text-[16px] font-sstbold">
                             1,06% أقل من الشهر الماضي
@@ -344,7 +391,7 @@ export default function Content() {
                 </div>
               </div>
               <div className="w-[27%] mr-[10px] rounded-[6px] shadow p-[10px] bg-[#ffffff]">
-                <GraphNext />
+                <GraphNext range={rangeVal} />
               </div>
             </div>
             <div className="flex mt-[30px]">
@@ -357,7 +404,7 @@ export default function Content() {
                           style={{ borderRightWidth: 0 }}
                           className="  text-center"
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] no-of-communication text-[18px] font-sstbold">
                             عدد البلاغات
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
@@ -368,7 +415,7 @@ export default function Content() {
                           </div>
                         </td>
                         <td className="text-center">
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] no-of-resolved-report text-[18px] font-sstbold">
                             عدد البلاغات المحلولة
                           </div>
                           <div className="text-[#498A4A] text-[35px] font-sstbold ">
@@ -382,7 +429,7 @@ export default function Content() {
                           style={{ borderLeftWidth: 0 }}
                           className="text-bold-500 text-center "
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] store-notification text-[18px] font-sstbold">
                             بلاغات المتاجر
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
@@ -396,7 +443,7 @@ export default function Content() {
                           style={{ borderLeftWidth: 0 }}
                           className="text-bold-500 text-center "
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] user-report text-[18px] font-sstbold">
                             بلاغات المستخدمين
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
@@ -410,7 +457,7 @@ export default function Content() {
                           style={{ borderLeftWidth: 0 }}
                           className="text-bold-500 text-center "
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] product-notification text-[18px] font-sstbold">
                             بلاغات المنتجات
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">
@@ -436,7 +483,7 @@ export default function Content() {
                           style={{ borderRightWidth: 0 }}
                           className=" border-0 text-center"
                         >
-                          <div className="text-[#959494] text-[18px] font-sstbold">
+                          <div className="text-[#959494] no-of-dropped-commitment text-[18px] font-sstbold">
                             عدد الإلتزامات المسقطة
                           </div>
                           <div className="text-[#AD0000] text-[35px] font-sstbold ">

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Chat() {
+export default function Chat(props) {
   return (
     <div>
       <h1 className="text-[#959494] text-[18px] font-sstbold pt-[20px] pr-[15px]">

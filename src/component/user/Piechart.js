@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
-export default function Piechart() {
-  const data = [
-    { name: "Group A", value: 800 },
-    { name: "Group B", value: 300 },
-  ];
+export default function Piechart(props) {
+  const [user, setUser] = useState(0);
+  const [store, setStore] = useState(0);
+  const [data, setData] = useState([
+    { name: "User", value: 800 },
+    { name: "Store", value: 300 },
+  ]);
+  useEffect(() => {
+    setUser(props.user);
+    setStore(props.store);
+    setData([
+      { name: "User", value: props.user },
+      { name: "Store", value: props.store },
+    ]);
+  }, [props]);
   const COLORS = ["#60BA62", "#FF9800"];
-
   return (
     <PieChart width={100} height={100}>
       <Pie
