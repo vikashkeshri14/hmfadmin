@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-
+import config from "../../config/config.json";
 export default function LeftMenu({ route }) {
   const [pathUrl, setPathUrl] = useState(null);
   const location = useLocation();
@@ -11,7 +11,7 @@ export default function LeftMenu({ route }) {
   const logoutClick = async () => {
     localStorage.clear();
     navigate("/");
-  }
+  };
   // console.log();
   return (
     <div
@@ -20,7 +20,7 @@ export default function LeftMenu({ route }) {
     >
       <div className=" flex justify-center navbar-header bg-[url('./left-menu.png')] bg-cover">
         <img
-          src="../../panel/app-assets/images/logo/logo.png"
+          src={config.domainUrl + "/panel/app-assets/images/logo/logo.png"}
           className="h-[95px] self-center w-[95px]"
         />
       </div>
@@ -43,12 +43,15 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/dashboard" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/dashboard.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/dashboard.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/dash.png"
+                  src={config.domainUrl + "/panel/app-assets/images/dash.png"}
                 />
               )}
 
@@ -76,12 +79,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/users" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/user-selected.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/user-selected.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/account-management.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/account-management.png"
+                  }
                 />
               )}
               <span
@@ -108,12 +117,15 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/order" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/bulk.png"
+                  src={config.domainUrl + "/panel/app-assets/images/bulk.png"}
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/order-management.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/order-management.png"
+                  }
                 />
               )}
               <span
@@ -139,12 +151,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/report" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/info-selected.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/info-selected.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/report.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/report.png"
+                  }
                 />
               )}
               <span
@@ -170,12 +188,17 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/sms" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/message-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/message-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/sms.png"
+                  src={
+                    config.domainUrl + "/panel/app-assets/images/icon/sms.png"
+                  }
                 />
               )}
               <span
@@ -201,12 +224,15 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/tech-support" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/book.png"
+                  src={config.domainUrl + "/panel/app-assets/images/book.png"}
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/technical-support.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/technical-support.png"
+                  }
                 />
               )}
               <span
@@ -232,12 +258,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/notification" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/notification-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/notification-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/notification.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/notification.png"
+                  }
                 />
               )}
               <span
@@ -263,12 +295,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/commitment" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/wallet-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/wallet-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/commitment.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/commitment.png"
+                  }
                 />
               )}
               <span
@@ -294,12 +332,17 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/transfer" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/transfer-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/transfer-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/transfer.png"
+                  src={
+                    config.domainUrl + "/panel/app-assets/images/transfer.png"
+                  }
                 />
               )}
               <span
@@ -325,12 +368,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/profit" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/profit-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/profit-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/profit.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/profit.png"
+                  }
                 />
               )}
               <span
@@ -356,12 +405,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/management" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/management-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/management-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/team-management.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/team-management.png"
+                  }
                 />
               )}
               <span
@@ -387,12 +442,18 @@ export default function LeftMenu({ route }) {
               {pathUrl == "/blacklist" ? (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/blacklist-select.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/blacklist-select.png"
+                  }
                 />
               ) : (
                 <img
                   className="h-[24px] w-[24px] ml-[24px]"
-                  src="../../panel/app-assets/images/icon/black-list.png"
+                  src={
+                    config.domainUrl +
+                    "/panel/app-assets/images/icon/black-list.png"
+                  }
                 />
               )}
               <span
@@ -411,7 +472,9 @@ export default function LeftMenu({ route }) {
             <Link>
               <img
                 className="h-[24px] w-[24px] ml-[24px]"
-                src="../../panel/app-assets/images/icon/edit.png"
+                src={
+                  config.domainUrl + "/panel/app-assets/images/icon/edit.png"
+                }
               />
               <span
                 className="menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
@@ -421,13 +484,16 @@ export default function LeftMenu({ route }) {
               </span>
             </Link>
           </li>
-          <li onClick={() => {
-            logoutClick();
-          }} className=" h-[61px] flex  nav-item">
+          <li
+            onClick={() => {
+              logoutClick();
+            }}
+            className=" h-[61px] flex  nav-item"
+          >
             <Link>
               <img
                 className="h-[24px] w-[24px] ml-[24px]"
-                src="../../panel/app-assets/images/logout.png"
+                src={config.domainUrl + "/panel/app-assets/images/logout.png"}
               />
               <span
                 className="menu-title text-truncate text-[#484848] text-[16px] font-sstbold"

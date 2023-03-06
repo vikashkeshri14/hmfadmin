@@ -1,8 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BarGraph from "./BarGraph";
 import Graph from "./Graph";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
 export default function Content() {
+  const [totalOrder, setTotalOrder] = useState("0");
+  const [totalOrderValue, setTotalOrderValue] = useState("0");
+  const [totalPendingOrderValue, setTotalPendingOrderValue] = useState("0");
+  const [totalPendingOrder, setTotalPendingOrder] = useState("0");
+  const [totalAcceptOrder, setTotalAcceptOrder] = useState("0");
+  const [totalAcceptOrderValue, setTotalAcceptOrderValue] = useState("0");
+
+  const [totalCancelOrder, setTotalCancelOrder] = useState("0");
+  const [totalCancelOrderValue, setTotalCancelOrderValue] = useState("0");
+
+  const [totalPaidOrder, setTotalPaidOrder] = useState("0");
+  const [totalPaidOrderValue, setTotalPaidOrderValue] = useState("0");
+
+  const [totalRejectAfterAcceptOrder, setTotalRejectAfterAcceptOrder] =
+    useState("0");
+  const [
+    totalRejectAfterAcceptOrderValue,
+    setTotalRejectAfterAcceptOrderValue,
+  ] = useState("0");
+
+  useEffect(() => {
+    getOrderDetails();
+  }, []);
+  const getOrderDetails = async () => {
+    let params = { url: apiList.totalOrder };
+    let response = await ApiService.getData(params);
+    if (response) {
+      if (response.totalOrder[0].total_order) {
+        setTotalOrder(response.totalOrder[0].total_order);
+        setTotalOrderValue(response.totalOrder[0].total);
+      }
+      if (response.totalPendingOrder[0].total_order) {
+        setTotalPendingOrder(response.totalPendingOrder[0].total_order);
+        setTotalPendingOrderValue(response.totalPendingOrder[0].total);
+      }
+      if (response.totalAcceptOrder[0].total_order) {
+        setTotalAcceptOrder(response.totalAcceptOrder[0].total_order);
+        setTotalAcceptOrderValue(response.totalAcceptOrder[0].total);
+      }
+      if (response.totalCancelOrder[0].total_order) {
+        setTotalCancelOrder(response.totalCancelOrder[0].total_order);
+        setTotalCancelOrderValue(response.totalCancelOrder[0].total);
+      }
+      if (response.totalPaidOrder[0].total_order) {
+        setTotalPaidOrder(response.totalPaidOrder[0].total_order);
+        setTotalPaidOrderValue(response.totalPaidOrder[0].total);
+      }
+      if (response.totalRejectAfterAcceptOrder[0].total_order) {
+        setTotalRejectAfterAcceptOrder(
+          response.totalRejectAfterAcceptOrder[0].total_order
+        );
+        setTotalRejectAfterAcceptOrderValue(
+          response.totalRejectAfterAcceptOrder[0].total
+        );
+      }
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -68,7 +129,7 @@ export default function Content() {
                               إجمالي الطلبات
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              70
+                              {totalOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من الشهر الماضي
@@ -79,10 +140,10 @@ export default function Content() {
                             className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                              إجمالي قيمة الطلبات{" "}
+                              إجمالي قيمة الطلبات
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              170 ريال
+                              {totalOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من الشهر الماضي{" "}
@@ -93,10 +154,10 @@ export default function Content() {
                             className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                              الطلبات المعلقة{" "}
+                              الطلبات المعلقة
                             </div>
                             <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                              3
+                              {totalPendingOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#E80000]">
                               5,09% أعلى من الشهر الماضي{" "}
@@ -104,13 +165,13 @@ export default function Content() {
                           </td>
                           <td className="  text-center w-[25%]">
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                              إجمالي مبلغ الطلبات{" "}
+                              إجمالي مبلغ الطلبات
                             </div>
                             <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                              70 ريال
+                              {totalPendingOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#E80000]">
-                              5,09% أعلى من الشهر الماضي{" "}
+                              5,09% أعلى من الشهر الماضي
                             </div>
                           </td>
                         </tr>
@@ -135,10 +196,10 @@ export default function Content() {
                             className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                              الطلبات المقبولة{" "}
+                              الطلبات المقبولة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              70
+                              {totalAcceptOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من الشهر الماضي
@@ -152,7 +213,7 @@ export default function Content() {
                               قيمة الطلبات المقبولة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              150 ريال
+                              {totalAcceptOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من الشهر الماضي
@@ -166,7 +227,7 @@ export default function Content() {
                               الطلبات المرفوضة
                             </div>
                             <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                              7
+                              {totalCancelOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               1,06% أقل من الشهر الماضي
@@ -177,7 +238,7 @@ export default function Content() {
                               قيمة الطلبات المرفوضة
                             </div>
                             <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                              22 ريال
+                              {totalCancelOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#E80000]">
                               5,09% أعلى من الشهر الماضي
@@ -208,7 +269,7 @@ export default function Content() {
                               الطلبات المدفوعة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              50
+                              {totalPaidOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#E80000]">
                               1,06% أقل من الشهر الماضي
@@ -222,7 +283,7 @@ export default function Content() {
                               قيمة الطلبات المدفوعة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              66 ريال
+                              {totalPaidOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#E80000]">
                               1,06% أقل من الشهر الماضي
@@ -233,10 +294,10 @@ export default function Content() {
                             className="  text-center w-[25%]"
                           >
                             <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                              الطلبات المرفوضة بعد الإتفاق المبدئي{" "}
+                              الطلبات المرفوضة بعد الإتفاق المبدئي
                             </div>
                             <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                              1
+                              {totalRejectAfterAcceptOrder}
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               1,06% أقل من الشهر الماضي
@@ -247,7 +308,7 @@ export default function Content() {
                               قيمة الطلبات المرفوضة بعد الإتفاق المبدئي
                             </div>
                             <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                              70 ريال
+                              {totalRejectAfterAcceptOrderValue} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               1,06% أقل من الشهر الماضي
@@ -265,16 +326,6 @@ export default function Content() {
                 <BarGraph />
               </div>
               <div className="bg-white w-[49%] rounded-[6px]">
-                <fieldset className="form-group ml-[20px] mr-[20px] mt-[10px]">
-                  <select
-                    className="form-control text-[18px] font-sstbold text-[#959494] bg-[#F9F9F9]"
-                    id="basicSelect"
-                  >
-                    <option>عدد الطلبات</option>
-                    <option>Blade Runner</option>
-                    <option>Thor Ragnarok</option>
-                  </select>
-                </fieldset>
                 <div className="relative">
                   <Graph />
                 </div>

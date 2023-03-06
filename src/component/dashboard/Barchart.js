@@ -56,7 +56,7 @@ export default function Barchart(props) {
     let more = 2;
     let params = { url: apiList.numberOfOrderByRange, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response);
+    //console.log(response);
     if (response) {
       let valres = response.result;
       for (let i = 0; i < response.result.length; i++) {

@@ -11,5 +11,10 @@
   "numberOfRejectedOrderByRange": "/orders/numberOfRejectedOrderByRange",
   "getNumberOfCommitment": "/orders/getNumberOfCommitment",
   "getUserAndStore": "/users/getUserAndStore",
-  "getDevice": "/users/getDevice"
+  "getDevice": "/users/getDevice",
+  "getAllUser": "/users/getAllUser",
+  "getMostActiveUser": "/users/getMostActiveUser",
+  "getAllStore": "/stores/getAllStore",
+  "getMostActiveStore": "/stores/getMostActiveStore",
+  "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr"
 }
