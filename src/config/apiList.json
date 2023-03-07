@@ -16,5 +16,13 @@
   "getMostActiveUser": "/users/getMostActiveUser",
   "getAllStore": "/stores/getAllStore",
   "getMostActiveStore": "/stores/getMostActiveStore",
-  "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr"
+  "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr",
+  "allRequestedOrder": "/orders/allRequestedOrder",
+  "getReport": "/report/getReport",
+  "getReportDetails": "/report/getReportDetails",
+  "getReportPending": "/report/getReportPending",
+  "getMostReported": "/report/getMostReported",
+  "getReportByHr": "/report/getReportByHr",
+  "getSms": "/sms/getSms",
+  "getSmsByHr": "/sms/getSmsByHr"
 }

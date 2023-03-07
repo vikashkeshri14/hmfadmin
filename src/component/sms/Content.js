@@ -1,7 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Graph from "./Graph";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
+import SmsList from "./SmsList";
 export default function Content() {
+  const [totalSms, setTotalSms] = useState("0");
+  const [showModal, setShowModal] = useState(false);
+  const [addIds, setAddIds] = useState([]);
+  const [iderror, setIderror] = useState(false);
+  const [actualId, setactualId] = useState([]);
+  const [type, setType] = useState("2");
+  const [message, setMessage] = useState("");
+  const [id, setId] = useState("");
+  useEffect(() => {
+    getSms();
+  }, []);
+  const getSms = async () => {
+    let params = { url: apiList.getSms };
+    let response = await ApiService.getData(params);
+    if (response.result.length > 0) {
+      setTotalSms(response.result[0].cnt);
+    }
+  };
+  const addId = async () => {
+    if (!id) {
+      setIderror(true);
+      return;
+    }
+    if (id[0] != "#") {
+      setIderror(true);
+      return;
+    }
+    let num = id.substring(1);
+    if (isNaN(num)) {
+      setIderror(true);
+      return;
+    }
+    // isNaN
+    setIderror(false);
+    let addid = addIds;
+    let sendId = actualId;
+    sendId.push(num);
+    setactualId(sendId);
+    addid.push(id);
+    let uniq = [...new Set(addid)];
+    setAddIds(uniq);
+    setId("");
+  };
+
+  const senSms = async () => {
+    const obj = {
+      type: type,
+      ids: actualId,
+      message: message,
+    };
+    console.log(obj);
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -14,7 +71,7 @@ export default function Content() {
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative has-icon-left">
-                      <div className=" absolute top-[20px] left-[10px] w-[24px] h-[24px]">
+                      <div className="absolute top-[20px] left-[10px] w-[24px] h-[24px]">
                         <i className="bx bx-slider-alt"></i>
                       </div>
                       <input
@@ -62,7 +119,12 @@ export default function Content() {
                 </div>
               </div>
               <div className="w-[27.5%] flex justify-end  dashboard-users mr-[10px]">
-                <button className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] ">
+                <button
+                  onClick={() => {
+                    setShowModal((showModal) => !showModal);
+                  }}
+                  className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
+                >
                   عرض سجل البلاغات
                 </button>
               </div>
@@ -77,7 +139,7 @@ export default function Content() {
                           عدد الرسائل المرسلة
                         </div>
                         <div className="text-[#484848] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                          50
+                          {totalSms}
                         </div>
                         <div className="text-[#E80000] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -92,7 +154,7 @@ export default function Content() {
                           مبلغ الرسائل المدفوعة
                         </div>
                         <div className="text-[#484848] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                          70
+                          0
                         </div>
                         <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                           5,09% أقل من الشهر الماضي
@@ -118,301 +180,131 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        تحديث التطبيق
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        المتاجر
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        اسم الموظف
-                      </div>
-                    </td>
+            <SmsList />
+            {showModal && (
+              <>
+                <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative  max-w-3xl">
+                    {/*content*/}
+                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-[700px] bg-[#FAFAFA] outline-none focus:outline-none">
+                      <div class="card h-[400px] bg-[#FAFAFA] mt-[10px]">
+                        <div class="card-body">
+                          <form class="form form-horizontal">
+                            <div class="form-body">
+                              <div class="row">
+                                <div class="col-md-2 pl-[0px] pr-[0px]">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    المرسل إلية
+                                  </label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <fieldset className="form-group w-[100%] h-[49px] bg-[#EBEBEB]">
+                                    <select
+                                      style={{
+                                        background:
+                                          "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
+                                      }}
+                                      className="form-control bg-[#EBEBEB] h-[49px]"
+                                      id="basicSelect"
+                                      onChange={(e) => {
+                                        setType(e.target.value);
+                                      }}
+                                    >
+                                      <option attr="store" value="2">
+                                        محددة
+                                      </option>
+                                      <option attr="user" value="1">
+                                        المستخدمين
+                                      </option>
+                                    </select>
+                                  </fieldset>
+                                </div>
+                                <div class="col-md-4 form-group ">
+                                  <div class="position-relative">
+                                    <div
+                                      onClick={() => {
+                                        addId();
+                                      }}
+                                      class="absolute left-[10px] top-[15px]"
+                                    >
+                                      <i class="bx bxs-plus-circle"></i>
+                                    </div>
+                                    <input
+                                      dir="ltr"
+                                      type="text"
+                                      id="fname-icon"
+                                      value={id}
+                                      class={
+                                        iderror
+                                          ? "form-control text-left border-[#E80000] bg-[#EBEBEB] h-[49px]"
+                                          : "form-control text-left bg-[#EBEBEB] h-[49px]"
+                                      }
+                                      name="fname-icon"
+                                      onChange={(e) => {
+                                        setId(e.target.value);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
 
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          إظهار الرسالة
-                        </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        تحديث التطبيق
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        المتاجر
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        اسم الموظف
-                      </div>
-                    </td>
+                                <div class="col-md-12 flex form-group">
+                                  {addIds.length > 0 &&
+                                    addIds.map((data, i) => {
+                                      return (
+                                        <div className="pl-[5px] pr-[5px] text-[#60BA62] font-sstmedium text-[16px]">
+                                          {data}
+                                        </div>
+                                      );
+                                    })}
+                                </div>
+                                <div class="col-md-12">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    نص الرسالة
+                                  </label>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                  <textarea
+                                    onChange={(e) => {
+                                      setMessage(e.target.value);
+                                    }}
+                                    class="form-control h-[128px] bg-[#EBEBEB]"
+                                    name="password"
+                                    placeholder="  نص الرسالة"
+                                    rows="3"
+                                  ></textarea>
+                                </div>
 
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          إظهار الرسالة
-                        </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        تحديث التطبيق
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        المتاجر
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        اسم الموظف
-                      </div>
-                    </td>
-
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          إظهار الرسالة
-                        </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
+                                <div class="col-sm-12 mt-[20px] d-flex justify-center">
+                                  <button
+                                    onClick={() => {
+                                      senSms();
+                                    }}
+                                    type="button"
+                                    class="btn hover:text-[#707070] send bg-[#959494] text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff] mr-1"
+                                  >
+                                    إرسال
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setShowModal(false);
+                                    }}
+                                    type="button"
+                                    class="btn bg-[#959494] hover:text-[#707070] cancel text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff]"
+                                  >
+                                    إلغاء
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        تحديث التطبيق
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        المتاجر
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        اسم الموظف
-                      </div>
-                    </td>
-
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          إظهار الرسالة
-                        </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        تحديث التطبيق
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        المتاجر
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        اسم الموظف
-                      </div>
-                    </td>
-
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          إظهار الرسالة
-                        </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            )}
           </section>
         </div>
       </div>

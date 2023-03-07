@@ -27,6 +27,7 @@ export default function Graph(props) {
       range: rangeval,
       status: "all",
     };
+
     let params = { url: apiList.numberOfOrderByStatus, body: obj };
     let response = await ApiService.postData(params);
 
@@ -51,9 +52,10 @@ export default function Graph(props) {
         range: range,
         status: "all",
       };
+
       let params = { url: apiList.numberOfOrderByStatus, body: obj };
       let response = await ApiService.postData(params);
-
+      console.log(response);
       if (response) {
         let valres = [];
         let res = response.result;
@@ -149,7 +151,7 @@ export default function Graph(props) {
     }
   };
   return (
-    <div className="relative  h-[413px] p-[10px]">
+    <div className="relative  h-[313px] p-[10px]">
       <div className="text-[#959494] flex justify-end text-[18px] font-sstbold pt-[10px] pl-[10px] ">
         <fieldset className="form-group w-[100%] h-[57px] bg-[#F9F9F9]">
           <select
@@ -195,7 +197,7 @@ export default function Graph(props) {
           <Squares />
         </div>
       )}
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" className="mt-[200px]" height="100%">
         <AreaChart
           height={60}
           data={data}
@@ -206,11 +208,12 @@ export default function Graph(props) {
             bottom: 5,
           }}
         >
+          <Tooltip />
           <Area
             type="monotone"
-            dataKey="uv"
+            dataKey="number"
             stroke="#FF9800"
-            fill="rgb(255,152, 0, 0.24)"
+            fill="rgb(255,152, 0, 0.16)"
           />
         </AreaChart>
       </ResponsiveContainer>

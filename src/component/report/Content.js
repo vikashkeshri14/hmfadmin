@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Graph from "./Graph";
 
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
+import NewReport from "./NewReport";
+import ReportPending from "./ReportPending";
+import StoreReportedMost from "./StoreReportedMost";
+import UserMostReported from "./UserMostReported";
 export default function Content() {
+  const [totalReport, settotalReport] = useState(0);
+  const [resolveReport, setresolveReport] = useState(0);
+  const [pendingReport, setpendingReport] = useState(0);
+  const [storeNotification, setstoreNotification] = useState(0);
+  const [userReport, setuserReport] = useState(0);
+  const [productNotification, setproductNotification] = useState(0);
+  useEffect(() => {
+    getAllReport();
+    ///getDevice();
+  }, []);
+  const getAllReport = async () => {
+    let params = { url: apiList.getReport };
+    let response = await ApiService.getData(params);
+    if (response.allReport.length > 0) {
+      settotalReport(response.allReport[0].cnt);
+      setuserReport(response.allReport[0].cnt);
+    }
+    if (response.pendingReport.length > 0) {
+      setpendingReport(response.pendingReport[0].cnt);
+    }
+    if (response.storeNotification.length > 0) {
+      setstoreNotification(response.storeNotification[0].cnt);
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -73,11 +105,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] total-no-of-report text-center font-sstbold text-[18px]">
                           عدد البلاغات
                         </div>
                         <div className="text-[#AD0000] text-center font-sstbold text-[35px]">
-                          50
+                          {totalReport}
                         </div>
                         <div className="text-[#E80000] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -88,11 +120,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] resolved-report text-center font-sstbold text-[18px]">
                           عدد البلاغات المحلولة
                         </div>
                         <div className="text-[#498A4A] text-center font-sstbold text-[35px]">
-                          70
+                          {totalReport - pendingReport}
                         </div>
                         <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -105,11 +137,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] outstanding-report text-center font-sstbold text-[18px]">
                           عدد البلاغات المعلقة
                         </div>
                         <div className="text-[#FF9800] text-center font-sstbold text-[35px]">
-                          0
+                          {pendingReport}
                         </div>
                         <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                           5,09% أقل من الشهر الماضي
@@ -120,11 +152,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] store-notification text-center font-sstbold text-[18px]">
                           بلاغات المتاجر
                         </div>
                         <div className="text-[#AD0000] text-center font-sstbold text-[35px]">
-                          40
+                          {storeNotification}
                         </div>
                         <div className="text-[#E80000] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -137,11 +169,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 pl-[0px]  rounded-[6px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] user-report text-center font-sstbold text-[18px]">
                           بلاغات المستخدمين
                         </div>
                         <div className="text-[#AD0000] text-center font-sstbold text-[35px]">
-                          70
+                          {userReport}
                         </div>
                         <div className="text-[#E80000] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -152,11 +184,11 @@ export default function Content() {
                   <div className="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
                     <div className="card mb-[10px] pb-[10px]">
                       <div className="p-[10px]">
-                        <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                        <div className="text-[#959494] product-notification text-center font-sstbold text-[18px]">
                           بلاغات المنتجات
                         </div>
                         <div className="text-[#AD0000] text-center font-sstbold text-[35px]">
-                          40
+                          {productNotification}
                         </div>
                         <div className="text-[#E80000] text-center font-sstbold text-[16px]">
                           5,09% أعلى من الشهر الماضي
@@ -166,819 +198,25 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-6 col-sm-12 rounded-[6px] pl-[0px]">
-                <div className="card mb-[10px] pb-[10px]">
-                  <fieldset className="form-group ml-[20px] mr-[20px] mt-[10px]">
-                    <select
-                      className="form-control text-[18px] font-sstbold text-[#959494] bg-[#F9F9F9]"
-                      id="basicSelect"
-                    >
-                      <option>عدد الطلبات</option>
-                      <option>Blade Runner</option>
-                      <option>Thor Ragnarok</option>
-                    </select>
-                  </fieldset>
-                  <Graph />
-                </div>
-              </div>
-            </div>
-            <div className="row mt-[20px]">
-              <div className="col-md-12 col-sm-12 pl-[0px] ">
-                <div className="bg-white rounded-[6px] pb-[10px]">
-                  <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
-                      البلاغات الجديدة
-                    </div>
-                    <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-                      عرض المزيد
-                    </div>
-                  </div>
-                  <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
-                    <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              <div className="col-md-6  col-sm-12 pl-[0px]">
+                <div className="mb-[10px] bg-white h-[423px] rounded-[6px] pb-[10px]">
+                  <div className="relative">
+                    <Graph />
                   </div>
                 </div>
               </div>
             </div>
             <div className="row mt-[20px]">
-              <div className="col-md-12 col-sm-12 pl-[0px] ">
-                <div className="bg-white rounded-[6px] pb-[10px]">
-                  <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
-                      البلاغات المعلقة
-                    </div>
-                    <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-                      عرض المزيد
-                    </div>
-                  </div>
-                  <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
-                    <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[381px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                            <div className="w-[24%] flex justify-center pr-[5px] pl-[5px]">
-                              <img
-                                className="w-[76px] justify-center self-center h-[26px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/arrow-red.png"
-                                alt="sidebar  user image"
-                              />
-                            </div>
-                            <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                          <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                            <div className="border-t-[1px]"></div>
-                          </div>
-                          <div className="flex mb-[10px]">
-                            <div className="w-[33.33%] text-[#E80000] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              بلاغ عن مستخدم
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center border-l-[1px] pb-[15px]">
-                              {" "}
-                              حذف
-                            </div>
-                            <div className="w-[33.33%] text-[#484848] text-[16px] font-sstbold text-center  pb-[15px]">
-                              تفاصيل أكثر
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <NewReport />
             </div>
             <div className="row mt-[20px]">
-              <div className="col-md-12 col-sm-12 pl-[0px] ">
-                <div className="bg-white rounded-[6px] pb-[10px]">
-                  <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
-                      أكثر المتاجر التي لديها بلاغات
-                    </div>
-                    <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-                      عرض المزيد
-                    </div>
-                  </div>
-                  <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
-                    <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="sidebar  user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ReportPending />
             </div>
             <div className="row mt-[20px]">
-              <div className="col-md-12 col-sm-12 pl-[0px] ">
-                <div className="bg-white rounded-[6px] pb-[10px]">
-                  <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
-                      أكثر المستخدمين الذين لديهم بلاغات
-                    </div>
-                    <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-                      عرض المزيد
-                    </div>
-                  </div>
-                  <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
-                    <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  5 بلاغات
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <StoreReportedMost />
+            </div>
+            <div className="row mt-[20px]">
+              <UserMostReported />
             </div>
           </section>
         </div>
