@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Graph from "./Graph";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import { Squares } from "react-activity";
+import "react-activity/dist/library.css";
 export default function Content() {
+  const [totalBanList, setTotalBanList] = useState([]);
+  const [tempBan, setTempBan] = useState(0);
+  const [deleteBan, setDeleteBan] = useState(0);
+  const [alwaysBan, setAlwaysBan] = useState(0);
+
+  const [tempBanList, setTempBanList] = useState(0);
+  const [deleteBanList, setDeleteBanList] = useState(0);
+  const [alwaysBanList, setAlwaysBanList] = useState(0);
+
+
+  useEffect(() => {
+    permanentban();
+    tempban();
+    deletedban();
+    totalban();
+  }, [])
+  const totalban = async () => {
+    let params = { url: apiList.totalban };
+    let response = await ApiService.getData(params);
+    setTotalBanList(response.result)
+    //console.log(response.result);
+  }
+  const permanentban = async () => {
+    let params = { url: apiList.permanentban };
+    let response = await ApiService.getData(params);
+    setAlwaysBan(response.result.length)
+    setAlwaysBanList(response.result);
+  }
+  const tempban = async () => {
+    let params = { url: apiList.tempban };
+    let response = await ApiService.getData(params);
+    setTempBan(response.result.length);
+    setTempBanList(response.result);
+  }
+  const deletedban = async () => {
+    let params = { url: apiList.deletedban };
+    let response = await ApiService.getData(params);
+    setDeleteBan(response.result.length);
+    setDeleteBanList(response.result);
+  }
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -64,11 +108,11 @@ export default function Content() {
                               style={{ borderLeftWidth: 1 }}
                               className=" h-[240px] pb-[0px] pt-[0px] text-center "
                             >
-                              <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
+                              <div className="always-ban flex justify-center text-[#959494] text-[18px] font-sstbold ">
                                 المحظورين دائماً
                               </div>
                               <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                                50
+                                {alwaysBan}
                               </div>
                               <div className="text-[16px] font-sstbold text-[#60BA62]">
                                 5,09% أقل من الشهر الماضي
@@ -78,11 +122,11 @@ export default function Content() {
                               style={{ borderLeftWidth: 1 }}
                               className=" h-[240px] pb-[0px] pt-[0px] text-center "
                             >
-                              <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
+                              <div className=" temp-ban flex justify-center text-[#959494] text-[18px] font-sstbold ">
                                 المحظورين مؤقتاً
                               </div>
                               <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                                66
+                                {tempBan}
                               </div>
                               <div className="text-[16px] font-sstbold text-[#E80000]">
                                 1,06% أعلى من الشهر الماضي
@@ -92,11 +136,11 @@ export default function Content() {
                               style={{ borderLeftWidth: 0 }}
                               className="h-[240px] pb-[0px] pt-[0px] text-center "
                             >
-                              <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
+                              <div className="delete-ban flex justify-center text-[#959494] text-[18px] font-sstbold ">
                                 المحذوفين
                               </div>
                               <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                                1
+                                {deleteBan}
                               </div>
                               <div className="text-[16px] font-sstbold text-[#E80000]">
                                 1,06% أعلى من الشهر الماضي
@@ -111,22 +155,7 @@ export default function Content() {
               </div>
               <div className="w-[40%] h-[240px] rounded-[6px] mr-[0px] pr-[0px] pl-[0px]">
                 <div className="card mb-[10px] h-[240px] pb-[10px]">
-                  <div className="text-[#959494] flex justify-end text-[18px] font-sstbold pt-[10px] pl-[20px] ">
-                    <fieldset className="form-group w-[50%] h-[57px] bg-[#F9F9F9]">
-                      <select
-                        style={{
-                          background:
-                            "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
-                        }}
-                        className="form-control bg-[#F9F9F9] h-[57px]"
-                        id="basicSelect"
-                      >
-                        <option>إجمالي عدد المحظورين</option>
-                        <option>Blade Runner</option>
-                        <option>Thor Ragnarok</option>
-                      </select>
-                    </fieldset>
-                  </div>
+
                   <Graph />
                 </div>
               </div>
@@ -135,7 +164,7 @@ export default function Content() {
               <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
+                    <div className="text-[18px] w-[50%] recently-ban p-[10px] font-sstbold text-[#959494]">
                       المحظورين مؤخراً
                     </div>
                     <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
@@ -144,64 +173,40 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
+                      {totalBanList.length > 0 && totalBanList.map((data, i) => {
+
+                        return (<div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                          <div className="w-[100%] bg-[#F9F9F9]">
+                            <div className="flex pb-[5px]">
+                              <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                <div className="flex justify-center mt-[10px]">
+                                  <img
+                                    className="w-[66px] h-[66px] rounded-[33px]"
+                                    src={config.imgUri + "/" + data.user_pic}
+                                    alt="user image"
+                                  />
+                                </div>
+                                <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                  {data.username}
+                                </div>
+                                <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                  #{data.id}
+                                </div>
+                                <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                  <div className="border-t-[1px]"></div>
+                                </div>
+                                <div className="flex mb-[10px]">
+                                  <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                    إزالة الحظر
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        </div>)
+                      })}
+
+
                     </div>
                   </div>
                 </div>
@@ -211,7 +216,7 @@ export default function Content() {
               <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
+                    <div className="text-[18px] temporarily-ban w-[50%] p-[10px] font-sstbold text-[#959494]">
                       المحظورين مؤقتاً
                     </div>
                     <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
@@ -220,122 +225,40 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
+                      {tempBanList.length > 0 && tempBanList.map((data, i) => {
+
+                        return (
+                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                            <div className="w-[100%] bg-[#F9F9F9]">
+                              <div className="flex pb-[5px]">
+                                <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                  <div className="flex justify-center mt-[10px]">
+                                    <img
+                                      className="w-[66px] h-[66px] rounded-[33px]"
+                                      src={config.imgUri + "/" + data.user_pic}
+                                      alt="user image"
+                                    />
+                                  </div>
+                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                    {data.username}
+                                  </div>
+                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                    #{data.id}
+                                  </div>
+                                  <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                    <div className="border-t-[1px]"></div>
+                                  </div>
+                                  <div className="flex mb-[10px]">
+                                    <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                      إزالة الحظر
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                          </div>)
+                      })}
+
                     </div>
                   </div>
                 </div>
@@ -345,7 +268,7 @@ export default function Content() {
               <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
+                    <div className="text-[18px] always-ban w-[50%] p-[10px] font-sstbold text-[#959494]">
                       المحظورين دائما
                     </div>
                     <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
@@ -354,122 +277,40 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
+                      {alwaysBanList.length > 0 && alwaysBanList.map((data, i) => {
+
+                        return (
+                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                            <div className="w-[100%] bg-[#F9F9F9]">
+                              <div className="flex pb-[5px]">
+                                <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                  <div className="flex justify-center mt-[10px]">
+                                    <img
+                                      className="w-[66px] h-[66px] rounded-[33px]"
+                                      src={config.imgUri + "/" + data.user_pic}
+                                      alt="user image"
+                                    />
+                                  </div>
+                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                    {data.username}
+                                  </div>
+                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                    #{data.id}
+                                  </div>
+                                  <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                    <div className="border-t-[1px]"></div>
+                                  </div>
+                                  <div className="flex mb-[10px]">
+                                    <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                      إزالة الحظر
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[5px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                              <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                <div className="border-t-[1px]"></div>
-                              </div>
-                              <div className="flex mb-[10px]">
-                                <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                  إزالة الحظر
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                          </div>)
+                      })}
+
                     </div>
                   </div>
                 </div>
@@ -479,7 +320,7 @@ export default function Content() {
               <div className="col-md-12 col-sm-12 pl-[0px] ">
                 <div className="bg-white rounded-[6px] pb-[10px]">
                   <div className="flex justify-evenly">
-                    <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
+                    <div className="text-[18px] delete-ban w-[50%] p-[10px] font-sstbold text-[#959494]">
                       المحذوفين
                     </div>
                     <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
@@ -488,90 +329,32 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[20px] pt-[20px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[20px] pt-[20px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
+                      {deleteBanList.length > 0 && deleteBanList.map((data, i) => {
+
+                        return (
+                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                            <div className="w-[100%] bg-[#F9F9F9]">
+                              <div className="flex pb-[20px] pt-[20px]">
+                                <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                  <div className="flex justify-center mt-[10px]">
+                                    <img
+                                      className="w-[66px] h-[66px] rounded-[33px]"
+                                      src={config.imgUri + "/" + data.user_pic}
+                                      alt="user image"
+                                    />
+                                  </div>
+                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                    {data.username}
+                                  </div>
+                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                    #{data.id}
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[20px] pt-[20px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/store.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                متجر أسرتي
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                        <div className="w-[100%] bg-[#F9F9F9]">
-                          <div className="flex pb-[20px] pt-[20px]">
-                            <div className="w-full flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
-                                <img
-                                  className="w-[66px] h-[66px] rounded-[33px]"
-                                  src="../../../panel/app-assets/images/user-profile.png"
-                                  alt="user image"
-                                />
-                              </div>
-                              <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                محمد علي محمد
-                              </div>
-                              <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                #445666
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                          </div>)
+                      })}
+
                     </div>
                   </div>
                 </div>

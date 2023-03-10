@@ -468,16 +468,30 @@ export default function LeftMenu({ route }) {
               </span>
             </Link>
           </li>
-          <li className=" h-[61px] flex  nav-item">
-            <Link>
-              <img
-                className="h-[24px] w-[24px] ml-[24px]"
-                src={
-                  config.domainUrl + "/panel/app-assets/images/icon/edit.png"
-                }
-              />
+          <li className={
+            pathUrl == "/categories"
+              ? "  h-[61px] flex  nav-item  active-menu-left "
+              : " h-[61px] flex  nav-item"
+          }>
+            <Link to="/categories">
+              {pathUrl == "/categories" ? (
+                <img
+                  className="h-[24px] w-[24px] ml-[24px]"
+                  src={
+                    config.domainUrl + "/panel/app-assets/images/edit-white.png"
+                  }
+                />) : (<img
+                  className="h-[24px] w-[24px] ml-[24px]"
+                  src={
+                    config.domainUrl + "/panel/app-assets/images/icon/edit.png"
+                  }
+                />)}
               <span
-                className="menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
+                className={
+                  pathUrl == "/categories"
+                    ? "menu-title text-truncate text-[#ffffff] text-[16px] font-sstbold"
+                    : "menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
+                }
                 data-i18n="Item modification"
               >
                 تعديل الأصناف

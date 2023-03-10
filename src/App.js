@@ -17,6 +17,7 @@ import Management from "./screen/management/Management";
 import AddManagement from "./screen/management/AddManagement";
 import BlackList from "./screen/blacklist/BlackList";
 import Transfer from "./screen/transfer/Transfer";
+import Categories from "./screen/categories/Categories";
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
         <Route path="/management" element={<Management />} />
         <Route path="/add-management" element={<AddManagement />} />
         <Route path="/blacklist" element={<BlackList />} />
+        <Route path="/categories" element={<Categories />} />
+
       </Routes>
     </Router>
   );

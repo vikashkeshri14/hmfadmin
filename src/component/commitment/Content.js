@@ -1,11 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Barchart from "./Barchart";
 import Graph from "./Graph";
 import LineCharts from "./LineCharts";
-
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 export default function Content() {
   const [alertShow, setAlertShow] = useState(false);
-
+  const [totalOrderCommitment, setTotalOrderCommitment] = useState("0");
+  const [totalAmountOfCommitment, setTotalAmountOfCommitment] = useState("0");
+  const [totalPendingOrderCommitment, setTotalPendingOrderCommitment] =
+    useState("0");
+  const [totalAmountOfPendingCommitment, setTotalAmountOfPendingCommitment] =
+    useState("0");
+  const [totalPaidOrderCommitment, setTotalPaidOrderCommitment] = useState("0");
+  const [totalAmountOfPaidCommitment, setTotalAmountOfPaidCommitment] =
+    useState("0");
+  useEffect(() => {
+    getOrderCommitment();
+  }, []);
+  const getOrderCommitment = async () => {
+    let params = { url: apiList.totalOrderCommitment };
+    let response = await ApiService.getData(params);
+    if (response) {
+      if (response.totalOrderCommitment[0].total_order) {
+        setTotalOrderCommitment(response.totalOrderCommitment[0].total_order);
+        setTotalAmountOfCommitment(response.totalOrderCommitment[0].total);
+      }
+      if (response.totalPendingOrderCommitment[0].total_order) {
+        setTotalPendingOrderCommitment(
+          response.totalPendingOrderCommitment[0].total_order
+        );
+        setTotalAmountOfPendingCommitment(
+          response.totalPendingOrderCommitment[0].total
+        );
+      }
+      if (response.totalPaidOrderCommitment[0].total_order) {
+        setTotalPaidOrderCommitment(
+          response.totalPaidOrderCommitment[0].total_order
+        );
+        setTotalAmountOfPaidCommitment(
+          response.totalPaidOrderCommitment[0].total
+        );
+      }
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -93,7 +132,7 @@ export default function Content() {
                               إجمالي قيمة الإلتزامات
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              2,000 ريال
+                              {totalAmountOfCommitment} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من السنة الماضية
@@ -107,7 +146,7 @@ export default function Content() {
                               قيمة الإلتزامات المدفوعة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              1,500 ريال
+                              {totalAmountOfPaidCommitment} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من السنة الماضية
@@ -118,7 +157,7 @@ export default function Content() {
                               قيمة الإلتزامات المعلقة
                             </div>
                             <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                              500 ريال
+                              {totalAmountOfPendingCommitment} ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               1,06% أقل من السنة الماضية
@@ -139,7 +178,7 @@ export default function Content() {
                               إجمالي عدد الإلتزامات
                             </div>
                             <div className="text-[#484848] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              7,000
+                              {totalOrderCommitment}
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من السنة الماضية
@@ -154,7 +193,7 @@ export default function Content() {
                               عدد الإلتزامات المدفوعة
                             </div>
                             <div className="text-[#484848] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              5,000
+                              {totalPaidOrderCommitment}
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من السنة الماضية
@@ -169,7 +208,7 @@ export default function Content() {
                               عدد الالتزامات المعلقة
                             </div>
                             <div className="text-[#FF9800] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              3,000
+                              {totalPendingOrderCommitment}
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               1,06% أقل من السنة الماضية

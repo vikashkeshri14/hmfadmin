@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function Content() {
   const [checkindex, setCheckindex] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 23, 45, 23, 23,
   ]);
+  const navigate = useNavigate();
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -32,7 +33,12 @@ export default function Content() {
               </div>
 
               <div className="w-[60%] flex justify-end  dashboard-users mr-[10px]">
-                <button className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] ">
+                <button
+                  onClick={() => {
+                    navigate("/add-management");
+                  }}
+                  className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
+                >
                   إضافة عضو جديد
                 </button>
               </div>

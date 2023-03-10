@@ -186,9 +186,8 @@ export default function Content() {
                       className="form-control bg-[#EBEBEB]"
                       id="basicSelect"
                     >
-                      <option>الجميع</option>
-                      <option>Blade Runner</option>
-                      <option>Thor Ragnarok</option>
+                      <option value="2">المتاجر</option>
+                      <option value="1">المستخدمين</option>
                     </select>
                   </div>
                 </div>

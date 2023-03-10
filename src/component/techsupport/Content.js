@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
 
 export default function Content() {
   const [checkedTrash, setCheckedTrash] = useState(false);
-  const [checkindex, setCheckindex] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 23, 45, 23, 23,
-  ]);
+  const [techList, setTechList] = useState([]);
   const [countChecked, setCountChecked] = useState([]);
-  const checkedOnChange = (args, event) => {
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState(false);
+  useEffect(() => {
+    getTechSupport();
+  }, []);
+  const getTechSupport = async () => {
+    let params = { url: apiList.getTechSupportList };
+    let response = await ApiService.getData(params);
+    setTechList(response.result);
+  };
+  const checkedOnChange = async (args, event) => {
     let countValue = countChecked;
     if (event.target.checked) {
       countValue.push(args);
@@ -81,7 +94,12 @@ export default function Content() {
               </div>
 
               <div className="w-[22.5%] flex justify-end  dashboard-users mr-[10px]">
-                <button className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] ">
+                <button
+                  onClick={() => {
+                    setShowModal(true);
+                  }}
+                  className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
+                >
                   عرض سجل البلاغات
                 </button>
               </div>
@@ -95,7 +113,7 @@ export default function Content() {
             </div>
             <div className="row  mb-[10px] pl-[15px] pr-[15px]  ">
               <div className=" flex flex-wrap">
-                {checkindex.map((data, i) => {
+                {techList.map((data, i) => {
                   return (
                     <div
                       key={i}
@@ -113,31 +131,33 @@ export default function Content() {
                                     value=""
                                     className="w-4 h-4 rounded"
                                     onChange={(event) =>
-                                      checkedOnChange(data, event)
+                                      checkedOnChange(data.sender_id, event)
                                     }
                                   />
                                 </div>
                               </div>
                               <div className="w-[50%] mt-[10px] ml-[5px] flex justify-end">
-                                <div className="flex bg-[rgb(232,0,0,0.36)] justify-center h-[23px] w-[23px] rounded-full">
-                                  <div className=" self-center text-[#E80000]  ">
-                                    2
+                                {data.cnt != 0 ? (
+                                  <div className="flex bg-[rgb(232,0,0,0.36)] justify-center h-[23px] w-[23px] rounded-full">
+                                    <div className=" self-center text-[#E80000]  ">
+                                      {data.cnt}
+                                    </div>
                                   </div>
-                                </div>
+                                ) : null}
                               </div>
                             </div>
                             <div className="flex justify-center mt-[10px]">
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/user-profile.png"
+                                src={config.imgUri + "/" + data.user_pic}
                                 alt="user image"
                               />
                             </div>
                             <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[10px]">
-                              محمد علي محمد
+                              {data.username}{" "}
                             </div>
                             <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[10px] mb-[10px]">
-                              #445666
+                              #{data.sender_id}
                             </div>
                           </div>
                         </div>
@@ -147,6 +167,98 @@ export default function Content() {
                 })}
               </div>
             </div>
+            {showModal && (
+              <>
+                <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative  max-w-3xl">
+                    {/*content*/}
+                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-[700px] bg-[#FAFAFA] outline-none focus:outline-none">
+                      <div class="card h-[300px] bg-[#FAFAFA] mt-[10px]">
+                        <div class="card-body">
+                          <form class="form form-horizontal">
+                            <div class="form-body">
+                              <div class="row">
+                                <div class="col-md-3 pl-[0px] pr-[0px]">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    الفئة المستهدفة
+                                  </label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                  <fieldset className="form-group w-[100%] h-[49px] bg-[#EBEBEB]">
+                                    <select
+                                      style={{
+                                        background:
+                                          "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
+                                      }}
+                                      className="form-control bg-[#EBEBEB] h-[49px]"
+                                      id="basicSelect"
+                                      onChange={(e) => {
+                                        // setType(e.target.value);
+                                      }}
+                                    >
+                                      <option attr="store" value="2">
+                                        محددة
+                                      </option>
+                                      <option attr="user" value="1">
+                                        المستخدمين
+                                      </option>
+                                    </select>
+                                  </fieldset>
+                                </div>
+
+                                <div class="col-md-2">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    نص الرسالة
+                                  </label>
+                                </div>
+                                <div class="col-md-10 form-group">
+                                  <textarea
+                                    onChange={(e) => {
+                                      setMessage(e.target.value);
+                                    }}
+                                    class={
+                                      messageError
+                                        ? "form-control h-[128px] border-1 border-[#E80000]  bg-[#EBEBEB]"
+                                        : "form-control h-[128px] bg-[#EBEBEB]"
+                                    }
+                                    name="password"
+                                    rows="3"
+                                  >
+                                    {message}
+                                  </textarea>
+                                </div>
+
+                                <div class="col-sm-12 mt-[20px] d-flex justify-center">
+                                  <button
+                                    onClick={() => {
+                                      //senSms();
+                                    }}
+                                    type="button"
+                                    class="btn hover:text-[#707070] send bg-[#959494] text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff] mr-1"
+                                  >
+                                    إرسال
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setShowModal(false);
+                                    }}
+                                    type="button"
+                                    class="btn bg-[#959494] hover:text-[#707070] cancel text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff]"
+                                  >
+                                    إلغاء
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            )}
           </section>
         </div>
       </div>

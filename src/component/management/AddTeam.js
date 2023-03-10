@@ -1,6 +1,98 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 export default function AddTeam() {
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [iqama, setIqama] = useState("");
+  const [fullnameError, setFullNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [iqamaError, setIqamaError] = useState(false);
+  const [location, setLocation] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState(false);
+  const [modules, setModules] = useState([]);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const [cpassword, setCpassword] = useState("");
+  const [cpasswordError, setCpasswordError] = useState(false);
+
+  const [buttonClick, setButtonClick] = useState(false);
+
+  const checkedOnChange = async (args, event) => {
+    let countValue = modules;
+    if (event.target.checked) {
+      countValue.push(args);
+    } else {
+      countValue = countValue.filter((value, i) => value != args);
+    }
+    // console.log(countValue);
+    setModules(countValue);
+  };
+
+  const addTeam = async () => {
+    setButtonClick(true);
+    if (!fullname) {
+      setFullNameError(true);
+      setButtonClick(false);
+      return;
+    }
+    setFullNameError(false);
+    if (!iqama) {
+      setIqamaError(true);
+      setButtonClick(false);
+      return;
+    }
+    setIqamaError(false);
+    if (!phone) {
+      setPhoneError(true);
+      setButtonClick(false);
+      return;
+    }
+    setPhoneError(false);
+    if (!email) {
+      setEmailError(true);
+      setButtonClick(false);
+      return;
+    }
+    setEmailError(false);
+    if (!password) {
+      setPasswordError(true);
+      setButtonClick(false);
+      return;
+    }
+    setPasswordError(false);
+    if (!cpassword) {
+      setCpasswordError(true);
+      setButtonClick(false);
+      return;
+    }
+    if (cpassword != password) {
+      setCpasswordError(true);
+      setButtonClick(false);
+      return;
+    }
+    setCpasswordError(false);
+    if (modules.length == 0) {
+      alert("Please select the modules");
+      setButtonClick(false);
+      return;
+    }
+    setButtonClick(false);
+    const obj = {
+      fullname: fullname,
+      iqama: iqama,
+      location: location,
+      jobTitle: jobTitle,
+      phone: phone,
+      email: email,
+      password: password,
+      modules: modules,
+    };
+    console.log(obj);
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -17,59 +109,75 @@ export default function AddTeam() {
                         <div className="row">
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="full-name-vertical ">
-                                <span className="font-sstbold text-[#959494] text-[16px]">
+                              <label htmlFor="full-name-vertical ">
+                                <span className="font-sstbold full-name text-[#959494] text-[16px]">
                                   الاسم بالكامل
                                 </span>
                               </label>
                               <input
+                                value={fullname}
+                                onChange={(e) => setFullName(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
-                                name="fname"
+                                id="full-name-vertical"
+                                className={
+                                  fullnameError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
+                                name="fullname"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="iqama-vertical ">
+                              <label htmlFor="iqama-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الهوية الوطنية / الإقامة
                                 </span>
                               </label>
                               <input
+                                value={iqama}
+                                onChange={(e) => setIqama(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                id="iqama-vertical"
+                                className={
+                                  iqamaError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
                                 name="iqama"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="site-vertical ">
+                              <label htmlFor="location-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الموقع
                                 </span>
                               </label>
                               <input
+                                value={location}
+                                onChange={(e) => setLocation(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
+                                id="location-vertical"
                                 className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
-                                name="fname"
+                                name="location"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="job-title-vertical ">
+                              <label htmlFor="job-title-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   المسمى الوظيفي
                                 </span>
                               </label>
                               <input
+                                value={jobTitle}
+                                onChange={(e) => setJobTitle(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
+                                id="job-title-vertical"
                                 className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 name="job_title"
                               />
@@ -77,60 +185,84 @@ export default function AddTeam() {
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="mobile-vertical ">
+                              <label htmlFor="mobile-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   رقم الجوال
                                 </span>
                               </label>
                               <input
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                id="mobile-vertical"
+                                className={
+                                  phoneError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
                                 name="mobile"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="full-name-vertical ">
+                              <label htmlFor="email-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   الإيميل
                                 </span>
                               </label>
                               <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 type="text"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                id="email-vertical"
+                                className={
+                                  emailError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
                                 name="email"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="password-vertical ">
+                              <label htmlFor="password-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   كلمة المرور
                                 </span>
                               </label>
                               <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 type="password"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                id="password-vertical"
+                                className={
+                                  passwordError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
                                 name="password"
                               />
                             </div>
                           </div>
                           <div className="col-12">
                             <div className="form-group">
-                              <label for="confirm-password-vertical ">
+                              <label htmlFor="cpassword-vertical ">
                                 <span className="font-sstbold text-[#959494] text-[16px]">
                                   إعادة كلمة المرور
                                 </span>
                               </label>
                               <input
-                                type="text"
-                                id="first-name-vertical"
-                                className="form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                onChange={(e) => setCpassword(e.target.value)}
+                                type="password"
+                                value={cpassword}
+                                id="cpassword-vertical"
+                                className={
+                                  cpasswordError
+                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
+                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
+                                }
                                 name="cpassword"
                               />
                             </div>
@@ -162,10 +294,13 @@ export default function AddTeam() {
                                       className="checkbox-input"
                                       id="checkbox1"
                                       value="dashboard"
+                                      onChange={(event) =>
+                                        checkedOnChange("dashboard", event)
+                                      }
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox1"
+                                      htmlFor="checkbox1"
                                     >
                                       لوحة التحكم
                                     </label>
@@ -176,6 +311,9 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("commitment", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox2"
@@ -183,7 +321,7 @@ export default function AddTeam() {
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox2"
+                                      htmlFor="checkbox2"
                                     >
                                       الإلتزامات
                                     </label>
@@ -198,6 +336,9 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("users", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox3"
@@ -205,7 +346,7 @@ export default function AddTeam() {
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox3"
+                                      htmlFor="checkbox3"
                                     >
                                       إدارة الحسابات
                                     </label>
@@ -216,6 +357,9 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("profit", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox4"
@@ -223,7 +367,7 @@ export default function AddTeam() {
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox4"
+                                      htmlFor="checkbox4"
                                     >
                                       الأرباح
                                     </label>
@@ -238,14 +382,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("order", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox5"
-                                      value="order-management"
+                                      value="order"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox5"
+                                      htmlFor="checkbox5"
                                     >
                                       إدارة الطلبات
                                     </label>
@@ -256,14 +403,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("management", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox6"
-                                      value="team-management"
+                                      value="management"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox6"
+                                      htmlFor="checkbox6"
                                     >
                                       إدارة فريق العمل
                                     </label>
@@ -278,14 +428,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("report", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox7"
-                                      value="info"
+                                      value="report"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox7"
+                                      htmlFor="checkbox7"
                                     >
                                       إدارة البلاغات
                                     </label>
@@ -296,14 +449,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("blacklist", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox8"
-                                      value="black-list"
+                                      value="blacklist"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox8"
+                                      htmlFor="checkbox8"
                                     >
                                       القائمة السوداء
                                     </label>
@@ -318,6 +474,9 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("sms", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox9"
@@ -325,7 +484,7 @@ export default function AddTeam() {
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox9"
+                                      htmlFor="checkbox9"
                                     >
                                       SMS
                                     </label>
@@ -336,14 +495,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("categories", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox10"
-                                      value="item-modification"
+                                      value="categories"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox10"
+                                      htmlFor="checkbox10"
                                     >
                                       تعديل الأصناف
                                     </label>
@@ -358,14 +520,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("tech-support", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox11"
-                                      value="technical-support"
+                                      value="tech-support"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox11"
+                                      htmlFor="checkbox11"
                                     >
                                       الدعم الفني
                                     </label>
@@ -376,14 +541,17 @@ export default function AddTeam() {
                                 <div className="form-group">
                                   <div className="checkbox">
                                     <input
+                                      onChange={(event) =>
+                                        checkedOnChange("notification", event)
+                                      }
                                       type="checkbox"
                                       className="checkbox-input"
                                       id="checkbox12"
-                                      value="alert"
+                                      value="notification"
                                     />
                                     <label
                                       className="text-[#959494] font-sstbold text-[16px] "
-                                      for="checkbox12"
+                                      htmlFor="checkbox12"
                                     >
                                       التنبيهات
                                     </label>
@@ -395,7 +563,9 @@ export default function AddTeam() {
 
                           <div className="col-12 d-flex mt-[120px] mb-[30px] justify-center">
                             <button
-                              type="submit"
+                              disabled={buttonClick}
+                              onClick={() => addTeam()}
+                              type="button"
                               className="btn w-[370px] bg-[#959494] text-[18px] h-[62px] font-sstbold text-[#FFFFFF] mr-1"
                             >
                               حفظ

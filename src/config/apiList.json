@@ -24,5 +24,14 @@
   "getMostReported": "/report/getMostReported",
   "getReportByHr": "/report/getReportByHr",
   "getSms": "/sms/getSms",
-  "getSmsByHr": "/sms/getSmsByHr"
+  "getSmsByHr": "/sms/getSmsByHr",
+  "sendSmsToUser": "/sms/sendSmsToUser",
+  "getItemType": "/common/getItemType",
+  "addItem": "/common/addItem",
+  "permanentban": "/common/permanentban",
+  "deletedban": "/common/deletedban",
+  "tempban": "/common/tempban",
+  "totalban": "/common/totalban",
+  "banByStatusByHr": "/common/banByStatusByHr",
+  "getTechSupportList": "/common/getTechSupportList"
 }

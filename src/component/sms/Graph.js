@@ -27,7 +27,7 @@ export default function Graph() {
       let valres = [];
       let res = response.result;
       for (let i = 0; i < response.result.length; i++) {
-        valres.push({ name: "report", number: res[i].cnt });
+        valres.push({ name: "sms", number: res[i].cnt });
       }
 
       setData(valres);
@@ -49,7 +49,7 @@ export default function Graph() {
         >
           <Area
             type="monotone"
-            dataKey="uv"
+            dataKey="number"
             stroke="#E80000"
             fill="rgb(232,0, 0, 0.16)"
           />

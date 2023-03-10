@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import Graph from "./Graph";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
-import config from "../../config/config.json";
-import moment from "moment";
-import { Link, useNavigate } from "react-router-dom";
+
 import SmsList from "./SmsList";
 export default function Content() {
   const [totalSms, setTotalSms] = useState("0");
@@ -14,7 +12,12 @@ export default function Content() {
   const [actualId, setactualId] = useState([]);
   const [type, setType] = useState("2");
   const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState(false);
+  const [smsList, setSmsList] = useState([]);
   const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [showSure, setShowSure] = useState(false);
   useEffect(() => {
     getSms();
   }, []);
@@ -22,7 +25,8 @@ export default function Content() {
     let params = { url: apiList.getSms };
     let response = await ApiService.getData(params);
     if (response.result.length > 0) {
-      setTotalSms(response.result[0].cnt);
+      setTotalSms(response.result.length);
+      setSmsList(response.result);
     }
   };
   const addId = async () => {
@@ -39,8 +43,8 @@ export default function Content() {
       setIderror(true);
       return;
     }
-    // isNaN
     setIderror(false);
+
     let addid = addIds;
     let sendId = actualId;
     sendId.push(num);
@@ -52,12 +56,40 @@ export default function Content() {
   };
 
   const senSms = async () => {
+    if (!title) {
+      setTitleError(true);
+      return;
+    }
+    setTitleError(false);
+
+    if (!message) {
+      setMessageError(true);
+      return;
+    }
+    setMessageError(false);
+    if (actualId.length == 0) {
+      alert("please add the ids");
+      return;
+    }
+    setShowModal(false);
+    setShowSure(true);
+  };
+  const sendSure = async () => {
     const obj = {
+      title: title,
       type: type,
       ids: actualId,
       message: message,
     };
-    console.log(obj);
+    let params = { url: apiList.sendSmsToUser, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.result) {
+      alert("Sms send successfully!");
+      setTitle("");
+      setactualId([]);
+      setMessage("");
+      setShowModal(false);
+    }
   };
   return (
     <div className="app-content  content">
@@ -180,7 +212,7 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <SmsList />
+            <SmsList smslist={smsList} />
             {showModal && (
               <>
                 <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
@@ -192,6 +224,30 @@ export default function Content() {
                           <form class="form form-horizontal">
                             <div class="form-body">
                               <div class="row">
+                                <div class="col-md-2 pl-[0px] pr-[0px]">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    العنوان
+                                  </label>
+                                </div>
+                                <div class="col-md-10 form-group ">
+                                  <div class="position-relative">
+                                    <input
+                                      dir="ltr"
+                                      type="text"
+                                      id="fname-icon"
+                                      value={title}
+                                      class={
+                                        titleError
+                                          ? "form-control text-left border-[#E80000] bg-[#EBEBEB] h-[49px]"
+                                          : "form-control text-left bg-[#EBEBEB] h-[49px]"
+                                      }
+                                      name="fname-icon"
+                                      onChange={(e) => {
+                                        setTitle(e.target.value);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
                                 <div class="col-md-2 pl-[0px] pr-[0px]">
                                   <label className="text-[#484848] text-[16px] font-sstbold">
                                     المرسل إلية
@@ -267,11 +323,17 @@ export default function Content() {
                                     onChange={(e) => {
                                       setMessage(e.target.value);
                                     }}
-                                    class="form-control h-[128px] bg-[#EBEBEB]"
+                                    class={
+                                      messageError
+                                        ? "form-control h-[128px] border-1 border-[#E80000]  bg-[#EBEBEB]"
+                                        : "form-control h-[128px] bg-[#EBEBEB]"
+                                    }
                                     name="password"
                                     placeholder="  نص الرسالة"
                                     rows="3"
-                                  ></textarea>
+                                  >
+                                    {message}
+                                  </textarea>
                                 </div>
 
                                 <div class="col-sm-12 mt-[20px] d-flex justify-center">
@@ -287,6 +349,72 @@ export default function Content() {
                                   <button
                                     onClick={() => {
                                       setShowModal(false);
+                                    }}
+                                    type="button"
+                                    class="btn bg-[#959494] hover:text-[#707070] cancel text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff]"
+                                  >
+                                    إلغاء
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+              </>
+            )}
+            {showSure && (
+              <>
+                <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
+                  <div className="relative  max-w-3xl">
+                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-[700px] bg-[#FAFAFA] outline-none focus:outline-none">
+                      <div class="card h-[400px] bg-[#FFFFFF] mt-[10px]">
+                        <div class="card-body">
+                          <form class="form form-horizontal">
+                            <div class="form-body">
+                              <div class="row">
+                                <div class="col-md-12 pl-[0px] pr-[0px]">
+                                  <label className="text-[#484848] text-[16px] font-sstbold">
+                                    {title}
+                                  </label>
+                                </div>
+
+                                <div class="col-md-2 border-l-[1px] mt-[15px] pl-[0px] pr-[0px]">
+                                  <label className="text-[#959494] text-[16px] font-sstbold">
+                                    المرسل إلية
+                                  </label>
+                                </div>
+                                <div class="col-md-10 text-[#484848] text-[16px] font-sstbold mt-[15px] form-group">
+                                  {actualId.length} {"  "}
+                                  {type == "1" ? "المستخدمين" : "المتاجر"}
+                                </div>
+
+                                <div class="col-md-12 mt-[10px] text-[#484848] text-[20px] font-sstmedium">
+                                  {message}
+                                </div>
+
+                                <div class="col-sm-12 mt-[20px] d-flex justify-center">
+                                  <button
+                                    onClick={() => {
+                                      sendSure();
+                                    }}
+                                    type="button"
+                                    class="btn hover:text-[#707070] send bg-[#959494] text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff] mr-1"
+                                  >
+                                    تأكيد
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setShowSure(false);
+                                      setTitle("");
+                                      setactualId([]);
+                                      setMessage("");
+                                      setShowModal(false);
+                                      setAddIds([]);
                                     }}
                                     type="button"
                                     class="btn bg-[#959494] hover:text-[#707070] cancel text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff]"
