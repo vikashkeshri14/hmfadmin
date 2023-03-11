@@ -23,7 +23,7 @@
   );
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -32,16 +32,27 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
 }
 
-html .content.app-content {
+/* html .content.app-content {
   overflow: visible;
+} */
+.main-menu.menu-fixed {
+  position: fixed;
+  top: 0;
 }
-
+.ps {
+  overflow: scroll !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+  direction: ltr;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -54,7 +65,7 @@ html .content.app-content {
 input[type="checkbox"] {
   accent-color: #ff9800;
 }
-.header-navbar.fixed-top {
+/* .header-navbar.fixed-top {
   margin-right: 260px;
   right: 0px;
   position: relative;
@@ -64,6 +75,6 @@ html .navbar-sticky .app-content .content-wrapper {
 }
 .header-navbar .navbar-container ul.nav li a.dropdown-user-link img {
   box-shadow: none;
-}
+} */
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";

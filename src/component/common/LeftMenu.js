@@ -17,10 +17,7 @@ export default function LeftMenu({ route }) {
   };
   // console.log();
   return (
-    <div
-      className="main-menu menu-fixed menu-light menu-accordion menu-shadow"
-      data-scroll-to-active="true"
-    >
+    <div className="main-menu menu-fixed menu-light menu-accordion menu-shadow expanded">
       <div className=" flex justify-center navbar-header bg-[url('./left-menu.png')] bg-cover">
         <img
           src={config.domainUrl + "/panel/app-assets/images/logo/logo.png"}
@@ -28,12 +25,13 @@ export default function LeftMenu({ route }) {
         />
       </div>
 
-      <div className="main-menu-content">
+      <div className="main-menu-content ps ps__rtl ps--active-y">
         <ul
-          className="navigation  navigation-main"
+          className="navigation  mb-[120px] navigation-main"
           id="main-menu-navigation"
           data-menu="menu-navigation"
           data-icon-style=""
+          dir="rtl"
         >
           {modules.includes("dashboard") && (
             <li
