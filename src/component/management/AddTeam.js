@@ -92,8 +92,8 @@ export default function AddTeam() {
       password: password,
       modules: JSON.stringify(modules),
     };
-    // console.log(obj);
-    // return;
+    console.log(obj);
+    return;
     let params = { url: apiList.addTeam, body: obj };
     let response = await ApiService.postData(params);
     if (response.success) {

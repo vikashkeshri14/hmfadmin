@@ -36,5 +36,7 @@
   "getTechSupportList": "/common/getTechSupportList",
   "addTeam": "/team/addTeam",
   "getTeam": "/team/getTeam",
-  "getTeamById": "/team/getTeamById"
+  "getTeamById": "/team/getTeamById",
+  "updateTeam": "/team/updateTeam",
+  "deleteTeam": "/team/deleteTeam"
 }

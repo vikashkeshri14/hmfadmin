@@ -10,6 +10,10 @@ export default function Dashboard() {
   const navigate = useNavigate();
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
+    if (!auth.hasOwnProperty("modules")) {
+      localStorage.clear();
+      navigate("/");
+    }
     let modules = JSON.parse(auth.modules);
     if (!modules.includes("dashboard")) {
       //console.log(modules);

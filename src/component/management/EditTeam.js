@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 export default function EditTeam() {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,12 +17,85 @@ export default function EditTeam() {
   const [modules, setModules] = useState([]);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
-  const [cpassword, setCpassword] = useState("");
-  const [cpasswordError, setCpasswordError] = useState(false);
+  const [id, setId] = useState("");
 
   const [buttonClick, setButtonClick] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [allModules, setAllModules] = useState([
+    {
+      name: "لوحة التحكم",
+      eng: "dashboard",
+      checked: false,
+    },
+
+    {
+      name: "الإلتزامات",
+      eng: "commitment",
+      checked: false,
+    },
+
+    {
+      name: " إدارة الحسابات",
+      eng: "users",
+      checked: false,
+    },
+
+    {
+      name: "الأرباح",
+      eng: "profit",
+      checked: false,
+    },
+
+    {
+      name: "إدارة الطلبات",
+      eng: "order",
+      checked: false,
+    },
+
+    {
+      name: "إدارة فريق العمل",
+      eng: "management",
+      checked: false,
+    },
+
+    {
+      name: "إدارة البلاغات",
+      eng: "report",
+      checked: false,
+    },
+
+    {
+      name: "القائمة السوداء",
+      eng: "blacklist",
+      checked: false,
+    },
+
+    {
+      name: "sms",
+      eng: "sms",
+      checked: false,
+    },
+
+    {
+      name: " تعديل الأصناف",
+      eng: "categories",
+      checked: false,
+    },
+
+    {
+      name: "الدعم الفني",
+      eng: "tech-support",
+      checked: false,
+    },
+
+    {
+      name: "التنبيهات",
+      eng: "notification",
+      checked: false,
+    },
+  ]);
   const params = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
     getTeamById(params.slug);
   }, [params.slug]);
@@ -32,16 +105,61 @@ export default function EditTeam() {
     };
     let params = { url: apiList.getTeamById, body: obj };
     let response = await ApiService.postData(params);
-    console.log(response);
+    if (response.result.length > 0) {
+      let users = response.result[0];
+      setFullName(users.name);
+      setEmail(users.email);
+      setPhone(users.phone);
+      setJobTitle(users.job_title);
+      setLocation(users.location);
+      setIqama(users.iqama);
+      let modules = users.modules;
+      modules = modules.replace(/'/g, '"'); //replacing all ' with "
+      modules = JSON.parse(modules);
+
+      let getChecked = allModules;
+      getChecked.map((data, i) => {
+        if (modules.includes(data.eng)) {
+          data.checked = true;
+        }
+      });
+      setAllModules(getChecked);
+      setModules(modules);
+      setId(users.id);
+    } else {
+      navigate("/management");
+    }
+    //console.log(response);
   };
   const checkedOnChange = async (args, event) => {
     let countValue = modules;
+    let getChecked = allModules;
     if (event.target.checked) {
       countValue.push(args);
+      getChecked.map((data, i) => {
+        if (countValue.includes(data.eng)) {
+          data.checked = true;
+        } else {
+          data.checked = false;
+        }
+        return data;
+      });
+      setAllModules((allModules) => getChecked);
+      // countValue = countValue.filter((value, i) => value != args);
     } else {
       countValue = countValue.filter((value, i) => value != args);
+      getChecked.map((data, i) => {
+        if (countValue.includes(data.eng)) {
+          data.checked = true;
+        } else {
+          data.checked = false;
+        }
+        return data;
+      });
+      setAllModules((allModules) => getChecked);
     }
-    // console.log(countValue);
+
+    //console.log(countValue);
     setModules(countValue);
   };
 
@@ -71,23 +189,7 @@ export default function EditTeam() {
       return;
     }
     setEmailError(false);
-    if (!password) {
-      setPasswordError(true);
-      setButtonClick(false);
-      return;
-    }
-    setPasswordError(false);
-    if (!cpassword) {
-      setCpasswordError(true);
-      setButtonClick(false);
-      return;
-    }
-    if (cpassword != password) {
-      setCpasswordError(true);
-      setButtonClick(false);
-      return;
-    }
-    setCpasswordError(false);
+
     if (modules.length == 0) {
       alert("Please select the modules");
       setButtonClick(false);
@@ -95,6 +197,7 @@ export default function EditTeam() {
     }
     setButtonClick(false);
     const obj = {
+      id: id,
       fullname: fullname,
       iqama: iqama,
       location: location,
@@ -106,22 +209,12 @@ export default function EditTeam() {
     };
     // console.log(obj);
     // return;
-    let params = { url: apiList.addTeam, body: obj };
+    let params = { url: apiList.updateTeam, body: obj };
     let response = await ApiService.postData(params);
     if (response.success) {
       if (response.email) {
         alert("Email id already exist in the database, try with another email");
       } else {
-        setFullName("");
-        setEmail("");
-        setPhone("");
-        setIqama("");
-        setPassword("");
-        setCpassword("");
-        setJobTitle("");
-        setLocation("");
-        document.getElementById("formteam").reset();
-        setModules([]);
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
@@ -131,6 +224,7 @@ export default function EditTeam() {
       alert("something went wrong please try again");
     }
   };
+
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -142,11 +236,12 @@ export default function EditTeam() {
               {success && (
                 <div className="col-12 col-md-12 ">
                   <div className="card text-[#60BA62] text-center p-[10px] text-[20px] font-sstbold">
-                    User Added Successfully
+                    User Updated Successfully
                   </div>
                 </div>
               )}
-              <form id="formteam" className="form row form-vertical">
+
+              <>
                 <div className="col-md-6 col-12">
                   <div className="card">
                     <div className="card-body">
@@ -279,6 +374,7 @@ export default function EditTeam() {
                               </label>
                               <input
                                 value={password}
+                                autoComplete="false"
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password"
                                 id="password-vertical"
@@ -288,27 +384,6 @@ export default function EditTeam() {
                                     : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
                                 }
                                 name="password"
-                              />
-                            </div>
-                          </div>
-                          <div className="col-12">
-                            <div className="form-group">
-                              <label htmlFor="cpassword-vertical ">
-                                <span className="font-sstbold text-[#959494] text-[16px]">
-                                  إعادة كلمة المرور
-                                </span>
-                              </label>
-                              <input
-                                onChange={(e) => setCpassword(e.target.value)}
-                                type="password"
-                                value={cpassword}
-                                id="cpassword-vertical"
-                                className={
-                                  cpasswordError
-                                    ? "form-control bg-[#FAFAFA] border-[#E80000] font-sstbold text-[#959494] text-[16px]"
-                                    : "form-control bg-[#FAFAFA] border-[#FAFAFA] font-sstbold text-[#959494] text-[16px]"
-                                }
-                                name="cpassword"
                               />
                             </div>
                           </div>
@@ -329,279 +404,55 @@ export default function EditTeam() {
                         <div className="form-body">
                           <div className="row">
                             <div className="col-12 pt-[10px] pb-[10px]">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox1"
-                                        value="dashboard"
-                                        onChange={(event) =>
-                                          checkedOnChange("dashboard", event)
-                                        }
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox1"
-                                      >
-                                        لوحة التحكم
-                                      </label>
+                              <div className="flex flex-wrap">
+                                {allModules.map((data, i) => {
+                                  return data.checked ? (
+                                    <div key={i} className="w-[50%] mt-[10px]">
+                                      <div className="form-group">
+                                        <div className="checkbox">
+                                          <input
+                                            type="checkbox"
+                                            className="checkbox-input"
+                                            id={data.eng}
+                                            value={data.eng}
+                                            checked={data.checked}
+                                            onChange={(event) =>
+                                              checkedOnChange(data.eng, event)
+                                            }
+                                          />
+                                          <label
+                                            className="text-[#959494] font-sstbold text-[16px] "
+                                            htmlFor={data.eng}
+                                          >
+                                            {data.name}
+                                          </label>
+                                        </div>
+                                      </div>
                                     </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("commitment", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox2"
-                                        value="commitment"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox2"
-                                      >
-                                        الإلتزامات
-                                      </label>
+                                  ) : (
+                                    <div key={i} className="w-[50%] mt-[10px]">
+                                      <div className="form-group">
+                                        <div className="checkbox">
+                                          <input
+                                            type="checkbox"
+                                            className="checkbox-input"
+                                            id={data.eng}
+                                            value={data.eng}
+                                            onChange={(event) =>
+                                              checkedOnChange(data.eng, event)
+                                            }
+                                          />
+                                          <label
+                                            className="text-[#959494] font-sstbold text-[16px] "
+                                            htmlFor={data.eng}
+                                          >
+                                            {data.name}
+                                          </label>
+                                        </div>
+                                      </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 pt-[30px] pb-[10px] border-t-[1px] ">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("users", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox3"
-                                        value="users"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox3"
-                                      >
-                                        إدارة الحسابات
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("profit", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox4"
-                                        value="profit"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox4"
-                                      >
-                                        الأرباح
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("order", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox5"
-                                        value="order"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox5"
-                                      >
-                                        إدارة الطلبات
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("management", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox6"
-                                        value="management"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox6"
-                                      >
-                                        إدارة فريق العمل
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("report", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox7"
-                                        value="report"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox7"
-                                      >
-                                        إدارة البلاغات
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("blacklist", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox8"
-                                        value="blacklist"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox8"
-                                      >
-                                        القائمة السوداء
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("sms", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox9"
-                                        value="sms"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox9"
-                                      >
-                                        SMS
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("categories", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox10"
-                                        value="categories"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox10"
-                                      >
-                                        تعديل الأصناف
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-12 pt-[30px] pb-[10px border-t-[1px] ">
-                              <div className="flex">
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("tech-support", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox11"
-                                        value="tech-support"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox11"
-                                      >
-                                        الدعم الفني
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-[50%]">
-                                  <div className="form-group">
-                                    <div className="checkbox">
-                                      <input
-                                        onChange={(event) =>
-                                          checkedOnChange("notification", event)
-                                        }
-                                        type="checkbox"
-                                        className="checkbox-input"
-                                        id="checkbox12"
-                                        value="notification"
-                                      />
-                                      <label
-                                        className="text-[#959494] font-sstbold text-[16px] "
-                                        htmlFor="checkbox12"
-                                      >
-                                        التنبيهات
-                                      </label>
-                                    </div>
-                                  </div>
-                                </div>
+                                  );
+                                })}
                               </div>
                             </div>
 
@@ -621,7 +472,7 @@ export default function EditTeam() {
                     </div>
                   </div>
                 </div>
-              </form>
+              </>
             </div>
           </section>
         </div>
