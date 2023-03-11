@@ -18,6 +18,7 @@ import AddManagement from "./screen/management/AddManagement";
 import BlackList from "./screen/blacklist/BlackList";
 import Transfer from "./screen/transfer/Transfer";
 import Categories from "./screen/categories/Categories";
+import EditManagement from "./screen/management/EditManagement";
 
 function App() {
   return (
@@ -40,9 +41,10 @@ function App() {
         <Route path="/profit" element={<Profit />} />
         <Route path="/management" element={<Management />} />
         <Route path="/add-management" element={<AddManagement />} />
+        <Route path="/edit-management/:slug" element={<EditManagement />} />
+
         <Route path="/blacklist" element={<BlackList />} />
         <Route path="/categories" element={<Categories />} />
-
       </Routes>
     </Router>
   );

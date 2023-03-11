@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
-export default function AddTeam() {
+import { useParams } from "react-router-dom";
+export default function EditTeam() {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [iqama, setIqama] = useState("");
@@ -21,7 +22,18 @@ export default function AddTeam() {
 
   const [buttonClick, setButtonClick] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const params = useParams();
+  useEffect(() => {
+    getTeamById(params.slug);
+  }, [params.slug]);
+  const getTeamById = async (id) => {
+    const obj = {
+      id: id,
+    };
+    let params = { url: apiList.getTeamById, body: obj };
+    let response = await ApiService.postData(params);
+    console.log(response);
+  };
   const checkedOnChange = async (args, event) => {
     let countValue = modules;
     if (event.target.checked) {

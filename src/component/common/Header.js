@@ -4,9 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 import config from "../../config/config.json";
 export default function Header() {
   const [authFails, setAuthFails] = useState(false);
+  const [loginUser, setLoginUser] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
+    setLoginUser(auth);
+    //console.log(auth);
     if (auth == null) {
       setAuthFails(true);
     }
@@ -41,17 +44,18 @@ export default function Header() {
                     >
                       <span>
                         <img
-                          className="round w-[68px] h-[68px] rounded-[34px]"
+                          className="w-[68px] h-[68px] rounded-[34px]"
                           src={
                             config.domainUrl +
-                            "/panel/app-assets/images/portrait/small/avatar-s-11.jpg"
+                            "/panel/app-assets/images/users.png"
                           }
                           alt="avatar"
                         />
                       </span>
                       <div className="user-nav d-sm-flex d-none  mr-[20px]">
                         <span className="user-name font-sstbold text-[20px]">
-                          أهلاً عبدالعزيز
+                          {loginUser.hasOwnProperty("username") &&
+                            loginUser.username}
                         </span>
                       </div>
                     </Link>

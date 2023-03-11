@@ -102,7 +102,7 @@ export default function Login() {
                     placeholder="البريد الإلكتروني"
                   />
                 </div>
-                <div className="mt-[45px] flex justify-center">
+                <div className="mt-[45px] flex-col justify-center">
                   <input
                     autoComplete="new-password"
                     type="password"

@@ -62,5 +62,8 @@ input[type="checkbox"] {
 html .navbar-sticky .app-content .content-wrapper {
   margin-top: 0px;
 }
+.header-navbar .navbar-container ul.nav li a.dropdown-user-link img {
+  box-shadow: none;
+}
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";
