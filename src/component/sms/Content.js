@@ -81,6 +81,7 @@ export default function Content() {
       ids: actualId,
       message: message,
     };
+
     let params = { url: apiList.sendSmsToUser, body: obj };
     let response = await ApiService.postData(params);
     if (response.result) {

@@ -1,16 +1,79 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
 export default function Content() {
   const [alertShow, setAlertShow] = useState(false);
+  const [id, setId] = useState("");
+  const [userId, setUserId] = useState("");
+  const [iderror, setIderror] = useState(false);
+  const [actualId, setactualId] = useState([]);
+  const [addIds, setAddIds] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState(false);
+  const [buttonClick, setButtonClick] = useState(false);
+  const [userType, setUserType] = useState("2");
+  useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("loginUser"));
+    setUserId(auth.id);
+  }, []);
+  const addId = async () => {
+    if (!id) {
+      setIderror(true);
+      return;
+    }
+    if (id[0] != "#") {
+      setIderror(true);
+      return;
+    }
+    let num = id.substring(1);
+    if (isNaN(num)) {
+      setIderror(true);
+      return;
+    }
+    setIderror(false);
+
+    let addid = addIds;
+    let sendId = actualId;
+    sendId.push(num);
+    setactualId(sendId);
+    addid.push(id);
+    let uniq = [...new Set(addid)];
+    setAddIds(uniq);
+    setId("");
+  };
+  const sendNotification = async () => {
+    setButtonClick(true);
+    if (!message) {
+      setMessageError(true);
+      setButtonClick(false);
+      return;
+    }
+    const obj = {
+      userId: userId,
+      user_type: userType,
+      sendTo: actualId,
+      message: message,
+    };
+    let params = { url: apiList.addAlert, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("message send successfully!");
+      setButtonClick(false);
+      setAlertShow(false);
+      setMessage("");
+      setAddIds([]);
+      setactualId([]);
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
-      <div
-        className={alertShow ? "blur-sm content-wrapper" : "content-wrapper"}
-      >
+      <div className=" content-wrapper">
         <div className="content-header row"></div>
         <div className="content-body">
-          <section className="sms-management">
+          <section
+            className={alertShow ? "blur-sm sms-management" : "sms-management"}
+          >
             <div className="row flex ">
               <div className="w-[34%] mr-[15px] dashboard-users">
                 <div className="row">
@@ -170,51 +233,114 @@ export default function Content() {
               </table>
             </div>
           </section>
-        </div>
-      </div>
-      {alertShow && (
-        <>
-          <div className="initial">
-            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
-              <div className="relative bg-[#FAFAFA] rounded-[6px]   shadow-[0_1px_4px_1px_rgba(21,34,50,0.2)]">
-                <div className="flex p-[10px] pt-[20px] mb-[10px] pl-[0px]">
-                  <div className="text-[#484848] w-[30%] text-[16px] font-sstbold ">
-                    محمد علي محمد
+          {alertShow && (
+            <>
+              <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
+                <div className="relative w-[500px]  max-w-3xl">
+                  <div className="relative bg-[#FAFAFA] rounded-[6px]   shadow-[0_1px_4px_1px_rgba(21,34,50,0.2)]">
+                    <div className="flex p-[10px] pt-[20px] mb-[10px] pl-[0px]">
+                      <div className="text-[#484848] w-[30%] text-[16px] font-sstbold ">
+                        الفئة المستهدفة
+                      </div>
+                      <div className="w-[65%]">
+                        <select
+                          className="form-control bg-[#EBEBEB]"
+                          id="basicSelect"
+                          onChange={(e) => {
+                            setUserType(e.target.value);
+                          }}
+                        >
+                          <option value="2">المتاجر</option>
+                          <option value="1">المستخدمين</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="flex p-[10px] pt-[20px] mb-[10px] pl-[0px]">
+                      <div className="text-[#484848] w-[30%] text-[16px] font-sstbold ">
+                        استهداف معين
+                      </div>
+                      <div className="w-[65%]">
+                        <div className="position-relative">
+                          <div
+                            onClick={() => {
+                              addId();
+                            }}
+                            className="absolute left-[10px] top-[15px]"
+                          >
+                            <i className="bx bxs-plus-circle"></i>
+                          </div>
+                          <input
+                            dir="ltr"
+                            type="text"
+                            id="fname-icon"
+                            value={id}
+                            class={
+                              iderror
+                                ? "form-control text-left border-[#E80000] bg-[#EBEBEB] h-[49px]"
+                                : "form-control text-left bg-[#EBEBEB] h-[49px]"
+                            }
+                            name="fname-icon"
+                            onChange={(e) => {
+                              setId(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex p-[10px] pt-[20px] mb-[10px] pl-[0px]">
+                      <div className="col-md-12 flex form-group">
+                        {addIds.length > 0 &&
+                          addIds.map((data, i) => {
+                            return (
+                              <div
+                                key={i}
+                                className="pl-[5px] pr-[5px] text-[#60BA62] font-sstmedium text-[16px]"
+                              >
+                                {data}
+                              </div>
+                            );
+                          })}
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="text-[#484848] text-center w-[30%] mt-[5px] text-[16px] font-sstbold  mb-[5px] ">
+                        نص التنبية
+                      </div>
+                      <div className=" w-[65%] mb-[30px] ">
+                        <textarea
+                          onChange={(e) => setMessage(e.target.value)}
+                          className={
+                            messageError
+                              ? "border-[#E80000] border-[1px] w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                              : " w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                          }
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div className="flex justify-center pb-[30px]">
+                      <button
+                        disabled={buttonClick}
+                        onClick={() => {
+                          sendNotification();
+                        }}
+                        className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                      >
+                        إرسال
+                      </button>
+                      <button
+                        onClick={() => setAlertShow(false)}
+                        className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                      >
+                        إلغاء
+                      </button>
+                    </div>
                   </div>
-                  <div className="w-[65%]">
-                    <select
-                      className="form-control bg-[#EBEBEB]"
-                      id="basicSelect"
-                    >
-                      <option value="2">المتاجر</option>
-                      <option value="1">المستخدمين</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex">
-                  <div className="text-[#484848] text-center w-[30%] mt-[5px] text-[16px] font-sstbold  mb-[5px] ">
-                    نص التنبية
-                  </div>
-                  <div className=" w-[65%] mb-[30px] ">
-                    <textarea className=" w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
-                  </div>
-                </div>
-                <div className="flex justify-center pb-[30px]">
-                  <button className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]">
-                    إرسال
-                  </button>
-                  <button
-                    onClick={() => setAlertShow(false)}
-                    className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
-                  >
-                    إلغاء
-                  </button>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
-      )}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
