@@ -40,5 +40,6 @@
   "updateTeam": "/team/updateTeam",
   "deleteTeam": "/team/deleteTeam",
   "getAlert": "/alert/getAlert",
-  "addAlert": "/alert/addAlert"
+  "addAlert": "/alert/addAlert",
+  "storePaidCommitment": "/orders/storePaidCommitment"
 }

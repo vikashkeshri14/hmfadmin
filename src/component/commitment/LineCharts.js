@@ -78,14 +78,53 @@ const data = [
   },
   {
     name: "Dec",
-
     pv: 4000,
     amt: 2300,
   },
 ];
 export default function LineCharts() {
   return (
-    <div className="h-[391px]">
+    <div className="h-[281px]">
+      <div className="flex border-b-[1px] mb-[10px]">
+        <div className="flex-col w-[33.3%]">
+          <div className="p-[5px] text-[#959494] text-[18px] font-sstbold">
+            الالتزامات المدفوعة و المعلقة
+          </div>
+          <div>
+            <div className="position-relative has-icon-right">
+              <div className="absolute top-[20px] left-0">
+                <i className="ficon bx bxs-calendar text-[20px] pl-[10px]"></i>
+              </div>
+              <input
+                type="number"
+                id="contact-info-icon"
+                className="form-control text-[16px] font-sstroman h-[58px] border-0  rounded-[6px]"
+                name="contact-icon"
+                placeholder="16/12/2022 - 16/12/2022"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex-col justify-center self-center w-[33.4%]">
+          <div className="flex justify-center">
+            <div className="h-[10px] w-[10px] rounded-[5px] bg-[#E80000] mt-[5px] ml-[10px]"></div>
+            <div className="text-[#484848] text-[14px] font-sstroman ">
+              الالتزامات المعلقة
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <div className="h-[10px] w-[10px] rounded-[5px] bg-[#60BA62] mt-[7px] mr-[10px] ml-[10px]"></div>
+            <div className="text-[#484848] text-[14px] font-sstroman ">
+              الالتزامات المدفوعة
+            </div>
+          </div>
+        </div>
+        <div className="w-[33.3%] flex pl-[20px] justify-end">
+          <button className="text-[16px]  p-[8px] self-center justify-center text-[#ffffff] font-sstbold bg-[#FF9800] rounded-[3px]">
+            تنزل التقرير
+          </button>
+        </div>
+      </div>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
@@ -110,6 +149,7 @@ export default function LineCharts() {
             activeDot={{ r: 8 }}
           />
           <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="amt" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     </div>

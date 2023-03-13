@@ -59,7 +59,34 @@ export default function Barchart() {
 
   return (
     <>
-      <div className="h-[295px] p-[10px]">
+      <div className="h-[275px] p-[10px]">
+        <div className="flex border-b-[1px] mb-[30px]">
+          <div className="flex-col w-[70%]">
+            <div className="p-[5px] text-[#959494] text-[18px] font-sstbold">
+              الالتزامات المدفوعة و المعلقة
+            </div>
+            <div>
+              <div className="position-relative has-icon-right">
+                <div className="absolute top-[20px] left-0">
+                  <i className="ficon bx bxs-calendar text-[20px] pl-[10px]"></i>
+                </div>
+                <input
+                  type="number"
+                  id="contact-info-icon"
+                  className="form-control text-[16px] font-sstroman h-[58px] border-0  rounded-[6px]"
+                  name="contact-icon"
+                  placeholder="16/12/2022 - 16/12/2022"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-[30%] flex justify-center">
+            <button className="text-[16px] p-[8px] self-center justify-center text-[#ffffff] font-sstbold bg-[#FF9800] rounded-[3px]">
+              تنزل التقرير
+            </button>
+          </div>
+        </div>
+
         <ResponsiveContainer width="100%">
           <BarChart
             height={250}
@@ -79,6 +106,7 @@ export default function Barchart() {
             <Bar dataKey="uv" fill="#E80000" />
           </BarChart>
         </ResponsiveContainer>
+
       </div>
     </>
   );

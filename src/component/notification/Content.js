@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
+import moment from "moment";
+
 export default function Content() {
   const [alertShow, setAlertShow] = useState(false);
   const [id, setId] = useState("");
@@ -12,10 +14,21 @@ export default function Content() {
   const [messageError, setMessageError] = useState(false);
   const [buttonClick, setButtonClick] = useState(false);
   const [userType, setUserType] = useState("2");
+  const [alerts, setAlerts] = useState([])
+  const [showVal, setShowVal] = useState("");
+  const [show, setShow] = useState(false);
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
+    getAlert();
+
   }, []);
+  const getAlert = async () => {
+    let params = { url: apiList.getAlert };
+    let response = await ApiService.getData(params);
+    //console.log(response)
+    setAlerts(response.result);
+  }
   const addId = async () => {
     if (!id) {
       setIderror(true);
@@ -130,108 +143,87 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        السنة
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        بواسطة اسم الموظف
-                      </div>
-                    </td>
 
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          عرض نص التنبية
+            {alerts.length > 0 && alerts.map((data, i) => {
+              return (<div key={i} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+                <table className="table mb-0">
+                  <tbody>
+                    <tr
+                      style={{
+                        borderRightWidth: 0,
+                      }}
+                      className=""
+                    >
+                      <td
+                        style={{ borderLeftWidth: 1 }}
+                        className=" w-[15%] text-center "
+                      >
+                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          {data.username}
                         </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
+                      </td>
+                      <td
+                        style={{ borderLeftWidth: 1 }}
+                        className="w-[15%]  text-center "
+                      >
+                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          {moment(data.created_at).format("DD/MM/YYYY")}
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-              <table className="table mb-0">
-                <tbody>
-                  <tr
-                    style={{
-                      borderRightWidth: 0,
-                    }}
-                    className=""
-                  >
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className=" w-[15%] text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        السنة
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 1 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        1/12/2022
-                      </div>
-                    </td>
-                    <td
-                      style={{ borderLeftWidth: 0 }}
-                      className="w-[15%]  text-center "
-                    >
-                      <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                        بواسطة اسم الموظف
-                      </div>
-                    </td>
+                      </td>
+                      <td
+                        style={{ borderLeftWidth: 0 }}
+                        className="w-[15%]  text-center "
+                      >
+                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          {data.name}
+                        </div>
+                      </td>
 
-                    <td className="w-[25%]">
-                      <div className="flex justify-end">
-                        <div className="   text-[#484848] text-[16px] font-sstbold ">
-                          عرض نص التنبية
+                      <td className="w-[25%]">
+                        <div onClick={() => {
+                          if (!show) {
+                            setShowVal(data.id);
+                            setShow((show) => !show);
+                          } else {
+                            setShowVal("");
+                            setShow((show) => !show);
+                          }
+                        }} className="flex cursor-pointer justify-end">
+                          <div className={
+                            showVal == data.id
+                              ? "text-[#60BA62] text-[16px] font-sstbold "
+                              : "text-[#484848] text-[16px] font-sstbold "
+                          }>
+                            عرض نص التنبية
+                          </div>
+                          <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
+                            <img
+                              src="../panel/app-assets/images/dropdown.png"
+                              className={
+                                showVal == data.id
+                                  ? "h-[24px] rotate-180 w-[24px]"
+                                  : "h-[24px] w-[24px]"
+                              }
+                            />
+                          </div>
                         </div>
-                        <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] w-[24px]"
-                          />
+                        <div
+                          className={
+                            showVal == data.id ? "relative" : "relative hidden "
+                          }
+                        >
+                          <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
+                            {data.message}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>)
+            })}
+
+
           </section>
           {alertShow && (
             <>
