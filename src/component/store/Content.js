@@ -125,10 +125,10 @@ export default function Content() {
                       </div>
                       <div className="flex-col mr-[15px]">
                         <div className="flex">
-                          <div className="text-[#484848] text-[16px] font-sstbold">
+                          <div className="text-[#484848]  text-[16px] font-sstbold">
                             {storeDetails != null && storeDetails.username}
                           </div>
-                          <div className="mt-[10px] mr-[10px]">
+                          <div className="mt-[6px] mr-[10px]">
                             <img
                               className="h-[15px] w-[15px]"
                               src={
@@ -137,15 +137,15 @@ export default function Content() {
                               }
                             />
                           </div>
-                          <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
-                            4.9
+                          <div className="text-[#484848] mt-[4px] mr-[5px] text-[13px] font-sstbold">
+                            {storeDetails != null && storeDetails.rating}
                           </div>
                         </div>
                         <div className="flex mt-[5px]">
                           <div className="text-[#959494] text-[16px] font-sstroman ">
                             #{storeDetails != null && storeDetails.id}
                           </div>
-                          <div className="mt-[10px] mr-[12px]">
+                          <div className="mt-[6px] mr-[12px]">
                             <img
                               className="h-[15.55px] w-[15.55px]"
                               src={
@@ -154,8 +154,8 @@ export default function Content() {
                               }
                             />
                           </div>
-                          <div className="text-[#484848] mt-[7px] mr-[5px] text-[13px] font-sstbold">
-                            14
+                          <div className="text-[#484848] mt-[2.5px] mr-[5px] text-[13px] font-sstbold">
+                            {storeDetails != null && storeDetails.profile_view}
                           </div>
                         </div>
                       </div>
@@ -189,7 +189,7 @@ export default function Content() {
                         />
                       </div>
                       <div className="text-[#959494] text-[16px] font-sstbold">
-                        المملكة العربية السعودية، جدة
+                        {storeDetails != null && storeDetails.store_address}
                       </div>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default function Content() {
                         سجل البلاغات
                       </div>
                       <div
-                        class={
+                        className={
                           infoShow
                             ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
                             : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
@@ -402,7 +402,7 @@ export default function Content() {
                         سجل المحادثات
                       </div>
                       <div
-                        class={
+                        className={
                           conversationShow
                             ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
                             : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
@@ -508,7 +508,7 @@ export default function Content() {
                           }
                         />
                         <div
-                          class={
+                          className={
                             ban
                               ? "absolute shadow w-[332px] mt-[20px] left-[90px] z-50 bg-white"
                               : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
