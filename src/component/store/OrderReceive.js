@@ -1,7 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 import LineCharts from "./LineCharts";
 
-export default function OrderReceive() {
+export default function OrderReceive(props) {
+  const [acceptedOrder, setAcceptedOrder] = useState("0");
+  const [acceptedOrderAmount, setAcceptedOrderAmount] = useState("0");
+  const [totalOrder, setTotalOrder] = useState("0");
+  const [totalOrderAmount, setTotalOrderAmount] = useState("0");
+  const [rejectedOrder, setRejectedOrder] = useState("0");
+  const [rejectedOrderAmount, setRejectedOrderAmount] = useState("0");
+
+  const [pendingOrder, setPendingOrder] = useState("0");
+
+  const [pendingOrderAmount, setPendingOrderAmount] = useState("0");
+
+  const [paidOrder, setPaidOrder] = useState("0");
+
+  const [paidOrderAmount, setPaidOrderAmount] = useState("0");
+  const [rejectedOrderAfterInitialAccept, setRejectedOrderAfterInitialAccept] =
+    useState("0");
+
+  const [
+    rejectedOrderAfterInitialAcceptAmount,
+    setRejectedOrderAfterInitialAcceptAmount,
+  ] = useState("0");
+
+  useEffect(() => {
+    getStoreReport(props.storeId);
+  }, [props]);
+  const getStoreReport = async (id) => {
+    const obj = { storeId: id };
+
+    let params = { url: apiList.getStoreIncommimgOrderReport, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.getIncomingOrder.length > 0) {
+      setTotalOrder(response.getIncomingOrder[0].orders);
+      if (response.getIncomingOrder[0].orders)
+        setTotalOrderAmount(response.getIncomingOrder[0].total);
+    }
+    if (response.pending_order.length > 0) {
+      setPendingOrder(response.pending_order[0].cnt);
+      if (response.pending_order[0].cnt)
+        setPendingOrderAmount(response.pending_order[0].total);
+    }
+    if (response.paid_order_cnt.length > 0) {
+      setPaidOrder(response.paid_order_cnt[0].cnt);
+      if (response.paid_order_cnt[0].cnt)
+        setPaidOrderAmount(response.paid_order_cnt[0].total);
+    }
+    if (response.order_accept.length > 0) {
+      setAcceptedOrder(response.order_accept[0].orders);
+      if (response.order_accept[0].orders)
+        setAcceptedOrderAmount(response.order_accept[0].total);
+    }
+    if (response.order_rejected.length > 0) {
+      setRejectedOrder(response.order_rejected[0].orders);
+      if (response.order_rejected[0].orders)
+        setRejectedOrderAmount(response.order_rejected[0].total);
+    }
+    if (response.rejected_accept_initial.length > 0) {
+      setRejectedOrderAfterInitialAccept(
+        response.rejected_accept_initial[0].orders
+      );
+      if (response.rejected_accept_initial[0].orders)
+        setRejectedOrderAfterInitialAcceptAmount(
+          response.rejected_accept_initial[0].total
+        );
+    }
+
+    // setProductList(response.result);
+  };
   return (
     <>
       <div className="row mt-[10px]">
@@ -24,7 +94,7 @@ export default function OrderReceive() {
                         إجمالي الطلبات
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        70
+                        {totalOrder}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         5,09% أعلى من الشهر الماضي
@@ -38,7 +108,7 @@ export default function OrderReceive() {
                         إجمالي قيمة الطلبات{" "}
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        170 ريال
+                        {totalOrderAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         5,09% أعلى من الشهر الماضي{" "}
@@ -52,7 +122,7 @@ export default function OrderReceive() {
                         الطلبات المعلقة{" "}
                       </div>
                       <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                        3
+                        {pendingOrder}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
                         5,09% أعلى من الشهر الماضي{" "}
@@ -63,7 +133,7 @@ export default function OrderReceive() {
                         إجمالي مبلغ الطلبات{" "}
                       </div>
                       <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                        70 ريال
+                        {pendingOrderAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
                         5,09% أعلى من الشهر الماضي{" "}
@@ -91,10 +161,10 @@ export default function OrderReceive() {
                       className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                        الطلبات المقبولة{" "}
+                        الطلبات المقبولة
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        70
+                        {acceptedOrder}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         5,09% أعلى من الشهر الماضي
@@ -108,7 +178,7 @@ export default function OrderReceive() {
                         قيمة الطلبات المقبولة
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        150 ريال
+                        {acceptedOrderAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         5,09% أعلى من الشهر الماضي
@@ -122,7 +192,7 @@ export default function OrderReceive() {
                         الطلبات المرفوضة
                       </div>
                       <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                        7
+                        {rejectedOrder}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         1,06% أقل من الشهر الماضي
@@ -133,7 +203,7 @@ export default function OrderReceive() {
                         قيمة الطلبات المرفوضة
                       </div>
                       <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                        22 ريال
+                        {rejectedOrderAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
                         5,09% أعلى من الشهر الماضي
@@ -164,7 +234,7 @@ export default function OrderReceive() {
                         الطلبات المدفوعة
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        50
+                        {paidOrder}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
                         1,06% أقل من الشهر الماضي
@@ -178,7 +248,7 @@ export default function OrderReceive() {
                         قيمة الطلبات المدفوعة
                       </div>
                       <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        66 ريال
+                        {paidOrderAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
                         1,06% أقل من الشهر الماضي
@@ -192,7 +262,7 @@ export default function OrderReceive() {
                         الطلبات المرفوضة بعد الإتفاق المبدئي{" "}
                       </div>
                       <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                        1
+                        {rejectedOrderAfterInitialAccept}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         1,06% أقل من الشهر الماضي
@@ -203,7 +273,7 @@ export default function OrderReceive() {
                         قيمة الطلبات المرفوضة بعد الإتفاق المبدئي
                       </div>
                       <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
-                        70 ريال
+                        {rejectedOrderAfterInitialAcceptAmount} ريال
                       </div>
                       <div className="text-[16px] font-sstbold text-[#60BA62]">
                         1,06% أقل من الشهر الماضي
@@ -217,20 +287,36 @@ export default function OrderReceive() {
         </div>
         <div className="row m-[0px] bg-[#ffffff] rounded-[6px] mr-[15px] w-[100%]">
           <div className="col-xl-3 col-md-6 col-12 p-[10px] border-l-[1px]">
-            <fieldset className="form-group h-[57px] bg-[#F9F9F9]">
-              <select
-                style={{
-                  background:
-                    "url('../panel/app-assets/images/dropdown.png') no-repeat 16px",
-                }}
-                className="form-control bg-[#F9F9F9] h-[57px]"
-                id="basicSelect"
-              >
-                <option>IT</option>
-                <option>Blade Runner</option>
-                <option>Thor Ragnarok</option>
-              </select>
-            </fieldset>
+            <div className="text-[#959494] flex justify-end text-[18px] font-sstbold pt-[10px]">
+              <fieldset className="form-group w-[100%] h-[57px] bg-[#F9F9F9]">
+                <select
+                  style={{
+                    background: `url(${config.domainUrl}/panel/app-assets/images/dropdown.png) no-repeat 16px`,
+                  }}
+                  className="form-control bg-[#F9F9F9] h-[57px]"
+                  id="basicSelect"
+                >
+                  <option attr="total-order" value="1">
+                    إجمالي الطلبات
+                  </option>
+                  <option attr="paid-order" value="2">
+                    الطلبات المدفوعة
+                  </option>
+                  <option attr="application-accepted" value="3">
+                    الطلبات المقبولة
+                  </option>
+                  <option attr="reject-application-before-accept" value="4">
+                    الطلبات المرفوضة قبل الإتفاق
+                  </option>
+                  <option attr="reject-application-after-accept" value="5">
+                    الطلبات المرفوضة بعد الإتفاق
+                  </option>
+                  <option attr="pending-order" value="6">
+                    الطلبات المعلقة
+                  </option>
+                </select>
+              </fieldset>
+            </div>
             <div className="position-relative has-icon-right">
               <div className="absolute top-[20px] left-0">
                 <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>

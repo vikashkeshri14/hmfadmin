@@ -16,6 +16,8 @@
   "getMostActiveUser": "/users/getMostActiveUser",
   "getAllStore": "/stores/getAllStore",
   "getMostActiveStore": "/stores/getMostActiveStore",
+  "getStoreProductById": "/stores/getStoreProductById",
+  "getStoreIncommimgOrderReport": "/stores/getStoreIncommimgOrderReport",
   "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr",
   "allRequestedOrder": "/orders/allRequestedOrder",
   "getReport": "/report/getReport",

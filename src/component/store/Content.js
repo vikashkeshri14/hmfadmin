@@ -34,6 +34,7 @@ export default function Content() {
   const [blocked, setBlocked] = useState(false);
   const [perblocked, setPerBlocked] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false);
+  const [storeId, setStoreId] = useState("");
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -44,6 +45,7 @@ export default function Content() {
   const [storeDetails, setStoreDetails] = useState(null);
   useEffect(() => {
     getStoreById(params.slug);
+    setStoreId(params.slug);
   }, [params.slug]);
   const getStoreById = async (id) => {
     const obj = {
@@ -212,13 +214,22 @@ export default function Content() {
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/shop-grey.png"
+                            productShow
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/shop-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
+                      <div
+                        className={
+                          productShow
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#959494] text-[16px] font-sstbold"
+                        }
+                      >
                         المتجر
                       </div>
                     </div>
@@ -242,13 +253,22 @@ export default function Content() {
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/commitment.png"
+                            commitmentShow
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/commitment-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
+                      <div
+                        className={
+                          commitmentShow
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#959494] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل الإلتزامات
                       </div>
                     </div>
@@ -272,13 +292,22 @@ export default function Content() {
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/receive-grey.png"
+                            receiveShow
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/incoming-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
+                      <div
+                        className={
+                          receiveShow
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#959494] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل الطلبات الواردة
                       </div>
                     </div>
@@ -302,13 +331,22 @@ export default function Content() {
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/send.png"
+                            outgoingShow
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/outgoing-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
+                      <div
+                        className={
+                          outgoingShow
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#959494] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل الطلبات الصادرة
                       </div>
                     </div>
@@ -316,64 +354,89 @@ export default function Content() {
                   <div
                     onClick={() => {
                       setInfoShow((infoShow) => !infoShow);
+                      setProductShow(false);
+                      setCommitmentShow(false);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(false);
+                      setReceiveShow(false);
                       setConversationShow(false);
                     }}
                     className="flex-none cursor-pointer p-[15px] pr-[0px]"
                   >
-                    <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
+                    <div
+                      className={
+                        infoShow
+                          ? "flex-col  h-[140px] pl-[10px] border-l-[1px]"
+                          : "flex-col  h-[66px] pl-[10px] border-l-[1px]"
+                      }
+                    >
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/info-grey.png"
+                            infoShow || infoShowOutgoing || infoShowIncoming
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/info-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
-                        سجل البلاغات
-                      </div>
                       <div
                         className={
-                          infoShow
-                            ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
-                            : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                          infoShow || infoShowOutgoing || infoShowIncoming
+                            ? "text-[#60BA62] text-center text-[16px] font-sstbold"
+                            : "text-[#959494] text-center text-[16px] font-sstbold"
                         }
                       >
+                        سجل البلاغات
+                      </div>
+                      <div className="relative">
                         <div
-                          onClick={() => {
-                            setProductShow(false);
-                            setCommitmentShow(false);
-                            setConversationShowIncoming(false);
-                            setConversationShowOutgoing(false);
-                            setInfoShowIncoming(false);
-                            setInfoShowOutgoing(true);
-                            setOutgoingShow(false);
-                            setReceiveShow(false);
-                            setInfoShow(false);
-                          }}
-                          className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
+                          className={
+                            infoShow
+                              ? " shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
+                              : " hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                          }
                         >
-                          بلاغات صادرة
+                          <div
+                            onClick={() => {
+                              setProductShow(false);
+                              setCommitmentShow(false);
+                              setConversationShowIncoming(false);
+                              setConversationShowOutgoing(false);
+                              setInfoShowIncoming(false);
+                              setInfoShowOutgoing(true);
+                              setOutgoingShow(false);
+                              setReceiveShow(false);
+                              setInfoShow(false);
+                            }}
+                            className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
+                          >
+                            بلاغات صادرة
+                          </div>
+                          <div className="dropdown-divider mb-0"></div>
+                          <div
+                            onClick={() => {
+                              setProductShow(false);
+                              setCommitmentShow(false);
+                              setConversationShowIncoming(false);
+                              setConversationShowOutgoing(false);
+                              setInfoShowIncoming(true);
+                              setInfoShowOutgoing(false);
+                              setOutgoingShow(false);
+                              setReceiveShow(false);
+                              setInfoShow(false);
+                            }}
+                            className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
+                          >
+                            بلاغات واردة
+                          </div>
+                          <div className="dropdown-divider mb-0"></div>
                         </div>
-                        <div className="dropdown-divider mb-0"></div>
-                        <div
-                          onClick={() => {
-                            setProductShow(false);
-                            setCommitmentShow(false);
-                            setConversationShowIncoming(false);
-                            setConversationShowOutgoing(false);
-                            setInfoShowIncoming(true);
-                            setInfoShowOutgoing(false);
-                            setOutgoingShow(false);
-                            setReceiveShow(false);
-                            setInfoShow(false);
-                          }}
-                          className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
-                        >
-                          بلاغات واردة
-                        </div>
-                        <div className="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -383,67 +446,96 @@ export default function Content() {
                       setConversationShow(
                         (conversationShow) => !conversationShow
                       );
+                      setProductShow(false);
+                      setCommitmentShow(false);
+                      setConversationShowIncoming(false);
+                      setConversationShowOutgoing(false);
+                      setInfoShowIncoming(false);
+                      setInfoShowOutgoing(false);
+                      setOutgoingShow(false);
+                      setReceiveShow(false);
                       setInfoShow(false);
                       setDeleteShow(false);
                     }}
                     className="flex-none cursor-pointer p-[15px] pr-[0px]"
                   >
-                    <div className="flex-col  h-[66px] pl-[10px] ">
+                    <div
+                      className={
+                        conversationShow
+                          ? "flex-col  h-[140px] pl-[10px] "
+                          : "flex-col  h-[66px] pl-[10px] "
+                      }
+                    >
                       <div className="flex justify-center">
                         <img
                           src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/chat.png"
+                            conversationShow
+                              ? config.domainUrl +
+                                "/panel/app-assets/images/chat-green.png"
+                              : config.domainUrl +
+                                "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
-                      <div className="text-[#959494] text-[16px] font-sstbold">
-                        سجل المحادثات
-                      </div>
                       <div
                         className={
-                          conversationShow
-                            ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
-                            : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                          conversationShow ||
+                          conversationShowIncoming ||
+                          conversationShowOutgoing
+                            ? "text-[#60BA62] text-center text-[16px] font-sstbold"
+                            : "text-[#959494] text-center text-[16px] font-sstbold"
                         }
                       >
+                        سجل المحادثات
+                      </div>
+                      <div className="relative">
                         <div
-                          onClick={() => {
-                            setProductShow(false);
-                            setCommitmentShow(false);
-                            setConversationShowIncoming(false);
-                            setConversationShowOutgoing(true);
-                            setInfoShowIncoming(false);
-                            setInfoShowOutgoing(false);
-                            setOutgoingShow(false);
-                            setReceiveShow(false);
-                            setInfoShow(false);
-                            setConversationShow(false);
-                          }}
-                          className="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
+                          className={
+                            conversationShow ||
+                            conversationShowIncoming ||
+                            conversationShowOutgoing
+                              ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
+                              : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                          }
                         >
-                          محادثات صادرة
+                          <div
+                            onClick={() => {
+                              setProductShow(false);
+                              setCommitmentShow(false);
+                              setConversationShowIncoming(false);
+                              setConversationShowOutgoing(true);
+                              setInfoShowIncoming(false);
+                              setInfoShowOutgoing(false);
+                              setOutgoingShow(false);
+                              setReceiveShow(false);
+                              setInfoShow(false);
+                              setConversationShow(false);
+                            }}
+                            className="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
+                          >
+                            محادثات صادرة
+                          </div>
+                          <div className="dropdown-divider mb-0"></div>
+                          <div
+                            onClick={() => {
+                              setProductShow(false);
+                              setCommitmentShow(false);
+                              setConversationShowIncoming(true);
+                              setConversationShowOutgoing(false);
+                              setInfoShowIncoming(false);
+                              setInfoShowOutgoing(false);
+                              setOutgoingShow(false);
+                              setReceiveShow(false);
+                              setInfoShow(false);
+                              setConversationShow(false);
+                            }}
+                            className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                          >
+                            محادثات واردة
+                          </div>
+                          <div className="dropdown-divider mb-0"></div>
                         </div>
-                        <div className="dropdown-divider mb-0"></div>
-                        <div
-                          onClick={() => {
-                            setProductShow(false);
-                            setCommitmentShow(false);
-                            setConversationShowIncoming(true);
-                            setConversationShowOutgoing(false);
-                            setInfoShowIncoming(false);
-                            setInfoShowOutgoing(false);
-                            setOutgoingShow(false);
-                            setReceiveShow(false);
-                            setInfoShow(false);
-                            setConversationShow(false);
-                          }}
-                          className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
-                        >
-                          محادثات واردة
-                        </div>
-                        <div className="dropdown-divider mb-0"></div>
                       </div>
                     </div>
                   </div>
@@ -570,15 +662,19 @@ export default function Content() {
             </div>
           </section>
           <section id="product ">
-            {productShow && <Products />}
+            {productShow && <Products storeId={storeId} />}
 
-            {commitmentShow && <Commitment />}
-            {receiveShow && <OrderReceive />}
-            {outgoingShow && <OutgoingOrder />}
-            {infoShowIncoming && <InfoIncoming />}
-            {infoShowOutgoing && <InfoOutgoing />}
-            {conversationShowOutgoing && <OutgoingConversation />}
-            {conversationShowIncoming && <IncomingConveration />}
+            {commitmentShow && <Commitment storeId={storeId} />}
+            {receiveShow && <OrderReceive storeId={storeId} />}
+            {outgoingShow && <OutgoingOrder storeId={storeId} />}
+            {infoShowIncoming && <InfoIncoming storeId={storeId} />}
+            {infoShowOutgoing && <InfoOutgoing storeId={storeId} />}
+            {conversationShowOutgoing && (
+              <OutgoingConversation storeId={storeId} />
+            )}
+            {conversationShowIncoming && (
+              <IncomingConveration storeId={storeId} />
+            )}
           </section>
         </div>
       </div>
