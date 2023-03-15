@@ -358,8 +358,8 @@ export default function Content() {
                       setCommitmentShow(false);
                       setConversationShowIncoming(false);
                       setConversationShowOutgoing(false);
-                      setInfoShowIncoming(false);
-                      setInfoShowOutgoing(false);
+                      // setInfoShowIncoming(false);
+                      //setInfoShowOutgoing(false);
                       setOutgoingShow(false);
                       setReceiveShow(false);
                       setConversationShow(false);
@@ -403,7 +403,9 @@ export default function Content() {
                           }
                         >
                           <div
-                            onClick={() => {
+                            onClick={(e) => {
+                              setInfoShow((infoShow) => !infoShow);
+
                               setProductShow(false);
                               setCommitmentShow(false);
                               setConversationShowIncoming(false);
@@ -413,6 +415,7 @@ export default function Content() {
                               setOutgoingShow(false);
                               setReceiveShow(false);
                               setInfoShow(false);
+                              e.stopPropagation();
                             }}
                             className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
                           >
@@ -420,7 +423,8 @@ export default function Content() {
                           </div>
                           <div className="dropdown-divider mb-0"></div>
                           <div
-                            onClick={() => {
+                            onClick={(e) => {
+                              setInfoShow((infoShow) => !infoShow);
                               setProductShow(false);
                               setCommitmentShow(false);
                               setConversationShowIncoming(false);
@@ -430,6 +434,7 @@ export default function Content() {
                               setOutgoingShow(false);
                               setReceiveShow(false);
                               setInfoShow(false);
+                              e.stopPropagation();
                             }}
                             className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
                           >
@@ -448,8 +453,7 @@ export default function Content() {
                       );
                       setProductShow(false);
                       setCommitmentShow(false);
-                      setConversationShowIncoming(false);
-                      setConversationShowOutgoing(false);
+
                       setInfoShowIncoming(false);
                       setInfoShowOutgoing(false);
                       setOutgoingShow(false);
@@ -480,9 +484,7 @@ export default function Content() {
                       </div>
                       <div
                         className={
-                          conversationShow ||
-                          conversationShowIncoming ||
-                          conversationShowOutgoing
+                          conversationShow
                             ? "text-[#60BA62] text-center text-[16px] font-sstbold"
                             : "text-[#959494] text-center text-[16px] font-sstbold"
                         }
@@ -492,15 +494,16 @@ export default function Content() {
                       <div className="relative">
                         <div
                           className={
-                            conversationShow ||
-                            conversationShowIncoming ||
-                            conversationShowOutgoing
+                            conversationShow
                               ? "absolute shadow w-[289px] mt-[-10px] mr-[-60px] z-50 bg-white"
                               : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
                           }
                         >
                           <div
-                            onClick={() => {
+                            onClick={(e) => {
+                              setConversationShow(
+                                (conversationShow) => !conversationShow
+                              );
                               setProductShow(false);
                               setCommitmentShow(false);
                               setConversationShowIncoming(false);
@@ -511,6 +514,7 @@ export default function Content() {
                               setReceiveShow(false);
                               setInfoShow(false);
                               setConversationShow(false);
+                              e.stopPropagation();
                             }}
                             className="p-[10px] outgoing-conversation text-[#484848] text-[18px] font-sstbold text-center"
                           >
@@ -518,7 +522,10 @@ export default function Content() {
                           </div>
                           <div className="dropdown-divider mb-0"></div>
                           <div
-                            onClick={() => {
+                            onClick={(e) => {
+                              setConversationShow(
+                                (conversationShow) => !conversationShow
+                              );
                               setProductShow(false);
                               setCommitmentShow(false);
                               setConversationShowIncoming(true);
@@ -529,6 +536,7 @@ export default function Content() {
                               setReceiveShow(false);
                               setInfoShow(false);
                               setConversationShow(false);
+                              e.stopPropagation();
                             }}
                             className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                           >

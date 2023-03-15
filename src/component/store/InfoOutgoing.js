@@ -1,5 +1,7 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 export default function InfoOutgoing() {
   return (
     <>
@@ -91,7 +93,10 @@ export default function InfoOutgoing() {
                   </div>
                   <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
                     <img
-                      src="../panel/app-assets/images/dropdown.png"
+                      src={
+                        config.domainUrl +
+                        "/panel/app-assets/images/dropdown.png"
+                      }
                       className="h-[24px] w-[24px]"
                     />
                   </div>

@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 import InfoGraph from "./InfoGraph";
+import moment from "moment";
+export default function InfoIncoming(props) {
+  const [storeReport, setStoreReport] = useState([]);
+  const [productReport, setProductReport] = useState([]);
+  const [pendingOrder, setPendingOrder] = useState("0");
+  const [from, setFrom] = useState("2022-11-01");
+  const [to, setTo] = useState("2023-04-15");
+  const [showCancel, setShowCancel] = useState(false);
+  const [showCancelId, setShowCancelId] = useState("");
+  useEffect(() => {
+    getAlertInfo(props.storeId);
+  }, [props]);
 
-export default function InfoIncoming() {
+  const getAlertInfo = async (id) => {
+    const obj = {
+      userId: id,
+      from: from,
+      to: to,
+    };
+    let params = { url: apiList.getReportProductById, body: obj };
+    let response = await ApiService.postData(params);
+    setProductReport(response.result);
+    let params1 = { url: apiList.getReportStoreById, body: obj };
+    let response1 = await ApiService.postData(params1);
+    setStoreReport(response1.result);
+  };
   return (
     <>
       <div className="row mt-[10px]">
@@ -21,12 +48,12 @@ export default function InfoIncoming() {
                       className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                        إجمالي الطلبات
+                        عدد البلاغات
                       </div>
-                      <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        70
+                      <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
+                        {productReport.length + storeReport.length}
                       </div>
-                      <div className="text-[16px] font-sstbold text-[#60BA62]">
+                      <div className="text-[16px] font-sstbold text-[#E80000]">
                         5,09% أعلى من الشهر الماضي
                       </div>
                     </td>
@@ -35,24 +62,24 @@ export default function InfoIncoming() {
                       className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                        إجمالي قيمة الطلبات{" "}
+                        بلاغات المنتجات
                       </div>
-                      <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                        170 ريال
+                      <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
+                        {storeReport.length}
                       </div>
-                      <div className="text-[16px] font-sstbold text-[#60BA62]">
-                        5,09% أعلى من الشهر الماضي{" "}
+                      <div className="text-[16px] font-sstbold text-[#E80000]">
+                        5,09% أعلى من الشهر الماضي
                       </div>
                     </td>
                     <td className="  text-center w-[25%]">
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                        الطلبات المعلقة{" "}
+                        بلاغات المنتجات
                       </div>
-                      <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                        3
+                      <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
+                        {productReport.length}
                       </div>
                       <div className="text-[16px] font-sstbold text-[#E80000]">
-                        5,09% أعلى من الشهر الماضي{" "}
+                        5,09% أعلى من الشهر الماضي
                       </div>
                     </td>
                   </tr>
@@ -77,190 +104,88 @@ export default function InfoIncoming() {
           </div>
         </div>
       </div>
-      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table className="table mb-0">
-          <tbody>
-            <tr
-              style={{
-                borderRightWidth: 0,
-              }}
-              className=""
-            >
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  محمد علي محمد
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                  1/12/2022
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  بلاغ عن المتجر
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 0 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  اسم الموظف
-                </div>
-              </td>
+      <div className="mb-[200px]">
+        {storeReport.length > 0 &&
+          storeReport.map((data, i) => {
+            return (
+              <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+                <table className="table mb-0">
+                  <tbody>
+                    <tr
+                      style={{
+                        borderRightWidth: 0,
+                      }}
+                      className=""
+                    >
+                      <td
+                        style={{ borderLeftWidth: 1 }}
+                        className=" w-[15%] text-center "
+                      >
+                        <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
+                          {data.username}
+                        </div>
+                      </td>
+                      <td
+                        style={{ borderLeftWidth: 1 }}
+                        className="w-[15%]  text-center "
+                      >
+                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          {moment(data.created_at).format("DD/MM/YYYY")}
+                        </div>
+                      </td>
+                      <td
+                        style={{ borderLeftWidth: 1 }}
+                        className="w-[15%]  text-center "
+                      >
+                        <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
+                          بلاغ عن المتجر
+                        </div>
+                      </td>
 
-              <td className="w-[25%]">
-                <div className="flex justify-end">
-                  <div className="   text-[#959494] text-[16px] font-sstbold ">
-                    ملخص الطلب
-                  </div>
-                  <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
-                    <img
-                      src="../panel/app-assets/images/dropdown.png"
-                      className="h-[24px] w-[24px]"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table className="table mb-0">
-          <tbody>
-            <tr
-              style={{
-                borderRightWidth: 0,
-              }}
-              className=""
-            >
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  محمد علي محمد
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                  1/12/2022
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  بلاغ عن المتجر
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 0 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  اسم الموظف
-                </div>
-              </td>
-
-              <td className="w-[25%]">
-                <div className="flex justify-end">
-                  <div className="   text-[#959494] text-[16px] font-sstbold ">
-                    ملخص الطلب
-                  </div>
-                  <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
-                    <img
-                      src="../panel/app-assets/images/dropdown.png"
-                      className="h-[24px] w-[24px]"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-        <table className="table mb-0">
-          <tbody>
-            <tr
-              style={{
-                borderRightWidth: 0,
-              }}
-              className=""
-            >
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  محمد علي محمد
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                  1/12/2022
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className="w-[15%]  text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  بلاغ عن المتجر
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 1 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#959494] text-[16px] font-sstbold ">
-                  اسم الموظف
-                </div>
-              </td>
-              <td
-                style={{ borderLeftWidth: 0 }}
-                className=" w-[15%] text-center "
-              >
-                <div className=" flex justify-center text-[#FF9800] text-[16px] font-sstbold ">
-                  معلق
-                </div>
-              </td>
-
-              <td className="w-[25%]">
-                <div className="flex justify-end">
-                  <div className="   text-[#959494] text-[16px] font-sstbold ">
-                    ملخص الطلب
-                  </div>
-                  <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
-                    <img
-                      src="../panel/app-assets/images/dropdown.png"
-                      className="h-[24px] w-[24px]"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                      <td
+                        onClick={() => {
+                          if (!showCancel) {
+                            setShowCancelId((showCancelId) => data.id);
+                            setShowCancel((showCancel) => !showCancel);
+                          } else {
+                            setShowCancelId("");
+                            setShowCancel((showCancel) => !showCancel);
+                          }
+                        }}
+                        className="w-[25%]"
+                      >
+                        <div className="flex justify-end">
+                          <div className="   text-[#959494] text-[16px] font-sstbold ">
+                            ملخص الطلب
+                          </div>
+                          <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
+                            <img
+                              src={
+                                config.domainUrl +
+                                "/panel/app-assets/images/dropdown.png"
+                              }
+                              className="h-[24px] w-[24px]"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            showCancelId == data.id
+                              ? "relative"
+                              : "relative hidden "
+                          }
+                        >
+                          <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
+                            {data.message}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            );
+          })}
       </div>
     </>
   );
