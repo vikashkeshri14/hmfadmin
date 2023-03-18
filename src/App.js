@@ -32,6 +32,7 @@ function App() {
         <Route path="/transfer" element={<Transfer />} />
         <Route path="/user-details" element={<UserDetails />} />
         <Route path="/store/:slug" element={<Store />} />
+        <Route path="/user/:slug" element={<UserDetails />} />
         <Route path="/order" element={<Order />} />
         <Route path="/report" element={<Report />} />
         <Route path="/sms" element={<Sms />} />

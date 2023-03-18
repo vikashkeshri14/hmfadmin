@@ -5,17 +5,29 @@ import config from "../../config/config.json";
 
 export default function Products(props) {
   const [productList, setProductList] = useState([]);
+  const [productDelete, setProductDelete] = useState(false)
   useEffect(() => {
     getStoreProduct(props.storeId);
     console.log(props);
   }, [props]);
   const getStoreProduct = async (id) => {
     const obj = { storeId: id };
-
     let params = { url: apiList.getStoreProductById, body: obj };
     let response = await ApiService.postData(params);
     setProductList(response.result);
   };
+
+  const deleteProduct = async (id) => {
+    let products = productList;
+    let pro = products.filter((data, i) => { return data.id != id })
+    // console.log(pro);
+    // console.log(products);
+    setProductList(productList => pro);
+    setProductDelete(true);
+    setTimeout(() => {
+      setProductDelete(false)
+    }, 1500)
+  }
   return (
     <div className="bg-white mt-[15px] p-[15px] rounded-[6px] flex-col ">
       <div className="w-[100%] flex">
@@ -48,17 +60,21 @@ export default function Products(props) {
           {productList.length} منتج
         </div>
       </div>
+      {productDelete && <div className="relative w-[400px] m-auto h-[100px]">
+        <div className="text-[#FFFFFF] w-[400px] text-center absolute h-[80px] text-[32px] p-[10px] rounded-[6px] bg-[#60BA62] font-sstbold ">تم حذف المنتج بنجاح</div>
+      </div>}
+
       <div className="flex flex-wrap  overflow-x-auto overflow-y-hidden">
         {productList.length > 0 &&
           productList.map((data) => {
+            //console.log(data);
             return (
               <div className="flex-col mt-[20px] ml-[20px]">
                 <div className="flex ">
                   <div
                     style={{
-                      backgroundImage: `url(${config.imgUri}/${
-                        data.imagesAll.length > 0 && data.imagesAll[0].image
-                      })`,
+                      backgroundImage: `url(${config.imgUri}/${data.imagesAll.length > 0 && data.imagesAll[0].image
+                        })`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
@@ -75,7 +91,9 @@ export default function Products(props) {
                       }}
                       className="h-[303px] flex justify-end w-[216px]"
                     >
-                      <div className="h-[51px] w-[47px] flex justify-center bg-[#959494]">
+                      <div onClick={() => {
+                        deleteProduct(data.id)
+                      }} className="h-[51px] cursor-pointer w-[47px] flex justify-center bg-[#959494]">
                         <img
                           src={
                             config.domainUrl +

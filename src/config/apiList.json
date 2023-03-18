@@ -10,6 +10,7 @@
   "numberOfPaidOrderByRange": "/orders/numberOfPaidOrderByRange",
   "numberOfRejectedOrderByRange": "/orders/numberOfRejectedOrderByRange",
   "getNumberOfCommitment": "/orders/getNumberOfCommitment",
+  "allOrderByHrUserId": "/orders/allOrderByHrUserId",
   "getUserAndStore": "/users/getUserAndStore",
   "getDevice": "/users/getDevice",
   "getAllUser": "/users/getAllUser",

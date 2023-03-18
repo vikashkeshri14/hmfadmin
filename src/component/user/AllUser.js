@@ -4,7 +4,10 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
 export default function AllUser() {
+
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     getAllUsers();
@@ -33,7 +36,10 @@ export default function AllUser() {
                   key={i}
                   className="w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
                 >
-                  <div className="top-[44px] relative mr-50 ">
+                  <div onClick={() => {
+                    navigate("/user/" + data.id);
+                  }}
+                    className="top-[44px] cursor-pointer relative mr-50 ">
                     <img
                       className="w-[88px] h-[88px] rounded-[44px]"
                       src={config.imgUri + "/" + data.user_pic}
@@ -56,21 +62,21 @@ export default function AllUser() {
                             className="h-[24px] w-[24px] mt-[2px]"
                             src="../../../panel/app-assets/images/frame.png"
                           />
-                          &nbsp;4.9
+                          &nbsp;{data.profile_view}
                         </div>
                         <div className="text-[#E80000] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                           <img
                             className="h-[24px] w-[24px]"
                             src="../../../panel/app-assets/images/info-red.png"
                           />
-                          &nbsp;10
+                          &nbsp;0
                         </div>
                         <div className="text-[#60BA62] flex justify-center pb-[10px] mb-[10px] border-b-[1px] border-[#EBEBEB] text-[16px] font-sstbold">
                           <img
                             className="h-[24px] w-[24px]"
                             src="../../../panel/app-assets/images/cake.png"
                           />
-                          &nbsp;102
+                          &nbsp;{data.no_of_order}
                         </div>
                       </div>
                     </div>

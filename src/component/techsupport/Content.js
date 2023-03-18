@@ -100,7 +100,7 @@ export default function Content() {
                   }}
                   className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
                 >
-                  عرض سجل البلاغات
+                  إنشاء رسالة
                 </button>
               </div>
             </div>

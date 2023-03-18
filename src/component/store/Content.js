@@ -216,9 +216,9 @@ export default function Content() {
                           src={
                             productShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/shop-green.png"
+                              "/panel/app-assets/images/shop-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/shop-grey.png"
+                              "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -255,9 +255,9 @@ export default function Content() {
                           src={
                             commitmentShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/commitment-green.png"
+                              "/panel/app-assets/images/commitment-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/commitment.png"
+                              "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -294,9 +294,9 @@ export default function Content() {
                           src={
                             receiveShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/incoming-green.png"
+                              "/panel/app-assets/images/incoming-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/receive-grey.png"
+                              "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -333,9 +333,9 @@ export default function Content() {
                           src={
                             outgoingShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/outgoing-green.png"
+                              "/panel/app-assets/images/outgoing-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/send.png"
+                              "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -378,9 +378,9 @@ export default function Content() {
                           src={
                             infoShow || infoShowOutgoing || infoShowIncoming
                               ? config.domainUrl +
-                                "/panel/app-assets/images/info-green.png"
+                              "/panel/app-assets/images/info-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/info-grey.png"
+                              "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -475,9 +475,9 @@ export default function Content() {
                           src={
                             conversationShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/chat-green.png"
+                              "/panel/app-assets/images/chat-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/chat.png"
+                              "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -556,7 +556,7 @@ export default function Content() {
                     </div>
                     <div className="text-[18px] w-[50%] flex  justify-end p-[10px] font-sstbold text-right text-[#959494]">
                       <div className="mr-[10px] text-[#484848] font-sstbold text-[16px] text-left ml-[10px]">
-                        966553355732+
+                        {storeDetails != null && storeDetails.mobile ? storeDetails.mobile : "--"}
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
@@ -689,7 +689,7 @@ export default function Content() {
       {blocked && (
         <>
           <div className="initial">
-            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+            <div className="absolute   top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حظر
@@ -698,14 +698,17 @@ export default function Content() {
                 <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../panel/app-assets/images/store.png"
+                    src={
+                      storeDetails != null &&
+                      config.imgUri + "/" + storeDetails.user_pic
+                    }
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
-                  محمد علي محمد
+                  {storeDetails != null && storeDetails.username}
                 </div>
                 <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
-                  #23456
+                  # {storeDetails != null && storeDetails.id}
                 </div>
                 <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
                   سبب الحظر
@@ -714,14 +717,15 @@ export default function Content() {
                   <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
+
+                  <button className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
                   <button
                     onClick={() => setBlocked(false)}
-                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
                   >
                     إلغاء
-                  </button>
-                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
-                    حظر
                   </button>
                 </div>
               </div>
@@ -732,7 +736,7 @@ export default function Content() {
       {perblocked && (
         <>
           <div className="initial">
-            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+            <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حظر
@@ -741,14 +745,17 @@ export default function Content() {
                 <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../panel/app-assets/images/store.png"
+                    src={
+                      storeDetails != null &&
+                      config.imgUri + "/" + storeDetails.user_pic
+                    }
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
-                  محمد علي محمد
+                  {storeDetails != null && storeDetails.username}
                 </div>
                 <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
-                  #23456
+                  # {storeDetails != null && storeDetails.id}
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
                 <div dir="ltr" className="flex justify-center">
@@ -759,7 +766,7 @@ export default function Content() {
                     ranges={state}
                   />
                 </div>
-                <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
+                <div className="text-[#484848] mt-[5px] ml-[10px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
                   سبب الحظر
                 </div>
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
@@ -767,14 +774,15 @@ export default function Content() {
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
+
+                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
                   <button
                     onClick={() => setPerBlocked(false)}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
                   >
                     إلغاء
-                  </button>
-                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
-                    حظر
                   </button>
                 </div>
               </div>
@@ -785,16 +793,19 @@ export default function Content() {
       {deleteShow && (
         <>
           <div className="initial">
-            <div className="absolute   top-1/2 left-1/2 transform -translate-x-1/2   w-[500px]  ">
+            <div className="absolute   top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
-                  هل أنت متأكد من حظر
+                  هل أنت متأكد من حذف
                 </h3>
 
                 <div className="flex justify-center mt-[10px]">
                   <img
                     className="w-[68px] self-center h-[68px] rounded-[34px]"
-                    src="../../../panel/app-assets/images/store.png"
+                    src={
+                      storeDetails != null &&
+                      config.imgUri + "/" + storeDetails.user_pic
+                    }
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">

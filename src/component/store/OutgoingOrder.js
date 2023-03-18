@@ -103,8 +103,8 @@ export default function OutgoingOrder(props) {
                           حالة الطلب
                         </div>
                         {data.status == "2" &&
-                        (data.payment_status == "1" ||
-                          data.payment_accepted_date != null) ? (
+                          (data.payment_status == "1" ||
+                            data.payment_accepted_date != null) ? (
                           <div className="text-[#E80000] text-center text-[20px] font-sstbold ">
                             مرفوضة بعد الإتفاق المبدئي
                           </div>
@@ -161,7 +161,7 @@ export default function OutgoingOrder(props) {
                             }
                           >
                             <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
-                              {data.cancelReason[0].message}
+                              {data.cancelReason.length > 0 && data.cancelReason[0].message}
                             </div>
                           </div>
                         </td>

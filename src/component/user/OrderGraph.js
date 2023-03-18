@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -8,84 +8,44 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-export default function OrderGraph() {
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page H",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Page I",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import { Squares } from "react-activity";
+import "react-activity/dist/library.css";
+export default function OrderGraph(props) {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    getData(props.userId);
+  }, [props]);
+  const getData = async (id) => {
+    const obj = {
+      "userId": id,
+      "from": "2022-11-01",
+      "to": "2023-04-15"
+    };
+    let params = { url: apiList.allOrderByHrUserId, body: obj };
+    let response = await ApiService.postData(params);
+
+    if (response) {
+      let valres = [];
+      let res = response.result;
+      for (let i = 0; i < response.result.length; i++) {
+        valres.push({ name: "order", number: res[i].cnt });
+      }
+      setData(valres);
+      setLoading(false);
+    }
+  };
   return (
-    <div className=" h-[150px] absolute bottom-0 p-[10px]">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className=" h-[80px] p-[10px]">
+      {loading && (
+        <div className="absolute left-[50%] top-[50%]">
+          <Squares />
+        </div>
+      )}
+      <ResponsiveContainer width="100%" className="mt-[120px]" height="100%">
         <AreaChart
           height={60}
           data={data}
@@ -96,9 +56,10 @@ export default function OrderGraph() {
             bottom: 5,
           }}
         >
+          <Tooltip />
           <Area
             type="monotone"
-            dataKey="uv"
+            dataKey="number"
             stroke="#60BA62"
             fill="rgb(96,186, 98, 0.24)"
           />
