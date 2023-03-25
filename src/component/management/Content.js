@@ -107,7 +107,7 @@ export default function Content() {
                             >
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/user-profile.png"
+                                src={config.imgUri + "/" + data.pic}
                                 alt="user image"
                               />
                             </div>
@@ -161,7 +161,7 @@ export default function Content() {
                             <div className="flex justify-center mt-[0px]">
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
-                                src="../../../panel/app-assets/images/user-profile.png"
+                                src={config.imgUri + "/" + userDetails.pic}
                                 alt="user image"
                               />
                             </div>
@@ -281,7 +281,7 @@ export default function Content() {
                             <div className="flex justify-center mt-[0px]">
                               <img
                                 className="w-[146px] h-[146px] rounded-[73px]"
-                                src="../../../panel/app-assets/images/user-profile.png"
+                                src={config.imgUri + "/" + userDetails.pic}
                                 alt="user image"
                               />
                             </div>

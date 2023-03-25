@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import ReactImageFileToBase64 from "react-file-image-to-base64";
 export default function AddTeam() {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,10 +19,11 @@ export default function AddTeam() {
   const [passwordError, setPasswordError] = useState(false);
   const [cpassword, setCpassword] = useState("");
   const [cpasswordError, setCpasswordError] = useState(false);
-
+  const [image, setImage] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const [size, setSize] = useState("");
+  const [imageName, setImageName] = useState("Select Pic");
   const checkedOnChange = async (args, event) => {
     let countValue = modules;
     if (event.target.checked) {
@@ -32,9 +34,25 @@ export default function AddTeam() {
     // console.log(countValue);
     setModules(countValue);
   };
+  const handleOnCompleted = (files) => {
+    setSize(files[0].file_size.split("KB")[0].trim());
 
+    let base64 = files[0].base64_file.split(",");
+    setImage(base64[1]);
+    setImageName(files[0].file_name);
+  };
   const addTeam = async () => {
     setButtonClick(true);
+    if (!image) {
+      alert("please select the profile pic");
+      setButtonClick(false);
+      return;
+    }
+    if (size > 3072) {
+      alert("please select the profile pic less than 3mb");
+      setButtonClick(false);
+      return;
+    }
     if (!fullname) {
       setFullNameError(true);
       setButtonClick(false);
@@ -90,6 +108,7 @@ export default function AddTeam() {
       phone: phone,
       email: email,
       password: password,
+      pic: image,
       modules: JSON.stringify(modules),
     };
     //console.log(obj);
@@ -140,6 +159,21 @@ export default function AddTeam() {
                     <div className="card-body">
                       <div className="form-body">
                         <div className="row">
+                          <div className="col-12">
+                            <div className="form-group">
+                              <label
+                                className="block mb-2 font-sstbold text-[#959494] text-[16px]"
+                                htmlFor="file_input"
+                              >
+                                الصوره الشخصيه
+                              </label>
+                              <ReactImageFileToBase64
+                                multiple={false} // MULTIPLE IS SET TO FALSE BY DEFAULT, SO FEEL FREE TO REMOVE THIS  CHUNK IF YOU WANT
+                                onCompleted={handleOnCompleted}
+                                preferredButtonText={imageName}
+                              />
+                            </div>
+                          </div>
                           <div className="col-12">
                             <div className="form-group">
                               <label htmlFor="full-name-vertical ">

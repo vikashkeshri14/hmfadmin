@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import ReactImageFileToBase64 from "react-file-image-to-base64";
+
 import { useParams, useNavigate } from "react-router-dom";
 export default function EditTeam() {
   const [fullname, setFullName] = useState("");
@@ -18,9 +20,13 @@ export default function EditTeam() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [id, setId] = useState("");
-
+  const [size, setSize] = useState("");
+  const [imageName, setImageName] = useState("Select Pic");
+  const [image, setImage] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [imgpic, setImgPic] = useState(null);
+  //const [id,setId]=useState("");
   const [allModules, setAllModules] = useState([
     {
       name: "لوحة التحكم",
@@ -113,6 +119,7 @@ export default function EditTeam() {
       setJobTitle(users.job_title);
       setLocation(users.location);
       setIqama(users.iqama);
+      setImgPic(users.pic);
       let modules = users.modules;
       modules = modules.replace(/'/g, '"'); //replacing all ' with "
       modules = JSON.parse(modules);
@@ -162,7 +169,13 @@ export default function EditTeam() {
     //console.log(countValue);
     setModules(countValue);
   };
+  const handleOnCompleted = (files) => {
+    setSize(files[0].file_size.split("KB")[0].trim());
 
+    let base64 = files[0].base64_file.split(",");
+    setImage(base64[1]);
+    setImageName(files[0].file_name);
+  };
   const addTeam = async () => {
     setButtonClick(true);
     if (!fullname) {
@@ -204,6 +217,7 @@ export default function EditTeam() {
       jobTitle: jobTitle,
       phone: phone,
       email: email,
+      pic: image,
       password: password,
       modules: JSON.stringify(modules),
     };
@@ -216,6 +230,8 @@ export default function EditTeam() {
         alert("Email id already exist in the database, try with another email");
       } else {
         setSuccess(true);
+        //console.log(params);
+        getTeamById(id);
         setTimeout(() => {
           setSuccess(false);
         }, 3000);
@@ -247,6 +263,30 @@ export default function EditTeam() {
                     <div className="card-body">
                       <div className="form-body">
                         <div className="row">
+                          <div className="col-12">
+                            <div className="form-group">
+                              <label
+                                className="block mb-2 font-sstbold text-[#959494] text-[16px]"
+                                htmlFor="file_input"
+                              >
+                                الصوره الشخصيه
+                              </label>
+                              <div className="flex ">
+                                <ReactImageFileToBase64
+                                  multiple={false} // MULTIPLE IS SET TO FALSE BY DEFAULT, SO FEEL FREE TO REMOVE THIS  CHUNK IF YOU WANT
+                                  onCompleted={handleOnCompleted}
+                                  preferredButtonText={imageName}
+                                />
+                                <img
+                                  className="w-[64px] h-[64px] mr-[20px]"
+                                  src={
+                                    imgpic != null &&
+                                    config.imgUri + "/" + imgpic
+                                  }
+                                />
+                              </div>
+                            </div>
+                          </div>
                           <div className="col-12">
                             <div className="form-group">
                               <label htmlFor="full-name-vertical ">
@@ -463,7 +503,7 @@ export default function EditTeam() {
                                 type="button"
                                 className="btn w-[370px] bg-[#959494] text-[18px] h-[62px] font-sstbold text-[#FFFFFF] mr-1"
                               >
-                                حفظ
+                                تحديث
                               </button>
                             </div>
                           </div>
