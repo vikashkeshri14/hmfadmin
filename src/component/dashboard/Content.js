@@ -7,6 +7,7 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Link, useNavigate } from "react-router-dom";
 export default function Content() {
   const [totalOrder, setTotalOrder] = useState("0");
@@ -27,6 +28,7 @@ export default function Content() {
     useState("0");
   const [rangeVal, setRangeVal] = useState("30");
   const [storePendingCommitment, setStorePendingCommitment] = useState([]);
+  const [value, onChange] = useState([new Date(), new Date()]);
   const navigate = useNavigate();
   useEffect(() => {
     getOrderDetails();
@@ -173,18 +175,27 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="w-[24%]  dashboard-users">
+              <div className="w-[24%]   dashboard-users">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  {/*  */}
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
+                  />
+
+                  {/* <input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

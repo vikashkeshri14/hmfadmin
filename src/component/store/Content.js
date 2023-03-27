@@ -15,8 +15,10 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
   const params = useParams();
+  const [value, onChange] = useState([new Date(), new Date()]);
   const [productShow, setProductShow] = useState(false);
   const [commitmentShow, setCommitmentShow] = useState(false);
   const [receiveShow, setReceiveShow] = useState(false);
@@ -98,21 +100,30 @@ export default function Content() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
+                  {/* <input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
-                  />
+                  /> */}
+                  <div>
+                    <DateRangePicker
+                      calendarIcon=""
+                      calendarClassName="border-0 "
+                      className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                      onChange={onChange}
+                      value={value}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="  mt-[10px]">
-              <div className=" flex-col bg-white rounded-[6px] ">
+            <div className="row mt-[10px]">
+              <div className="mr-[15px] flex-col bg-white rounded-[6px] ">
                 <div className="flex overflow-x-auto overflow-y-hidden">
                   <div className="flex-none p-[15px]">
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
@@ -216,9 +227,9 @@ export default function Content() {
                           src={
                             productShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/shop-green.png"
+                                "/panel/app-assets/images/shop-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/shop-grey.png"
+                                "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -255,9 +266,9 @@ export default function Content() {
                           src={
                             commitmentShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/commitment-green.png"
+                                "/panel/app-assets/images/commitment-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/commitment.png"
+                                "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -294,9 +305,9 @@ export default function Content() {
                           src={
                             receiveShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/incoming-green.png"
+                                "/panel/app-assets/images/incoming-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/receive-grey.png"
+                                "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -333,9 +344,9 @@ export default function Content() {
                           src={
                             outgoingShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/outgoing-green.png"
+                                "/panel/app-assets/images/outgoing-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/send.png"
+                                "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -378,9 +389,9 @@ export default function Content() {
                           src={
                             infoShow || infoShowOutgoing || infoShowIncoming
                               ? config.domainUrl +
-                              "/panel/app-assets/images/info-green.png"
+                                "/panel/app-assets/images/info-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/info-grey.png"
+                                "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -475,9 +486,9 @@ export default function Content() {
                           src={
                             conversationShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/chat-green.png"
+                                "/panel/app-assets/images/chat-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/chat.png"
+                                "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -556,7 +567,9 @@ export default function Content() {
                     </div>
                     <div className="text-[18px] w-[50%] flex  justify-end p-[10px] font-sstbold text-right text-[#959494]">
                       <div className="mr-[10px] text-[#484848] font-sstbold text-[16px] text-left ml-[10px]">
-                        {storeDetails != null && storeDetails.mobile ? storeDetails.mobile : "--"}
+                        {storeDetails != null && storeDetails.mobile
+                          ? storeDetails.mobile
+                          : "--"}
                       </div>
                       <div className="mr-[10px] ml-[10px]">
                         <img
@@ -567,33 +580,7 @@ export default function Content() {
                           }
                         />
                       </div>
-                      <div className="mr-[10px] ml-[10px]">
-                        <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/support.png"
-                          }
-                        />
-                      </div>
-                      <div className="mr-[10px] ml-[10px]">
-                        <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/message.png"
-                          }
-                        />
-                      </div>
-                      <div className="mr-[10px] ml-[10px]">
-                        <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/notification.png"
-                          }
-                        />
-                      </div>
+
                       <div
                         onClick={() => {
                           showBan((ban) => !ban);
@@ -607,46 +594,8 @@ export default function Content() {
                             "/panel/app-assets/images/danger.png"
                           }
                         />
-                        <div
-                          className={
-                            ban
-                              ? "absolute shadow w-[332px] mt-[20px] left-[90px] z-50 bg-white"
-                              : "absolute hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
-                          }
-                        >
-                          <div
-                            onClick={() => {
-                              setBlocked(true);
-                              setPerBlocked(false);
-                              setDeleteShow(false);
-                            }}
-                            className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
-                          >
-                            حظر مؤقت
-                          </div>
-                          <div className="dropdown-divider mb-0"></div>
-                          <div
-                            onClick={() => {
-                              setPerBlocked(true);
-                              setBlocked(false);
-                              setDeleteShow(false);
-                            }}
-                            className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
-                          >
-                            حظر دائم
-                          </div>
-                          <div className="dropdown-divider mb-0"></div>
-                          <div
-                            onClick={() => {
-                              setConversationShow(false);
-                            }}
-                            className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
-                          >
-                            إلغاء الحظر
-                          </div>
-                          <div className="dropdown-divider mb-0"></div>
-                        </div>
                       </div>
+
                       <div
                         onClick={() => {
                           setDeleteShow((deleteShow) => !deleteShow);
@@ -665,6 +614,45 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
+                </div>
+                <div
+                  className={
+                    ban
+                      ? "absolute shadow w-[332px] mt-[0px] left-[90px] z-50 bg-white"
+                      : "relative hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                  }
+                >
+                  <div
+                    onClick={() => {
+                      setBlocked(true);
+                      setPerBlocked(false);
+                      setDeleteShow(false);
+                    }}
+                    className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                  >
+                    حظر مؤقت
+                  </div>
+                  <div className="dropdown-divider mb-0"></div>
+                  <div
+                    onClick={() => {
+                      setPerBlocked(true);
+                      setBlocked(false);
+                      setDeleteShow(false);
+                    }}
+                    className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                  >
+                    حظر دائم
+                  </div>
+                  <div className="dropdown-divider mb-0"></div>
+                  <div
+                    onClick={() => {
+                      setConversationShow(false);
+                    }}
+                    className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                  >
+                    إلغاء الحظر
+                  </div>
+                  <div className="dropdown-divider mb-0"></div>
                 </div>
               </div>
             </div>
@@ -717,7 +705,6 @@ export default function Content() {
                   <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
-
                   <button className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حظر
                   </button>
@@ -774,7 +761,6 @@ export default function Content() {
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
-
                   <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حظر
                   </button>

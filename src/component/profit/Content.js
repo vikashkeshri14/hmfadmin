@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Barchart from "./Barchart";
 import Graph from "./Graph";
-
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
   const [alertShow, setAlertShow] = useState(false);
+  const [value, onChange] = useState([new Date(), new Date()]);
 
   return (
     <div className="app-content  content">
@@ -17,15 +18,25 @@ export default function Content() {
             <div className="row flex mr-[5px] ">
               <div className="w-[24%]  dashboard-users ">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
+                  {/* <input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
+                  /> */}
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>

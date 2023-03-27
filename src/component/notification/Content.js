@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import moment from "moment";
-
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
+  const [value, onChange] = useState([new Date(), new Date()]);
   const [alertShow, setAlertShow] = useState(false);
   const [id, setId] = useState("");
   const [userId, setUserId] = useState("");
@@ -14,21 +15,20 @@ export default function Content() {
   const [messageError, setMessageError] = useState(false);
   const [buttonClick, setButtonClick] = useState(false);
   const [userType, setUserType] = useState("2");
-  const [alerts, setAlerts] = useState([])
+  const [alerts, setAlerts] = useState([]);
   const [showVal, setShowVal] = useState("");
   const [show, setShow] = useState(false);
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getAlert();
-
   }, []);
   const getAlert = async () => {
     let params = { url: apiList.getAlert };
     let response = await ApiService.getData(params);
     //console.log(response)
     setAlerts(response.result);
-  }
+  };
   const addId = async () => {
     if (!id) {
       setIderror(true);
@@ -112,15 +112,23 @@ export default function Content() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
+                  {/*  <input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
+                  /> */}
+
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>
@@ -144,86 +152,97 @@ export default function Content() {
               </div>
             </div>
 
-            {alerts.length > 0 && alerts.map((data, i) => {
-              return (<div key={i} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
-                <table className="table mb-0">
-                  <tbody>
-                    <tr
-                      style={{
-                        borderRightWidth: 0,
-                      }}
-                      className=""
-                    >
-                      <td
-                        style={{ borderLeftWidth: 1 }}
-                        className=" w-[15%] text-center "
-                      >
-                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                          {data.username}
-                        </div>
-                      </td>
-                      <td
-                        style={{ borderLeftWidth: 1 }}
-                        className="w-[15%]  text-center "
-                      >
-                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                          {moment(data.created_at).format("DD/MM/YYYY")}
-                        </div>
-                      </td>
-                      <td
-                        style={{ borderLeftWidth: 0 }}
-                        className="w-[15%]  text-center "
-                      >
-                        <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
-                          {data.name}
-                        </div>
-                      </td>
+            {alerts.length > 0 &&
+              alerts.map((data, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]"
+                  >
+                    <table className="table mb-0">
+                      <tbody>
+                        <tr
+                          style={{
+                            borderRightWidth: 0,
+                          }}
+                          className=""
+                        >
+                          <td
+                            style={{ borderLeftWidth: 1 }}
+                            className=" w-[15%] text-center "
+                          >
+                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                              {data.username}
+                            </div>
+                          </td>
+                          <td
+                            style={{ borderLeftWidth: 1 }}
+                            className="w-[15%]  text-center "
+                          >
+                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                              {moment(data.created_at).format("DD/MM/YYYY")}
+                            </div>
+                          </td>
+                          <td
+                            style={{ borderLeftWidth: 0 }}
+                            className="w-[15%]  text-center "
+                          >
+                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                              {data.name}
+                            </div>
+                          </td>
 
-                      <td className="w-[25%]">
-                        <div onClick={() => {
-                          if (!show) {
-                            setShowVal(data.id);
-                            setShow((show) => !show);
-                          } else {
-                            setShowVal("");
-                            setShow((show) => !show);
-                          }
-                        }} className="flex cursor-pointer justify-end">
-                          <div className={
-                            showVal == data.id
-                              ? "text-[#60BA62] text-[16px] font-sstbold "
-                              : "text-[#484848] text-[16px] font-sstbold "
-                          }>
-                            عرض نص التنبية
-                          </div>
-                          <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
-                            <img
-                              src="../panel/app-assets/images/dropdown.png"
+                          <td className="w-[25%]">
+                            <div
+                              onClick={() => {
+                                if (!show) {
+                                  setShowVal(data.id);
+                                  setShow((show) => !show);
+                                } else {
+                                  setShowVal("");
+                                  setShow((show) => !show);
+                                }
+                              }}
+                              className="flex cursor-pointer justify-end"
+                            >
+                              <div
+                                className={
+                                  showVal == data.id
+                                    ? "text-[#60BA62] text-[16px] font-sstbold "
+                                    : "text-[#484848] text-[16px] font-sstbold "
+                                }
+                              >
+                                عرض نص التنبية
+                              </div>
+                              <div className="text-[#484848] mt-[3px]  text-center text-[16px] font-sstbold ">
+                                <img
+                                  src="../panel/app-assets/images/dropdown.png"
+                                  className={
+                                    showVal == data.id
+                                      ? "h-[24px] rotate-180 w-[24px]"
+                                      : "h-[24px] w-[24px]"
+                                  }
+                                />
+                              </div>
+                            </div>
+                            <div
                               className={
                                 showVal == data.id
-                                  ? "h-[24px] rotate-180 w-[24px]"
-                                  : "h-[24px] w-[24px]"
+                                  ? "relative"
+                                  : "relative hidden "
                               }
-                            />
-                          </div>
-                        </div>
-                        <div
-                          className={
-                            showVal == data.id ? "relative" : "relative hidden "
-                          }
-                        >
-                          <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
-                            {data.message}
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>)
-            })}
-
-
+                            >
+                              <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
+                                {data.message}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              })}
           </section>
           {alertShow && (
             <>

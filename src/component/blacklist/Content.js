@@ -5,6 +5,8 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { Squares } from "react-activity";
 import "react-activity/dist/library.css";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+
 export default function Content() {
   const [totalBanList, setTotalBanList] = useState([]);
   const [tempBan, setTempBan] = useState(0);
@@ -15,37 +17,38 @@ export default function Content() {
   const [deleteBanList, setDeleteBanList] = useState(0);
   const [alwaysBanList, setAlwaysBanList] = useState(0);
 
+  const [value, onChange] = useState([new Date(), new Date()]);
 
   useEffect(() => {
     permanentban();
     tempban();
     deletedban();
     totalban();
-  }, [])
+  }, []);
   const totalban = async () => {
     let params = { url: apiList.totalban };
     let response = await ApiService.getData(params);
-    setTotalBanList(response.result)
+    setTotalBanList(response.result);
     //console.log(response.result);
-  }
+  };
   const permanentban = async () => {
     let params = { url: apiList.permanentban };
     let response = await ApiService.getData(params);
-    setAlwaysBan(response.result.length)
+    setAlwaysBan(response.result.length);
     setAlwaysBanList(response.result);
-  }
+  };
   const tempban = async () => {
     let params = { url: apiList.tempban };
     let response = await ApiService.getData(params);
     setTempBan(response.result.length);
     setTempBanList(response.result);
-  }
+  };
   const deletedban = async () => {
     let params = { url: apiList.deletedban };
     let response = await ApiService.getData(params);
     setDeleteBan(response.result.length);
     setDeleteBanList(response.result);
-  }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -78,15 +81,24 @@ export default function Content() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
-                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
-                  </div>
+                  {/* 
                   <input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
+                  /> */}
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>
@@ -155,7 +167,6 @@ export default function Content() {
               </div>
               <div className="w-[40%] h-[240px] rounded-[6px] mr-[0px] pr-[0px] pl-[0px]">
                 <div className="card mb-[10px] h-[240px] pb-[10px]">
-
                   <Graph />
                 </div>
               </div>
@@ -173,40 +184,42 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      {totalBanList.length > 0 && totalBanList.map((data, i) => {
-
-                        return (<div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                          <div className="w-[100%] bg-[#F9F9F9]">
-                            <div className="flex pb-[5px]">
-                              <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                <div className="flex justify-center mt-[10px]">
-                                  <img
-                                    className="w-[66px] h-[66px] rounded-[33px]"
-                                    src={config.imgUri + "/" + data.user_pic}
-                                    alt="user image"
-                                  />
-                                </div>
-                                <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                  {data.username}
-                                </div>
-                                <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                  #{data.id}
-                                </div>
-                                <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                  <div className="border-t-[1px]"></div>
-                                </div>
-                                <div className="flex mb-[10px]">
-                                  <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                    إزالة الحظر
+                      {totalBanList.length > 0 &&
+                        totalBanList.map((data, i) => {
+                          return (
+                            <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                              <div className="w-[100%] bg-[#F9F9F9]">
+                                <div className="flex pb-[5px]">
+                                  <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                    <div className="flex justify-center mt-[10px]">
+                                      <img
+                                        className="w-[66px] h-[66px] rounded-[33px]"
+                                        src={
+                                          config.imgUri + "/" + data.user_pic
+                                        }
+                                        alt="user image"
+                                      />
+                                    </div>
+                                    <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                      {data.username}
+                                    </div>
+                                    <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                      #{data.id}
+                                    </div>
+                                    <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                      <div className="border-t-[1px]"></div>
+                                    </div>
+                                    <div className="flex mb-[10px]">
+                                      <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        إزالة الحظر
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>)
-                      })}
-
-
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -225,40 +238,42 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      {tempBanList.length > 0 && tempBanList.map((data, i) => {
-
-                        return (
-                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                            <div className="w-[100%] bg-[#F9F9F9]">
-                              <div className="flex pb-[5px]">
-                                <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                  <div className="flex justify-center mt-[10px]">
-                                    <img
-                                      className="w-[66px] h-[66px] rounded-[33px]"
-                                      src={config.imgUri + "/" + data.user_pic}
-                                      alt="user image"
-                                    />
-                                  </div>
-                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                    {data.username}
-                                  </div>
-                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                    #{data.id}
-                                  </div>
-                                  <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                    <div className="border-t-[1px]"></div>
-                                  </div>
-                                  <div className="flex mb-[10px]">
-                                    <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                      إزالة الحظر
+                      {tempBanList.length > 0 &&
+                        tempBanList.map((data, i) => {
+                          return (
+                            <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                              <div className="w-[100%] bg-[#F9F9F9]">
+                                <div className="flex pb-[5px]">
+                                  <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                    <div className="flex justify-center mt-[10px]">
+                                      <img
+                                        className="w-[66px] h-[66px] rounded-[33px]"
+                                        src={
+                                          config.imgUri + "/" + data.user_pic
+                                        }
+                                        alt="user image"
+                                      />
+                                    </div>
+                                    <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                      {data.username}
+                                    </div>
+                                    <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                      #{data.id}
+                                    </div>
+                                    <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                      <div className="border-t-[1px]"></div>
+                                    </div>
+                                    <div className="flex mb-[10px]">
+                                      <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        إزالة الحظر
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>)
-                      })}
-
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -277,40 +292,42 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      {alwaysBanList.length > 0 && alwaysBanList.map((data, i) => {
-
-                        return (
-                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                            <div className="w-[100%] bg-[#F9F9F9]">
-                              <div className="flex pb-[5px]">
-                                <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                  <div className="flex justify-center mt-[10px]">
-                                    <img
-                                      className="w-[66px] h-[66px] rounded-[33px]"
-                                      src={config.imgUri + "/" + data.user_pic}
-                                      alt="user image"
-                                    />
-                                  </div>
-                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                    {data.username}
-                                  </div>
-                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                    #{data.id}
-                                  </div>
-                                  <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
-                                    <div className="border-t-[1px]"></div>
-                                  </div>
-                                  <div className="flex mb-[10px]">
-                                    <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
-                                      إزالة الحظر
+                      {alwaysBanList.length > 0 &&
+                        alwaysBanList.map((data, i) => {
+                          return (
+                            <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                              <div className="w-[100%] bg-[#F9F9F9]">
+                                <div className="flex pb-[5px]">
+                                  <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                    <div className="flex justify-center mt-[10px]">
+                                      <img
+                                        className="w-[66px] h-[66px] rounded-[33px]"
+                                        src={
+                                          config.imgUri + "/" + data.user_pic
+                                        }
+                                        alt="user image"
+                                      />
+                                    </div>
+                                    <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                      {data.username}
+                                    </div>
+                                    <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                      #{data.id}
+                                    </div>
+                                    <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
+                                      <div className="border-t-[1px]"></div>
+                                    </div>
+                                    <div className="flex mb-[10px]">
+                                      <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        إزالة الحظر
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>)
-                      })}
-
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -329,32 +346,34 @@ export default function Content() {
                   </div>
                   <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
                     <div className="overflow-x-auto overflow-y-hidden flex ">
-                      {deleteBanList.length > 0 && deleteBanList.map((data, i) => {
-
-                        return (
-                          <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
-                            <div className="w-[100%] bg-[#F9F9F9]">
-                              <div className="flex pb-[20px] pt-[20px]">
-                                <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                  <div className="flex justify-center mt-[10px]">
-                                    <img
-                                      className="w-[66px] h-[66px] rounded-[33px]"
-                                      src={config.imgUri + "/" + data.user_pic}
-                                      alt="user image"
-                                    />
-                                  </div>
-                                  <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
-                                    {data.username}
-                                  </div>
-                                  <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                                    #{data.id}
+                      {deleteBanList.length > 0 &&
+                        deleteBanList.map((data, i) => {
+                          return (
+                            <div className="w-[214px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                              <div className="w-[100%] bg-[#F9F9F9]">
+                                <div className="flex pb-[20px] pt-[20px]">
+                                  <div className="w-full flex-col pr-[5px] pl-[5px]">
+                                    <div className="flex justify-center mt-[10px]">
+                                      <img
+                                        className="w-[66px] h-[66px] rounded-[33px]"
+                                        src={
+                                          config.imgUri + "/" + data.user_pic
+                                        }
+                                        alt="user image"
+                                      />
+                                    </div>
+                                    <div className="text-[#484848] text-[16px] font-sstbold text-center mt-[5px]">
+                                      {data.username}
+                                    </div>
+                                    <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
+                                      #{data.id}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>)
-                      })}
-
+                          );
+                        })}
                     </div>
                   </div>
                 </div>

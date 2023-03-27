@@ -9,7 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import MostRequestedStore from "./MostRequestedStore";
 import MostPendingOrder from "./MostPendingOrder";
 import RequestedOrder from "./RequestedOrder";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
+  const [value, onChange] = useState([new Date(), new Date()]);
   const [totalOrder, setTotalOrder] = useState("0");
   const [totalOrderValue, setTotalOrderValue] = useState("0");
   const [totalPendingOrderValue, setTotalPendingOrderValue] = useState("0");
@@ -99,15 +101,23 @@ export default function Content() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
+                  {/*<input
                     type="number"
                     id="contact-info-icon"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                     name="contact-icon"
                     placeholder="16/12/2022 - 16/12/2022"
+                  /> */}
+
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>
@@ -348,7 +358,6 @@ export default function Content() {
               </div>
             </div>
             <RequestedOrder />
-
           </section>
         </div>
       </div>
