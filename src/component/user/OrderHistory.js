@@ -5,13 +5,16 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 import OrderGraph from "./OrderGraph";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 export default function OrderHistory(props) {
+  const [value, onChange] = useState([new Date(), new Date()]);
+
   const [from, setFrom] = useState("2022-11-01");
   const [to, setTo] = useState("2023-04-15");
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState(null);
   const [getOrderList, setGetOrderList] = useState([]);
-  const [orderTotalAmount, setOrderTotalAmount] = useState("0")
+  const [orderTotalAmount, setOrderTotalAmount] = useState("0");
   const [itemId, setItemId] = useState("");
   const [showItem, setShowItem] = useState(false);
 
@@ -19,7 +22,7 @@ export default function OrderHistory(props) {
   const [showCancelId, setShowCancelId] = useState("");
   useEffect(() => {
     getAllOrder(props.userId);
-    setUserId(props.userId)
+    setUserId(props.userId);
   }, [props]);
   const getAllOrder = async (id) => {
     const obj = {
@@ -35,12 +38,10 @@ export default function OrderHistory(props) {
       let sum = response.result.reduce((acc, data) => {
         acc = data.total + acc;
         return acc;
-      }, 0)
-      setOrderTotalAmount(sum)
+      }, 0);
+      setOrderTotalAmount(sum);
     }
-
   };
-
 
   return (
     <>
@@ -98,20 +99,21 @@ export default function OrderHistory(props) {
               </div>
               <div className=" p-[10px]">
                 <div className="absolute  left-[20px] has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control w-[315px] bg-[#F9F9F9] text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
+
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control bg-[#F9F9F9] text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>
             </div>
-            <OrderGraph userId={userId} />
+            <OrderGraph userId={userId} dateval={value} />
           </div>
         </div>
       </div>
@@ -190,8 +192,8 @@ export default function OrderHistory(props) {
                           حالة الطلب
                         </div>
                         {data.status == "2" &&
-                          (data.payment_status == "1" ||
-                            data.payment_accepted_date != null) ? (
+                        (data.payment_status == "1" ||
+                          data.payment_accepted_date != null) ? (
                           <div className="text-[#E80000] text-center text-[20px] font-sstbold ">
                             مرفوضة بعد الإتفاق المبدئي
                           </div>
@@ -248,7 +250,8 @@ export default function OrderHistory(props) {
                             }
                           >
                             <div className="absolute text-[#484848] font-sstbold text-[17px] top-[30px] bg-[#ffffff] shadow rounded-bl-[6px] rounded-br-[6px]  w-[300px] p-[15px] left-[-40px]">
-                              {data.cancelReason.length > 0 && data.cancelReason[0].message}
+                              {data.cancelReason.length > 0 &&
+                                data.cancelReason[0].message}
                             </div>
                           </div>
                         </td>
@@ -313,7 +316,6 @@ export default function OrderHistory(props) {
             );
           })}
       </div>
-
     </>
   );
 }

@@ -26,6 +26,7 @@ export default function Content() {
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
                   <DateRangePicker
+                    calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                     onChange={onChange}

@@ -131,7 +131,7 @@ export default function Content() {
               </div>
             </div>
             <div className=" row mt-[10px]">
-              <div className="col-md-9 col-sm-12 pl-[0px] rounded-[6px] ">
+              <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
                 <div className="card mb-[10px]">
                   <div className="p-[10px]">
                     <table className="table  mb-0">
@@ -149,7 +149,10 @@ export default function Content() {
                               إجمالي قيمة الإلتزامات
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              {totalAmountOfCommitment} ريال
+                              {(totalAmountOfCommitment *
+                                config.commitmentRate) /
+                                100}
+                              ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من السنة الماضية
@@ -163,7 +166,10 @@ export default function Content() {
                               قيمة الإلتزامات المدفوعة
                             </div>
                             <div className="text-[#498A4A] text-center text-[35px] font-sstbold ">
-                              {totalAmountOfPaidCommitment} ريال
+                              {(totalAmountOfPaidCommitment *
+                                config.commitmentRate) /
+                                100}{" "}
+                              ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               5,09% أعلى من السنة الماضية
@@ -174,7 +180,10 @@ export default function Content() {
                               قيمة الإلتزامات المعلقة
                             </div>
                             <div className="text-[#FF9800] text-center text-[35px] font-sstbold ">
-                              {totalAmountOfPendingCommitment} ريال
+                              {(totalAmountOfPendingCommitment *
+                                config.commitmentRate) /
+                                100}{" "}
+                              ريال
                             </div>
                             <div className="text-[16px] font-sstbold text-[#60BA62]">
                               1,06% أقل من السنة الماضية
@@ -233,24 +242,6 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-3 col-sm-12 pl-[0px]  ">
-                <div className="flex-col p-[10px] rounded-[6px] bg-white">
-                  <div className=" h-[150px]">
-                    <Graph />
-                  </div>
-                  <div className=" border-t-[1px] ">
-                    <div className="text-[#E80000] text-[42px] font-sstbold text-end">
-                      30%
-                    </div>
-                    <div className="text-[16px] text-[#484848] font-sstbold pt-[5px] pb-[5px] text-end">
-                      1,06% أقل من السنة الماضية
-                    </div>
-                    <div className="text-[#959494] font-sstbold text-[18px] text-end">
-                      نسبة الفرق بين المدفوع و الغير مدفوع
                     </div>
                   </div>
                 </div>

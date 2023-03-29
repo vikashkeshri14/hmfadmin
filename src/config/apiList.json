@@ -24,6 +24,9 @@
   "getAllOrderByUserId": "/stores/getAllOrderByUserId",
   "getStoreIncomingNotification": "/stores/getStoreIncomingNotification",
   "getReportStoreById": "/stores/getReportStoreById",
+  "getReportUserById": "/stores/getReportUserById",
+  "getAllReportByUser": "/stores/getAllReportByUser",
+  "getReportStoreResolveById": "/stores/getReportStoreResolveById",
   "getReportProductById": "/stores/getReportProductById",
   "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr",
   "allRequestedOrder": "/orders/allRequestedOrder",
@@ -50,5 +53,9 @@
   "deleteTeam": "/team/deleteTeam",
   "getAlert": "/alert/getAlert",
   "addAlert": "/alert/addAlert",
-  "storePaidCommitment": "/orders/storePaidCommitment"
+  "sendAlert": "/alert/sendAlert",
+  "storePaidCommitment": "/orders/storePaidCommitment",
+  "numberOfCommitmentByRangeUserId": "/orders/numberOfCommitmentByRangeUserId",
+  "updateCommitment": "/orders/updateCommitment",
+  "acceptCommitment": "/orders/acceptCommitment"
 }

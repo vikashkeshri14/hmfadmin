@@ -6,7 +6,11 @@ import moment from "moment";
 
 export default function Suspend() {
   const [listItems, setListItems] = useState([]);
+  const [showReceipt, setshowReceipt] = useState("");
+  const [userId, setUserId] = useState("");
   useEffect(() => {
+    const auth = JSON.parse(localStorage.getItem("loginUser"));
+    setUserId(auth.id);
     getData();
   }, []);
   const getData = async () => {
@@ -14,12 +18,23 @@ export default function Suspend() {
     let response = await ApiService.getData(params);
     setListItems(response.result);
   };
+
+  const acceptCommitment = async (orderId, receiptId) => {
+    const obj = {
+      receiptId: receiptId,
+      orderId: orderId,
+    };
+
+    let params = { url: apiList.acceptCommitment, body: obj };
+    let response = await ApiService.postData(params);
+    alert("commitment accept successfully");
+  };
   return (
-    <>
+    <div className="pb-[300px]">
       {listItems.length > 0 ? (
         listItems.map((data, i) => {
           return (
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+            <div className="row p-[10px]   bg-white rounded-[6px] mr-[0px] mt-[10px]">
               <table className="table mb-0">
                 <tbody>
                   <tr
@@ -86,12 +101,15 @@ export default function Suspend() {
                         الالتزام
                       </div>
                       <div className="text-[#959494] text-center text-[16px] font-sstbold ">
-                        {parseFloat((data.total * 5) / 100).toFixed(2)} ريال
+                        {parseFloat(
+                          (data.total * config.commitmentRate) / 100
+                        ).toFixed(2)}
+                        ريال
                       </div>
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      className=" text-center "
+                      className=" text-center  "
                     >
                       <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
                         تاريخ السداد
@@ -112,19 +130,73 @@ export default function Suspend() {
                     </td>
                     <td
                       style={{ borderLeftWidth: 1 }}
-                      className=" text-center "
+                      className=" text-center w-[15%] "
+                      onClick={() => {
+                        if (showReceipt) {
+                          setshowReceipt("");
+                        } else {
+                          setshowReceipt(data.orderId);
+                        }
+                      }}
                     >
                       <div className="flex justify-center">
-                        <div className=" text-[#959494] text-[16px] font-sstbold ">
-                          عرض الإيصال
-                        </div>
+                        {showReceipt == data.orderId ? (
+                          <div className=" text-[#60BA62] text-[16px] font-sstbold ">
+                            عرض الإيصال
+                          </div>
+                        ) : (
+                          <div className=" text-[#959494] text-[16px] font-sstbold ">
+                            عرض الإيصال
+                          </div>
+                        )}
                         <div className="text-[#484848]   text-center text-[16px] font-sstbold ">
-                          <img
-                            src="../panel/app-assets/images/dropdown.png"
-                            className="h-[24px] mt-[3px] w-[24px]"
-                          />
+                          {showReceipt == data.orderId ? (
+                            <img
+                              src={
+                                config.domainUrl +
+                                "/panel/app-assets/images/up.png"
+                              }
+                              className="h-[24px] mt-[3px] w-[24px]"
+                            />
+                          ) : (
+                            <img
+                              src={
+                                config.domainUrl +
+                                "/panel/app-assets/images/dropdown.png"
+                              }
+                              className="h-[24px] mt-[3px] w-[24px]"
+                            />
+                          )}
                         </div>
                       </div>
+                      {showReceipt == data.orderId && (
+                        <div className="absolute  left-[300px] p-[20px]  bg-white  ">
+                          <div>
+                            <img
+                              src={
+                                config.imgUri +
+                                "/" +
+                                data.paymnet_commitment[0].attachment
+                              }
+                              className="mt-[3px] w-[250px] h-[250px]"
+                            />
+                          </div>
+                          <div>
+                            <button
+                              onClick={() => {
+                                window.open(
+                                  config.imgUri +
+                                    "/" +
+                                    data.paymnet_commitment[0].attachment
+                                );
+                              }}
+                              className="w-[148px] h-[58px] rounded-[6px] mt-[10px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
+                            >
+                              عرض مكبر
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </td>
                     <td className=" text-center ">
                       <div className="flex justify-end">
@@ -132,7 +204,10 @@ export default function Suspend() {
                           <div>
                             <button
                               onClick={() => {
-                                // setAlertShow(true);
+                                acceptCommitment(
+                                  data.orderId,
+                                  data.paymnet_commitment[0].id
+                                );
                               }}
                               className="w-[148px] h-[58px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
                             >
@@ -161,6 +236,6 @@ export default function Suspend() {
       ) : (
         <div></div>
       )}
-    </>
+    </div>
   );
 }

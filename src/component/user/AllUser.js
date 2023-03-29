@@ -6,7 +6,6 @@ import config from "../../config/config.json";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 export default function AllUser() {
-
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function AllUser() {
     <div className="bg-white rounded-[6px] pb-[10px]">
       <div className="flex justify-evenly">
         <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
-          جميع المتاجر
+          جميع المستخدمين
         </div>
         <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
           عرض المزيد
@@ -36,10 +35,12 @@ export default function AllUser() {
                   key={i}
                   className="w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
                 >
-                  <div onClick={() => {
-                    navigate("/user/" + data.id);
-                  }}
-                    className="top-[44px] cursor-pointer relative mr-50 ">
+                  <div
+                    onClick={() => {
+                      navigate("/user/" + data.id);
+                    }}
+                    className="top-[44px] cursor-pointer relative mr-50 "
+                  >
                     <img
                       className="w-[88px] h-[88px] rounded-[44px]"
                       src={config.imgUri + "/" + data.user_pic}

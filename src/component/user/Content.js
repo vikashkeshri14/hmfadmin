@@ -85,7 +85,12 @@ export default function Content() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../panel/app-assets/images/search.png" />
+                        <img
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/search.png"
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -97,13 +102,6 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
 
                   <DateRangePicker
                     calendarIcon=""

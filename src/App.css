@@ -13,7 +13,20 @@
   }
 }
 
+.gradient-yellow {
+  background: rgb(255, 152, 0);
+  background: linear-gradient(90deg, rgba(255, 152, 0, 1) 1%, rgba(255, 255, 255, 1) 93%);
+}
 
+.gradient-purple {
+  background: rgb(157, 64, 173);
+  background: linear-gradient(90deg, rgba(157, 64, 173, 1) 1%, rgba(255, 255, 255, 1) 93%);
+}
+
+.gradient-green {
+  background: rgb(96, 186, 98);
+  background: linear-gradient(90deg, rgba(96, 186, 98, 1) 1%, rgba(255, 255, 255, 1) 93%);
+}
 
 .active-menu-left {
   background-color: #498a4a;

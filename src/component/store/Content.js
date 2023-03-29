@@ -122,8 +122,8 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            <div className="row mt-[10px]">
-              <div className="mr-[15px] flex-col bg-white rounded-[6px] ">
+            <div className="row mt-[10px] pr-[15px]">
+              <div className="col-md-12  col-sm-12 flex-col bg-white rounded-[6px] ">
                 <div className="flex overflow-x-auto overflow-y-hidden">
                   <div className="flex-none p-[15px]">
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
@@ -660,7 +660,9 @@ export default function Content() {
           <section id="product ">
             {productShow && <Products storeId={storeId} />}
 
-            {commitmentShow && <Commitment storeId={storeId} />}
+            {commitmentShow && (
+              <Commitment storeId={storeId} dateRange={value} />
+            )}
             {receiveShow && <OrderReceive storeId={storeId} />}
             {outgoingShow && <OutgoingOrder storeId={storeId} />}
             {infoShowIncoming && <InfoIncoming storeId={storeId} />}

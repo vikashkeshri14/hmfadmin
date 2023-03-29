@@ -9,8 +9,9 @@ import InfoIncomingReport from "./InfoIncomingReport";
 import InfoOutgoingReport from "./InfoOutgoingReport";
 import OrderHistory from "./OrderHistory";
 import { NavLink, useParams, Link, useNavigate } from "react-router-dom";
-
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function ContentUserDetails() {
+  const [value, onChange] = useState([new Date(), new Date()]);
   const [orderHistory, setOrderHistory] = useState(false);
   const [infoOutgoingReport, setInfoOutgoingReport] = useState(false);
   const [ban, showBan] = useState(false);
@@ -62,7 +63,12 @@ export default function ContentUserDetails() {
                         placeholder="البحث"
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
-                        <img src="../panel/app-assets/images/search.png" />
+                        <img
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/search.png"
+                          }
+                        />
                       </div>
                     </div>
                   </div>
@@ -71,22 +77,23 @@ export default function ContentUserDetails() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
+                  <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
+
+                  <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={onChange}
+                    value={value}
                   />
                 </div>
               </div>
             </div>
             <div className="  mt-[10px]">
               <div className=" flex-col bg-white rounded-[6px] ">
-                <div className="flex overflow-x-auto overflow-y-hidden">
+                <div className="flex overflow-x-auto mb-[60px] overflow-y-hidden">
                   <div className="flex-none p-[15px]">
                     <div className="flex  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="">
@@ -116,7 +123,10 @@ export default function ContentUserDetails() {
                     <div className="flex-col h-[66px]  pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src={config.domainUrl + "/panel/app-assets/images/frame.png"}
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/frame.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
@@ -129,12 +139,17 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src={config.domainUrl + "/panel/app-assets/images/location.png"}
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/location.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
                       <div className="text-[#959494] text-[16px] font-sstbold">
-                        {storeDetails != null && storeDetails.store_address ? storeDetails.store_address : "Riyadh"}
+                        {storeDetails != null && storeDetails.store_address
+                          ? storeDetails.store_address
+                          : "Riyadh"}
                       </div>
                     </div>
                   </div>
@@ -142,34 +157,58 @@ export default function ContentUserDetails() {
                     <div className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
                       <div className="flex justify-center">
                         <img
-                          src={config.domainUrl + "/panel/app-assets/images/phone.png"}
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/phone.png"
+                          }
                           className="h-[24px] self-center w-[24px]"
                         />
                       </div>
                       <div className="text-[#484848] text-[16px] font-sstbold">
-                        {storeDetails != null && storeDetails.mobile ? storeDetails.mobile : "--"}
+                        {storeDetails != null && storeDetails.mobile
+                          ? storeDetails.mobile
+                          : "--"}
                       </div>
                     </div>
                   </div>
                   <div className="flex-none cursor-pointer p-[15px] pr-[0px]">
-                    <div onClick={() => {
-                      setOrderHistory(orderHistory => !orderHistory);
-                      setConversation(false);
-                      setInfoIncomingReport(false);
-                      setInfoOutgoingReport(false);
-                      setInfoShow(false)
-                    }} className="flex-col  h-[66px] pl-[10px] border-l-[1px]">
-                      <div className="flex justify-center">
-                        {orderHistory ? <img
-                          src={config.domainUrl + "/panel/app-assets/images/order-history-green.png"}
-                          className="h-[24px] self-center w-[24px]"
-                        /> : <img
-                          src={config.domainUrl + "/panel/app-assets/images/order-history.png"}
-                          className="h-[24px] self-center w-[24px]"
-                        />}
+                    <div
+                      onClick={() => {
+                        setOrderHistory((orderHistory) => !orderHistory);
+                        setConversation(false);
 
+                        setInfoIncomingReport(false);
+                        setInfoOutgoingReport(false);
+                        setInfoShow(false);
+                      }}
+                      className="flex-col  h-[66px] pl-[10px] border-l-[1px]"
+                    >
+                      <div className="flex justify-center">
+                        {orderHistory ? (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/order-history-green.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        ) : (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/order-history.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        )}
                       </div>
-                      <div className={orderHistory ? "text-[#60BA62] text-[16px] font-sstbold" : "text-[#484848] text-[16px] font-sstbold"}>
+                      <div
+                        className={
+                          orderHistory
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#484848] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل الطلبات
                       </div>
                     </div>
@@ -181,13 +220,34 @@ export default function ContentUserDetails() {
                       }}
                       className="flex-col  h-[66px] pl-[10px] border-l-[1px]"
                     >
-                      <div className="flex justify-center">
-                        <img
-                          src={config.domainUrl + "/panel/app-assets/images/info-grey.png"}
-                          className="h-[24px] self-center w-[24px]"
-                        />
-                      </div>
-                      <div className="text-[#484848] text-[16px] font-sstbold">
+                      {infoOutgoingReport || infoIncomingReport ? (
+                        <div className="flex justify-center">
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/info-green.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center">
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/info-grey.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        </div>
+                      )}
+                      <div
+                        className={
+                          infoOutgoingReport || infoIncomingReport
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#484848] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل البلاغات
                       </div>
                       <div
@@ -200,11 +260,11 @@ export default function ContentUserDetails() {
                         <div
                           onClick={(e) => {
                             setInfoOutgoingReport(true);
-
                             setInfoIncomingReport(false);
+                            setConversation(false);
                             setInfoShow((infoShow) => !infoShow);
-                            setOrderHistory(false)
-                            e.stopPropagation()
+                            setOrderHistory(false);
+                            e.stopPropagation();
                           }}
                           className="p-[10px] communication text-[#484848] text-[18px] font-sstbold text-center"
                         >
@@ -215,9 +275,10 @@ export default function ContentUserDetails() {
                           onClick={(e) => {
                             setInfoIncomingReport(true);
                             setInfoOutgoingReport(false);
+                            setConversation(false);
                             setInfoShow((infoShow) => !infoShow);
-                            setOrderHistory(false)
-                            e.stopPropagation()
+                            setOrderHistory(false);
+                            e.stopPropagation();
                           }}
                           className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-report text-center"
                         >
@@ -228,61 +289,70 @@ export default function ContentUserDetails() {
                     </div>
                   </div>
                   <div className="flex-none cursor-pointer p-[15px] pr-[0px]">
-                    <div onClick={() => {
-                      setConversation(true);
-                      setInfoIncomingReport(false);
-                      setInfoOutgoingReport(false);
-                      setInfoShow(false);
-                      setOrderHistory(false)
-                    }} className="flex-col  h-[66px] pl-[10px] ">
+                    <div
+                      onClick={() => {
+                        setConversation(true);
+                        setInfoIncomingReport(false);
+                        setInfoOutgoingReport(false);
+                        setInfoShow(false);
+                        setOrderHistory(false);
+                      }}
+                      className="flex-col  h-[66px] pl-[10px] "
+                    >
                       <div className="flex justify-center">
-                        {conversation ? <img
-                          src={config.domainUrl + "/panel/app-assets/images/chat-green.png"}
-                          className="h-[24px] self-center w-[24px]"
-                        /> : <img
-                          src={config.domainUrl + "/panel/app-assets/images/chat.png"}
-                          className="h-[24px] self-center w-[24px]"
-                        />}
-
+                        {conversation ? (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/chat-green.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        ) : (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/chat.png"
+                            }
+                            className="h-[24px] self-center w-[24px]"
+                          />
+                        )}
                       </div>
-                      <div className={conversation ? "text-[#60BA62] text-[16px] font-sstbold" : "text-[#484848] text-[16px] font-sstbold"}>
+                      <div
+                        className={
+                          conversation
+                            ? "text-[#60BA62] text-[16px] font-sstbold"
+                            : "text-[#484848] text-[16px] font-sstbold"
+                        }
+                      >
                         سجل المحادثات
                       </div>
                     </div>
                   </div>
                   <div className="w-full p-[15px] pr-[0px]">
                     <div className=" self-center flex justify-end h-[66px] pl-[10px]">
-                      <div className="flex justify-end cursor-pointer self-center">
-                        <img
-                          src={config.domainUrl + "/panel/app-assets/images/support.png"}
-                          className="h-[24px] w-[24px]"
-                        />
-                      </div>
                       <div className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
-                          src={config.domainUrl + "/panel/app-assets/images/message.png"}
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/danger.png"
+                          }
                           className="h-[24px] w-[24px]"
                         />
                       </div>
-                      <div className="flex justify-end cursor-pointer mr-[20px] self-center">
+                      <div
+                        onClick={() => {
+                          setDeleteShow((deleteShow) => !deleteShow);
+                          setBlocked(false);
+                          setPerBlocked(false);
+                        }}
+                        className="flex justify-end cursor-pointer mr-[20px] self-center"
+                      >
                         <img
-                          src={config.domainUrl + "/panel/app-assets/images/notification.png"}
-                          className="h-[24px] w-[24px]"
-                        />
-                      </div>
-                      <div className="flex justify-end cursor-pointer mr-[20px] self-center">
-                        <img
-                          src={config.domainUrl + "/panel/app-assets/images/danger.png"}
-                          className="h-[24px] w-[24px]"
-                        />
-                      </div>
-                      <div onClick={() => {
-                        setDeleteShow((deleteShow) => !deleteShow);
-                        setBlocked(false);
-                        setPerBlocked(false);
-                      }} className="flex justify-end cursor-pointer mr-[20px] self-center">
-                        <img
-                          src={config.domainUrl + "/panel/app-assets/images/trash.png"}
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/trash.png"
+                          }
                           className="h-[24px] w-[24px]"
                         />
                       </div>
