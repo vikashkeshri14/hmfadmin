@@ -88,7 +88,12 @@ export default function MostRequestedStore(props) {
                         : "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
                     }
                   >
-                    <div className="top-[44px] relative mr-50 ">
+                    <div
+                      onClick={() => {
+                        navigate("/store/" + data.id);
+                      }}
+                      className="top-[44px] cursor-pointer relative mr-50 "
+                    >
                       <img
                         className="w-[88px] h-[88px] rounded-[44px]"
                         src={config.imgUri + "/" + data.user_pic}
