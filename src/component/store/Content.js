@@ -32,10 +32,13 @@ export default function Content() {
     useState(false);
   const [conversationShowIncoming, setConversationShowIncoming] =
     useState(false);
+  const [minheight, setMinHeight] = useState(false);
   const [ban, showBan] = useState(false);
   const [blocked, setBlocked] = useState(false);
   const [perblocked, setPerBlocked] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false);
+  const [banMessage, setbanMessage] = useState("");
+
   const [storeId, setStoreId] = useState("");
   const [state, setState] = useState([
     {
@@ -57,8 +60,80 @@ export default function Content() {
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setStoreDetails(response.result[0]);
+
     }
   };
+
+  const deleteAccount = async () => {
+    const obj = {
+      userId: storeId
+    };
+
+    let params = { url: apiList.deleteAccount, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User deleted successfully");
+      setDeleteShow(false)
+    }
+  }
+
+  const cancelBan = async () => {
+    const obj = {
+      userId: storeId
+    };
+
+    let params = { url: apiList.cancelban, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User ban successfully cancel");
+      showBan(false)
+    }
+  }
+
+  const perBan = async () => {
+    if (!banMessage) {
+      alert("please enter the message");
+      return
+    }
+    const obj = {
+      userId: storeId,
+      message: banMessage
+    };
+
+    let params = { url: apiList.ban, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User successfully ban")
+      setBlocked(false);
+      setbanMessage("")
+      showBan(false)
+    }
+  }
+
+  const tempBan = async () => {
+    if (!banMessage) {
+      alert("please enter the message");
+      return
+    }
+    const obj = {
+      userId: storeId,
+      message: banMessage,
+      from: moment(state[0].startDate).format("YYYY-MM-DD"),
+      to: moment(state[0].endDate).format("YYYY-MM-DD")
+    };
+
+    let params = { url: apiList.tempbanUser, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User successfully ban")
+      setPerBlocked(false);
+      setMinHeight(false);
+      setbanMessage("")
+      showBan(false)
+    }
+
+
+  }
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -227,9 +302,9 @@ export default function Content() {
                           src={
                             productShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/shop-green.png"
+                              "/panel/app-assets/images/shop-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/shop-grey.png"
+                              "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -266,9 +341,9 @@ export default function Content() {
                           src={
                             commitmentShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/commitment-green.png"
+                              "/panel/app-assets/images/commitment-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/commitment.png"
+                              "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -305,9 +380,9 @@ export default function Content() {
                           src={
                             receiveShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/incoming-green.png"
+                              "/panel/app-assets/images/incoming-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/receive-grey.png"
+                              "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -344,9 +419,9 @@ export default function Content() {
                           src={
                             outgoingShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/outgoing-green.png"
+                              "/panel/app-assets/images/outgoing-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/send.png"
+                              "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -389,9 +464,9 @@ export default function Content() {
                           src={
                             infoShow || infoShowOutgoing || infoShowIncoming
                               ? config.domainUrl +
-                                "/panel/app-assets/images/info-green.png"
+                              "/panel/app-assets/images/info-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/info-grey.png"
+                              "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -486,9 +561,9 @@ export default function Content() {
                           src={
                             conversationShow
                               ? config.domainUrl +
-                                "/panel/app-assets/images/chat-green.png"
+                              "/panel/app-assets/images/chat-green.png"
                               : config.domainUrl +
-                                "/panel/app-assets/images/chat.png"
+                              "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -624,9 +699,10 @@ export default function Content() {
                 >
                   <div
                     onClick={() => {
-                      setBlocked(true);
-                      setPerBlocked(false);
+                      setBlocked(false);
+                      setPerBlocked(true);
                       setDeleteShow(false);
+                      setMinHeight(true);
                     }}
                     className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
                   >
@@ -635,8 +711,8 @@ export default function Content() {
                   <div className="dropdown-divider mb-0"></div>
                   <div
                     onClick={() => {
-                      setPerBlocked(true);
-                      setBlocked(false);
+                      setPerBlocked(false);
+                      setBlocked(true);
                       setDeleteShow(false);
                     }}
                     className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
@@ -646,9 +722,9 @@ export default function Content() {
                   <div className="dropdown-divider mb-0"></div>
                   <div
                     onClick={() => {
-                      setConversationShow(false);
+                      cancelBan();
                     }}
-                    className=" p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                    className="cancel-ban p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                   >
                     إلغاء الحظر
                   </div>
@@ -657,7 +733,7 @@ export default function Content() {
               </div>
             </div>
           </section>
-          <section id="product ">
+          <section id="product " className={minheight ? "min-h-[600px]" : "min-h-[400px]"}>
             {productShow && <Products storeId={storeId} />}
 
             {commitmentShow && (
@@ -704,14 +780,23 @@ export default function Content() {
                   سبب الحظر
                 </div>
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                  <textarea onChange={(e) => {
+                    setbanMessage(e.target.value)
+                  }} className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
-                  <button className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button
+                    onClick={() => {
+                      perBan();
+                    }}
+                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حظر
                   </button>
                   <button
-                    onClick={() => setBlocked(false)}
+                    onClick={() => {
+                      setBlocked(false);
+                      setbanMessage("")
+                    }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
                   >
                     إلغاء
@@ -724,7 +809,7 @@ export default function Content() {
       )}
       {perblocked && (
         <>
-          <div className="initial">
+          <div className="initial zindex-1">
             <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
@@ -749,6 +834,7 @@ export default function Content() {
                 <div className="mr-[30px] ml-[30px]"></div>
                 <div dir="ltr" className="flex justify-center">
                   <DateRange
+
                     editableDateInputs={true}
                     onChange={(item) => setState([item.selection])}
                     moveRangeOnFirstSelection={false}
@@ -759,15 +845,27 @@ export default function Content() {
                   سبب الحظر
                 </div>
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#ffffff] "></textarea>
+                  <textarea
+                    onChange={(e) => {
+                      setbanMessage(e.target.value)
+                    }}
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] ">
+
+                  </textarea>
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
-                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button onClick={() => {
+                    tempBan();
+                  }} className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حظر
                   </button>
                   <button
-                    onClick={() => setPerBlocked(false)}
+                    onClick={() => {
+                      setPerBlocked(false);
+                      setMinHeight(false);
+                      setbanMessage("")
+                    }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
                   >
                     إلغاء
@@ -781,7 +879,7 @@ export default function Content() {
       {deleteShow && (
         <>
           <div className="initial">
-            <div className="absolute   top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
+            <div className="absolute   top-[30%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حذف
@@ -797,15 +895,19 @@ export default function Content() {
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
-                  محمد علي محمد
+                  {storeDetails.username}
                 </div>
                 <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
-                  #23456
+                  #{storeDetails.id}
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
 
                 <div className="flex justify-center mt-[30px] pb-[30px]">
-                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button
+                    onClick={() => {
+                      deleteAccount();
+                    }}
+                    className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حذف
                   </button>
                   <button

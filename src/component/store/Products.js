@@ -8,7 +8,7 @@ export default function Products(props) {
   const [productDelete, setProductDelete] = useState(false)
   useEffect(() => {
     getStoreProduct(props.storeId);
-    console.log(props);
+    //console.log(props);
   }, [props]);
   const getStoreProduct = async (id) => {
     const obj = { storeId: id };
@@ -18,10 +18,15 @@ export default function Products(props) {
   };
 
   const deleteProduct = async (id) => {
+    const obj = {
+      "userId": id,
+      "productId": id
+    };
+    let params = { url: apiList.deleteProduct, body: obj };
+    let response = await ApiService.postData(params);
+
     let products = productList;
     let pro = products.filter((data, i) => { return data.id != id })
-    // console.log(pro);
-    // console.log(products);
     setProductList(productList => pro);
     setProductDelete(true);
     setTimeout(() => {

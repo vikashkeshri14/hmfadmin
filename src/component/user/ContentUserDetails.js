@@ -9,6 +9,8 @@ import InfoIncomingReport from "./InfoIncomingReport";
 import InfoOutgoingReport from "./InfoOutgoingReport";
 import OrderHistory from "./OrderHistory";
 import { NavLink, useParams, Link, useNavigate } from "react-router-dom";
+
+import { DateRange } from "react-date-range";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function ContentUserDetails() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -23,6 +25,16 @@ export default function ContentUserDetails() {
   const [conversation, setConversation] = useState(false);
   const [storeDetails, setStoreDetails] = useState(null);
   const [userId, setUserId] = useState("");
+  const [minheight, setMinHeight] = useState(false);
+
+  const [banMessage, setbanMessage] = useState("");
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+  ]);
   const navigate = useNavigate();
   const params = useParams();
   useEffect(() => {
@@ -39,7 +51,76 @@ export default function ContentUserDetails() {
       setStoreDetails(response.result[0]);
     }
   };
+  const deleteAccount = async () => {
+    const obj = {
+      userId: userId
+    };
 
+    let params = { url: apiList.deleteAccount, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User deleted successfully");
+      setDeleteShow(false)
+    }
+  }
+
+  const cancelBan = async () => {
+    const obj = {
+      userId: userId
+    };
+
+    let params = { url: apiList.cancelban, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User ban successfully cancel");
+      showBan(false)
+    }
+  }
+
+  const perBan = async () => {
+    if (!banMessage) {
+      alert("please enter the message");
+      return
+    }
+    const obj = {
+      userId: userId,
+      message: banMessage
+    };
+
+    let params = { url: apiList.ban, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User successfully ban")
+      setBlocked(false);
+      setbanMessage("")
+      showBan(false)
+    }
+  }
+
+  const tempBan = async () => {
+    if (!banMessage) {
+      alert("please enter the message");
+      return
+    }
+    const obj = {
+      userId: userId,
+      message: banMessage,
+      from: moment(state[0].startDate).format("YYYY-MM-DD"),
+      to: moment(state[0].endDate).format("YYYY-MM-DD")
+    };
+
+    let params = { url: apiList.tempbanUser, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      alert("User successfully ban")
+      setPerBlocked(false);
+      setMinHeight(false);
+      setbanMessage("")
+      showBan(false)
+    }
+
+
+  }
   return (
     <div className="app-content content ">
       <div className="content-overlay"></div>
@@ -331,7 +412,9 @@ export default function ContentUserDetails() {
                   </div>
                   <div className="w-full p-[15px] pr-[0px]">
                     <div className=" self-center flex justify-end h-[66px] pl-[10px]">
-                      <div className="flex justify-end cursor-pointer mr-[20px] self-center">
+                      <div onClick={() => {
+                        showBan((ban) => !ban);
+                      }} className="flex justify-end cursor-pointer mr-[20px] self-center">
                         <img
                           src={
                             config.domainUrl +
@@ -357,12 +440,52 @@ export default function ContentUserDetails() {
                         />
                       </div>
                     </div>
+                    <div
+                      className={
+                        ban
+                          ? "absolute shadow w-[332px] mt-[0px] left-[90px] z-50 bg-white"
+                          : "relative hidden shadow w-[289px] mt-[-10px] left-[90px] z-50 bg-white"
+                      }
+                    >
+                      <div
+                        onClick={() => {
+                          setBlocked(false);
+                          setPerBlocked(true);
+                          setDeleteShow(false);
+                          setMinHeight(true);
+                        }}
+                        className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                      >
+                        حظر مؤقت
+                      </div>
+                      <div className="dropdown-divider mb-0"></div>
+                      <div
+                        onClick={() => {
+                          setPerBlocked(false);
+                          setBlocked(true);
+                          setDeleteShow(false);
+                        }}
+                        className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                      >
+                        حظر دائم
+                      </div>
+                      <div className="dropdown-divider mb-0"></div>
+                      <div
+                        onClick={() => {
+                          cancelBan();
+                        }}
+                        className="cancel-ban p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                      >
+                        إلغاء الحظر
+                      </div>
+                      <div className="dropdown-divider mb-0"></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section id="userDetails">
+          <section id="userDetails" className={minheight ? "min-h-[600px]" : "min-h-[400px]"}>
             {orderHistory && <OrderHistory userId={userId} />}
             {infoOutgoingReport && <InfoOutgoingReport userId={userId} />}
             {infoIncomingReport && <InfoIncomingReport userId={userId} />}
@@ -370,10 +493,134 @@ export default function ContentUserDetails() {
           </section>
         </div>
       </div>
-      {deleteShow && (
+      {blocked && (
         <>
           <div className="initial">
             <div className="absolute   top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+                  هل أنت متأكد من حظر
+                </h3>
+
+                <div className="flex justify-center mt-[10px]">
+                  <img
+                    className="w-[68px] self-center h-[68px] rounded-[34px]"
+                    src={
+                      storeDetails != null &&
+                      config.imgUri + "/" + storeDetails.user_pic
+                    }
+                  />
+                </div>
+                <div className="text-[#484848] text-[20px] font-sstbold text-center">
+                  {storeDetails != null && storeDetails.username}
+                </div>
+                <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
+                  # {storeDetails != null && storeDetails.id}
+                </div>
+                <div className="text-[#484848] mt-[5px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
+                  سبب الحظر
+                </div>
+                <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea onChange={(e) => {
+                    setbanMessage(e.target.value)
+                  }} className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "></textarea>
+                </fieldset>
+                <div className="flex justify-center pb-[30px]">
+                  <button
+                    onClick={() => {
+                      perBan();
+                    }}
+                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
+                  <button
+                    onClick={() => {
+                      setBlocked(false);
+                      setbanMessage("")
+                    }}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {perblocked && (
+        <>
+          <div className="initial zindex-1">
+            <div className="absolute top-[10%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
+              <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
+                <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
+                  هل أنت متأكد من حظر
+                </h3>
+
+                <div className="flex justify-center mt-[10px]">
+                  <img
+                    className="w-[68px] self-center h-[68px] rounded-[34px]"
+                    src={
+                      storeDetails != null &&
+                      config.imgUri + "/" + storeDetails.user_pic
+                    }
+                  />
+                </div>
+                <div className="text-[#484848] text-[20px] font-sstbold text-center">
+                  {storeDetails != null && storeDetails.username}
+                </div>
+                <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
+                  # {storeDetails != null && storeDetails.id}
+                </div>
+                <div className="mr-[30px] ml-[30px]"></div>
+                <div dir="ltr" className="flex justify-center">
+                  <DateRange
+
+                    editableDateInputs={true}
+                    onChange={(item) => setState([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={state}
+                  />
+                </div>
+                <div className="text-[#484848] mt-[5px] ml-[10px] text-[20px] font-sstbold mr-[30px] mb-[5px] ">
+                  سبب الحظر
+                </div>
+                <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
+                  <textarea
+                    onChange={(e) => {
+                      setbanMessage(e.target.value)
+                    }}
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] ">
+
+                  </textarea>
+                </fieldset>
+
+                <div className="flex justify-center pb-[30px]">
+                  <button onClick={() => {
+                    tempBan();
+                  }} className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    حظر
+                  </button>
+                  <button
+                    onClick={() => {
+                      setPerBlocked(false);
+                      setMinHeight(false);
+                      setbanMessage("")
+                    }}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {deleteShow && (
+        <>
+          <div className="initial">
+            <div className="absolute  top-[30%] left-1/2 transform -translate-x-1/2   w-[500px]  ">
               <div className="relative bg-[#FAFAFA] rounded-lg shadow dark:bg-gray-700">
                 <h3 className="text-[24px] pt-[20px] font-sstbold text-[#484848] text-center">
                   هل أنت متأكد من حذف
@@ -389,15 +636,16 @@ export default function ContentUserDetails() {
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
-                  محمد علي محمد
-                </div>
+                  {storeDetails.username}                </div>
                 <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
-                  #23456
+                  #{storeDetails.id}
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
 
                 <div className="flex justify-center mt-[30px] pb-[30px]">
-                  <button className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button onClick={() => {
+                    deleteAccount()
+                  }} className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
                     حذف
                   </button>
                   <button

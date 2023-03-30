@@ -1,20 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
-export default function AllUser() {
+import { UserContext } from "../../contexts/UserContext";
+export default function AllUser(props) {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [initialdata, setinitialdata] = useState([]);
+  const [callAllUser, setcallAllUser] = useState(true);
+  const { showMoreUser, setshowMoreUser } = useContext(UserContext);
   useEffect(() => {
-    getAllUsers();
-  }, []);
+    if (callAllUser) {
+      getAllUsers();
+      setcallAllUser(false);
+    }
+    if (props.searchData) {
+      searchStore(props.searchData);
+    }
+  }, [props]);
+  const searchStore = async (text) => {
+    //setSearchText(text);
+    let search = initialdata;
+    search = search.filter((data, i) => {
+      if (data.id == text || data.username.indexOf(text) >= 0 || !text) {
+        return data;
+      }
+    });
+    setUsers(search);
+  };
   const getAllUsers = async () => {
     let params = { url: apiList.getAllUser };
     let response = await ApiService.getData(params);
     setUsers(response.result);
+    setinitialdata(response.result);
   };
   return (
     <div className="bg-white rounded-[6px] pb-[10px]">
@@ -22,18 +43,33 @@ export default function AllUser() {
         <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
           جميع المستخدمين
         </div>
-        <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-          عرض المزيد
+        <div
+          onClick={() => {
+            setshowMoreUser((showMoreUser) => !showMoreUser);
+          }}
+          className="text-[18px] w-[50%] cursor-pointer  justify-start p-[10px] font-sstbold text-right text-[#959494]"
+        >
+          {showMoreUser ? "خلف" : " عرض المزيد"}
         </div>
       </div>
       <div className="row mt-[20px] pl-[15px] pr-[15px]  ">
-        <div className="overflow-x-auto overflow-y-hidden flex ">
+        <div
+          className={
+            showMoreUser
+              ? "flex flex-wrap"
+              : "overflow-x-auto overflow-y-hidden flex "
+          }
+        >
           {users.length > 0 &&
             users.map((data, i) => {
               return (
                 <div
                   key={i}
-                  className="w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                  className={
+                    showMoreUser
+                      ? "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] mb-[20px] justify-center flex flex-col align-items-center"
+                      : "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                  }
                 >
                   <div
                     onClick={() => {

@@ -35,6 +35,7 @@
   "getReportPending": "/report/getReportPending",
   "getMostReported": "/report/getMostReported",
   "getReportByHr": "/report/getReportByHr",
+  "getTotalReport": "/report/getTotalReport",
   "getSms": "/sms/getSms",
   "getSmsByHr": "/sms/getSmsByHr",
   "sendSmsToUser": "/sms/sendSmsToUser",
@@ -57,5 +58,10 @@
   "storePaidCommitment": "/orders/storePaidCommitment",
   "numberOfCommitmentByRangeUserId": "/orders/numberOfCommitmentByRangeUserId",
   "updateCommitment": "/orders/updateCommitment",
-  "acceptCommitment": "/orders/acceptCommitment"
+  "acceptCommitment": "/orders/acceptCommitment",
+  "deleteProduct": "/products/deleteProduct",
+  "cancelban": "/users/cancelban",
+  "tempbanUser": "/users/tempban",
+  "ban": "/users/ban",
+  "deleteAccount": "/users/deleteAccount"
 }

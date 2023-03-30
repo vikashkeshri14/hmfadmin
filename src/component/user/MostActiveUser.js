@@ -1,14 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
-export default function MostActiveUser() {
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
+export default function MostActiveUser(props) {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [initialdata, setinitialdata] = useState([]);
+  const [callInitial, setcallInitial] = useState(true);
+  const { showMoreActiveUser, setshowMoreActiveUser } = useContext(UserContext);
   useEffect(() => {
-    getMostActiveUser();
-  }, []);
+    if (callInitial) {
+      getMostActiveUser();
+      setcallInitial(false);
+    }
+    if (props.searchData) {
+      searchData(props.searchData);
+    }
+  }, [props]);
+  const searchData = async (text) => {
+    //setSearchText(text);
+    let search = initialdata;
+    search = search.filter((data, i) => {
+      if (data.id == text || data.username.indexOf(text) >= 0 || !text) {
+        return data;
+      }
+    });
+    setUsers(search);
+  };
   const getMostActiveUser = async () => {
     let params = { url: apiList.getMostActiveUser };
     let response = await ApiService.getData(params);
@@ -26,6 +48,7 @@ export default function MostActiveUser() {
       }
       //console.log(result);
       setUsers(result);
+      setinitialdata(result);
     }
   };
   return (
@@ -35,20 +58,42 @@ export default function MostActiveUser() {
           <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
             المستخدمين الأكثر نشاطاً
           </div>
-          <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-            عرض المزيد
+          <div
+            onClick={() => {
+              setshowMoreActiveUser(
+                (showMoreActiveUser) => !showMoreActiveUser
+              );
+            }}
+            className="text-[18px] cursor-pointer w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]"
+          >
+            {showMoreActiveUser ? "خلف" : " عرض المزيد"}
           </div>
         </div>
         <div className="row mt-[20px] pl-[15px] pr-[15px]  ">
-          <div className="overflow-x-auto overflow-y-hidden flex ">
+          <div
+            className={
+              showMoreActiveUser
+                ? "flex flex-wrap"
+                : "overflow-x-auto overflow-y-hidden flex "
+            }
+          >
             {users.length > 0 &&
               users.map((data, i) => {
                 return (
                   <div
                     key={i}
-                    className="w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                    className={
+                      showMoreActiveUser
+                        ? "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center mb-[20px] flex flex-col align-items-center"
+                        : "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                    }
                   >
-                    <div className="top-[44px] relative mr-50 ">
+                    <div
+                      onClick={() => {
+                        navigate("/user/" + data.id);
+                      }}
+                      className="top-[44px] cursor-pointer relative mr-50 "
+                    >
                       <img
                         className="w-[88px] h-[88px] rounded-[44px]"
                         src={config.imgUri + "/" + data.user_pic}

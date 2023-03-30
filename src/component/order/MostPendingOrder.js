@@ -1,15 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
-
-export default function MostPendingOrder() {
+import { UserContext } from "../../contexts/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import { OrderContext } from "../../contexts/OrderContext";
+export default function MostPendingOrder(props) {
+  const navigate = useNavigate();
   const [store, setStore] = useState([]);
+  const [initialdata, setinitialdata] = useState([]);
+  const [initialcall, setinitialcall] = useState(true);
+  const { morePendingStore, setmorePendingStore } = useContext(OrderContext);
   useEffect(() => {
-    getMostRatedStore();
-    ///getDevice();
-  }, []);
+    if (initialcall) {
+      getMostRatedStore();
+      setinitialcall(false);
+    }
+
+    searchData(props.searchData);
+  }, [props]);
+  const searchData = async (text) => {
+    let search = initialdata;
+    if (search.length > 0) {
+      search = search.filter((data, i) => {
+        if (data.id == text || data.username.indexOf(text) >= 0 || !text) {
+          return data;
+        }
+      });
+      setStore(search);
+    }
+  };
   const getMostRatedStore = async () => {
     let params = { url: apiList.getMostActiveStore };
     let response = await ApiService.getData(params);
@@ -27,6 +48,7 @@ export default function MostPendingOrder() {
       let fil_res = result.filter((data, i) => data.pending_order != 0);
 
       setStore(fil_res);
+      setinitialdata(fil_res);
     }
   };
   return (
@@ -36,18 +58,33 @@ export default function MostPendingOrder() {
           <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
             المتاجر التي تملك طلبات معلقة
           </div>
-          <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-            عرض المزيد
+          <div
+            onClick={() => {
+              setmorePendingStore((morePendingStore) => !morePendingStore);
+            }}
+            className="text-[18px] w-[50%] cursor-pointer justify-start p-[10px] font-sstbold text-right text-[#959494]"
+          >
+            {morePendingStore ? "خلف" : " عرض المزيد"}
           </div>
         </div>
         <div className="row mt-[20px] pl-[15px] pr-[15px]  ">
-          <div className="overflow-x-auto overflow-y-hidden flex ">
+          <div
+            className={
+              morePendingStore
+                ? "flex flex-wrap"
+                : "overflow-x-auto overflow-y-hidden flex "
+            }
+          >
             {store.length > 0 &&
               store.map((data, i) => {
                 return (
                   <div
                     key={i}
-                    className="w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                    className={
+                      morePendingStore
+                        ? "w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center mb-[20px] flex flex-col align-items-center"
+                        : "w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                    }
                   >
                     <div className="top-[44px] relative mr-50 ">
                       <img
