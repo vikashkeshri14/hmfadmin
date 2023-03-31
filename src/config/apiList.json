@@ -36,6 +36,13 @@
   "getMostReported": "/report/getMostReported",
   "getReportByHr": "/report/getReportByHr",
   "getTotalReport": "/report/getTotalReport",
+  "deleteStoreReport": "/report/deleteStoreReport",
+  "deleteUserReport": "/report/deleteUserReport",
+  "deleteProductReport": "/report/deleteProductReport",
+  "resolveStoreReport": "/report/resolveStoreReport",
+  "resolveUserReport": "/report/resolveUserReport",
+  "getMostReportedUser": "/report/getMostReportedUser",
+  "resolveProductReport": "/report/resolveProductReport",
   "getSms": "/sms/getSms",
   "getSmsByHr": "/sms/getSmsByHr",
   "sendSmsToUser": "/sms/sendSmsToUser",
@@ -63,5 +70,6 @@
   "cancelban": "/users/cancelban",
   "tempbanUser": "/users/tempban",
   "ban": "/users/ban",
-  "deleteAccount": "/users/deleteAccount"
+  "deleteAccount": "/users/deleteAccount",
+  "online": "/users/online"
 }

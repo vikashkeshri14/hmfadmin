@@ -34,12 +34,21 @@ export default function Content() {
   const [showMoreActiveUser, setshowMoreActiveUser] = useState(false);
   const [showMoreLowestRatedStore, setshowMoreLowestRatedStore] =
     useState(false);
+  const [onlineUser, setonlineUser] = useState(0);
 
+  const [onlineStore, setonlineStore] = useState(0);
   const [searchText, setSearchText] = useState("");
   useEffect(() => {
     getUserAndStore();
+    getOnlineUser();
     //  getDevice();
   }, []);
+  const getOnlineUser = async () => {
+    let params = { url: apiList.online };
+    let response = await ApiService.getData(params);
+    setonlineUser(response.users.length);
+    setonlineStore(response.store.length);
+  };
   const getUserAndStore = async () => {
     let params = { url: apiList.getUserAndStore };
     let response = await ApiService.getData(params);
@@ -267,7 +276,7 @@ export default function Content() {
                                       />
                                     </div>
                                     <div className="text-[#FF9800] text-center text-[10px] font-sstbold ">
-                                      {storesPending} متاجر
+                                      {onlineStore} متاجر
                                     </div>
                                   </td>
                                   <td className="text-center w-[50%]">
@@ -278,7 +287,7 @@ export default function Content() {
                                       />
                                     </div>
                                     <div className="text-[#60BA62] text-[10px] font-sstbold">
-                                      {usersPending} مستخدمين
+                                      {onlineUser} مستخدمين
                                     </div>
                                   </td>
                                 </tr>

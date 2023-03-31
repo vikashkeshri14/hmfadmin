@@ -30,6 +30,8 @@ export default function Content() {
     useState("0");
   const [moreRequestedStore, setmoreRequestedStore] = useState(false);
   const [morePendingStore, setmorePendingStore] = useState(false);
+  const [moreRequestOrder, setmoreRequestOrder] = useState(false);
+
   const [searchText, setSearchText] = useState("");
 
   const [
@@ -40,6 +42,7 @@ export default function Content() {
   useEffect(() => {
     getOrderDetails();
   }, []);
+
   const getOrderDetails = async () => {
     let params = { url: apiList.totalOrder };
     let response = await ApiService.getData(params);
@@ -113,13 +116,6 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/*<input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
 
                   <DateRangePicker
                     calendarIcon=""
@@ -131,7 +127,7 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            {!morePendingStore && !moreRequestedStore && (
+            {!morePendingStore && !moreRequestedStore && !moreRequestOrder && (
               <>
                 <div className="row mt-[10px]">
                   <div className="col-md-12 col-sm-12 pl-[0px] rounded-[6px] ">
@@ -363,31 +359,35 @@ export default function Content() {
                 setmoreRequestedStore,
                 morePendingStore,
                 setmorePendingStore,
+                moreRequestOrder,
+                setmoreRequestOrder,
               }}
             >
               <div className="row mt-[20px]">
-                {!morePendingStore && (
+                {!morePendingStore && !moreRequestOrder && (
                   <MostRequestedStore searchData={searchText} />
                 )}
               </div>
               <div className="row mt-[20px]">
-                {!moreRequestedStore && (
+                {!moreRequestedStore && !moreRequestOrder && (
                   <MostPendingOrder searchData={searchText} />
                 )}
               </div>
-            </OrderContext.Provider>
-            {!morePendingStore && !moreRequestedStore && (
-              <>
-                <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
-                  <div className="col-12 p-[0px]">
-                    <div className="divider">
-                      <div className="divider-text">2023</div>
+
+              {!morePendingStore && !moreRequestedStore && (
+                <>
+                  <div className="row  rounded-[6px] mr-[0px] mt-[10px]">
+                    <div className="col-12 p-[0px]">
+                      <div className="divider">
+                        <div className="divider-text">2023</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <RequestedOrder />
-              </>
-            )}
+
+                  <RequestedOrder searchData={searchText} />
+                </>
+              )}
+            </OrderContext.Provider>
           </section>
         </div>
       </div>
