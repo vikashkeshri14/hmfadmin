@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,80 +9,912 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-const data = [
-  {
-    name: "Jan",
-
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Feb",
-
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Mar",
-
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Apr",
-
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "May",
-
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Jun",
-
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Jul",
-
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Aug",
-
-    pv: 4200,
-    amt: 2100,
-  },
-  {
-    name: "Sep",
-
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Oct",
-
-    pv: 3400,
-    amt: 1900,
-  },
-  {
-    name: "Nov",
-
-    pv: 3900,
-    amt: 2200,
-  },
-  {
-    name: "Dec",
-    pv: 4000,
-    amt: 2300,
-  },
-];
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
 export default function LineCharts() {
+  const [value, onChange] = useState([new Date(), new Date()]);
+  const [data, setData] = useState([
+    {
+      name: "12am",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "1am",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "2am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "3am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "4am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "5am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "6am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "7am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "8am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "9am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "10am",
+
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "11am",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "12pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "1pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "2pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "3pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "4pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "5pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "6pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "7pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "8pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "9pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "10pm",
+      paid: 0,
+      unpaid: 0,
+    },
+    {
+      name: "11pm",
+      paid: 0,
+      unpaid: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.paidandpendingcommitment, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      let searchPaid;
+      let searchUnpaid;
+      let val;
+      let paid = response.paidcommitment;
+      let unpaid = response.pendingcommitment;
+      let valres = [];
+      for (let i = 0; i < 24; i++) {
+        switch (i) {
+          case 0:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "12am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "12am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "12am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "12am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+
+            valres[i] = val;
+
+            break;
+          case 1:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "1am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "1am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "1am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "1am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 2:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "2am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "2am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "2am",
+                paid: 0,
+                unpaid: searchUnpaid[i].cnt,
+              };
+            } else {
+              val = {
+                name: "2am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 3:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "3am",
+                paid: paid[searchPaid].cnt,
+                unpaid: searchUnpaid[i].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "3am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "3am",
+                paid: 0,
+                unpaid: searchUnpaid[i].cnt,
+              };
+            } else {
+              val = {
+                name: "3am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 4:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "4am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "4am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "4am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "4am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 5:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "5am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "5am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "5am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "5am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 6:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "6am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "6am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "6am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "6am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 7:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "7am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "7am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "7am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "7am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 8:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "8am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "8am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "8am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "8am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 9:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "9am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "9am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "9am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "9am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 10:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "10am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "10am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "10am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "10am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 11:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "11am",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "11am",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "11am",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "11am",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 12:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "12pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "12pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "12pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "12pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 13:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "1pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "1pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "1pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "1pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 14:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "2pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "2pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "2pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "2pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          case 15:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "3pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "3pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "3pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "3pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          case 16:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "4pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "4pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "4pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "4pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          case 17:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "5pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "5pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "5pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "5pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          case 18:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "6pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "6pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "6pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "6pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          case 19:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "7pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "7pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "7pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "7pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 20:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "8pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "8pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "8pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "8pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 21:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "9pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "9pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "9pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "9pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+            break;
+          case 22:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "10pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "10pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "10pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "10pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+          case 23:
+            searchPaid = paid.findIndex((data) => data.hr == i);
+            searchUnpaid = unpaid.findIndex((data) => data.hr == i);
+            if (searchPaid >= 0 && searchUnpaid >= 0) {
+              val = {
+                name: "11pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else if (searchPaid >= 0) {
+              val = {
+                name: "11pm",
+                paid: paid[searchPaid].cnt,
+                unpaid: 0,
+              };
+            } else if (searchUnpaid >= 0) {
+              val = {
+                name: "11pm",
+                paid: 0,
+                unpaid: unpaid[searchUnpaid].cnt,
+              };
+            } else {
+              val = {
+                name: "11pm",
+                paid: 0,
+                unpaid: 0,
+              };
+            }
+            valres[i] = val;
+
+            break;
+
+          default:
+            break;
+        }
+      }
+      setData(valres);
+    }
+  };
   return (
     <div className="h-[281px]">
       <div className="flex border-b-[1px] mb-[10px]">
@@ -91,16 +923,16 @@ export default function LineCharts() {
             الالتزامات المدفوعة و المعلقة
           </div>
           <div>
-            <div className="position-relative has-icon-right">
-              <div className="absolute top-[20px] left-0">
+            <div className="position-relative mb-[10px] has-icon-right">
+              <div className="absolute zindex-1 top-[20px] left-0">
                 <i className="ficon bx bxs-calendar text-[20px] pl-[10px]"></i>
               </div>
-              <input
-                type="number"
-                id="contact-info-icon"
-                className="form-control text-[16px] font-sstroman h-[58px] border-0  rounded-[6px]"
-                name="contact-icon"
-                placeholder="16/12/2022 - 16/12/2022"
+              <DateRangePicker
+                calendarIcon=""
+                calendarClassName="border-0 "
+                className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                onChange={onChange}
+                value={value}
               />
             </div>
           </div>
@@ -148,8 +980,8 @@ export default function LineCharts() {
             stroke="#FF9800"
             activeDot={{ r: 8 }}
           />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="amt" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="unpaid" stroke="#E80000" />
+          <Line type="monotone" dataKey="paid" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     </div>

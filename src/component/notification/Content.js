@@ -18,16 +18,40 @@ export default function Content() {
   const [alerts, setAlerts] = useState([]);
   const [showVal, setShowVal] = useState("");
   const [show, setShow] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [initialdata, setinitialdata] = useState([]);
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getAlert();
   }, []);
   const getAlert = async () => {
-    let params = { url: apiList.getAlert };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+
+    let params = { url: apiList.getAlert, body: obj };
+    let response = await ApiService.postData(params);
     //console.log(response)
     setAlerts(response.result);
+    setinitialdata(response.result);
+  };
+  const searchData = async (text) => {
+    let search = initialdata;
+
+    if (search.length > 0) {
+      search = search.filter((data, i) => {
+        if (
+          data.username.indexOf(text) >= 0 ||
+          data.name.indexOf(text) >= 0 ||
+          !text
+        ) {
+          return data;
+        }
+      });
+      setAlerts(search);
+    }
   };
   const addId = async () => {
     if (!id) {
@@ -96,11 +120,16 @@ export default function Content() {
                         <i className="bx bx-slider-alt"></i>
                       </div>
                       <input
-                        type="number"
+                        type="text"
                         id="contact-info-icon"
                         className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
+                        value={searchText}
+                        onChange={(e) => {
+                          setSearchText(e.target.value);
+                          searchData(e.target.value);
+                        }}
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
                         <img src="../panel/app-assets/images/search.png" />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
@@ -48,6 +48,7 @@ export default function Commitment(props) {
     let params = { url: apiList.sendAlert, body: obj };
     let response = await ApiService.postData(params);
     alert("message send successfully");
+    getAllCommitment(sendTo, from, to);
   };
   const updateCommitment = async (id) => {
     let obj = {

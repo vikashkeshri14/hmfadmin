@@ -362,7 +362,6 @@ export default function Content() {
                                   : "form-control h-[228px] bg-[#EBEBEB]"
                               }
                               name="password"
-                              placeholder="  نص الرسالة"
                               rows="3"
                             >
                               {message}

@@ -1,17 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
-export default function PendingCommitments() {
+import { CommitmentContext } from "../../contexts/CommitmentContext";
+import { Link, useNavigate } from "react-router-dom";
+
+export default function PendingCommitments(props) {
+  const navigate = useNavigate();
+
   const [pendingList, setPendingList] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [initialdata, setinitialdata] = useState([]);
+  const [initialcall, setinitialcall] = useState(true);
+  const { morePendingCommitment, setmorePendingCommitment } =
+    useContext(CommitmentContext);
   useEffect(() => {
-    getPendingList();
-  });
+    if (initialcall) {
+      const auth = JSON.parse(localStorage.getItem("loginUser"));
+      setUserId(auth.id);
+
+      getPendingList();
+      setinitialcall(false);
+    }
+    searchData(props.searchData);
+  }, [props]);
+
+  const searchData = async (text) => {
+    //setSearchText(text);
+    let search = initialdata;
+    search = search.filter((data, i) => {
+      if (data.id == text || data.username.indexOf(text) >= 0 || !text) {
+        return data;
+      }
+    });
+    setPendingList(search);
+  };
+
   const getPendingList = async () => {
-    let params = { url: apiList.storePendingCommitment };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.storePendingCommitment, body: obj };
+    let response = await ApiService.postData(params);
     setPendingList(response.storeCommitment);
+    setinitialdata(response.storeCommitment);
+  };
+  const sendAlert = async (sendTo, orderId) => {
+    const obj = {
+      userId: userId,
+      sendTo: sendTo,
+      user_type: "2",
+      message: "Please pay the commitment for orderId :: " + orderId,
+      orderId: orderId,
+    };
+    let params = { url: apiList.sendAlert, body: obj };
+    let response = await ApiService.postData(params);
+    alert("message send successfully");
+    getPendingList();
   };
   return (
     <div className="col-md-12 col-sm-12 pl-[0px] ">
@@ -20,20 +67,45 @@ export default function PendingCommitments() {
           <div className="text-[18px] w-[50%] p-[10px] font-sstbold text-[#959494]">
             الالتزامات المعلقة
           </div>
-          <div className="text-[18px] w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]">
-            عرض المزيد
+          <div
+            onClick={() => {
+              setmorePendingCommitment(
+                (morePendingCommitment) => !morePendingCommitment
+              );
+            }}
+            className="text-[18px] w-[50%] cursor-pointer justify-start p-[10px] font-sstbold text-right text-[#959494]"
+          >
+            {morePendingCommitment ? "خلف" : " عرض المزيد"}
           </div>
         </div>
         <div className="row mt-[20px] mb-[10px] pl-[15px] pr-[15px]  ">
-          <div className="overflow-x-auto overflow-y-hidden flex ">
+          <div
+            className={
+              morePendingCommitment
+                ? "flex flex-wrap"
+                : "overflow-x-auto overflow-y-hidden flex "
+            }
+          >
             {pendingList.length > 0 ? (
               pendingList.map((data, i) => {
                 return (
-                  <div className="w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
+                  <div
+                    key={i}
+                    className={
+                      morePendingCommitment
+                        ? "w-[176px] flex-none mb-[20px] ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                        : "w-[176px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                    }
+                  >
                     <div className="w-[100%] bg-[#F9F9F9]">
                       <div className="flex pb-[5px]">
                         <div className="w-full flex-col pr-[5px] pl-[5px]">
-                          <div className="flex justify-center mt-[10px]">
+                          <div
+                            onClick={() => {
+                              navigate("/store/" + data.store_id);
+                            }}
+                            className="flex cursor-pointer justify-center mt-[10px]"
+                          >
                             <img
                               className="w-[64px] h-[64px] rounded-[32px]"
                               src={config.imgUri + "/" + data.user_pic}
@@ -57,7 +129,7 @@ export default function PendingCommitments() {
                               {data.total_amount} ريال
                             </div>
                             <div className="w-full text-[#E80000] text-[16px] font-sstbold text-center  pb-[5px]">
-                              4 تنبيهات
+                              {data.alert.length} تنبيهات
                             </div>
                             <div className="flex justify-center">
                               <div className="mt-[5px] ml-[5px]">
@@ -67,7 +139,12 @@ export default function PendingCommitments() {
                                   alt="user image"
                                 />
                               </div>
-                              <div className=" text-[#FF9800] text-[16px] font-sstbold text-center  pb-[5px]">
+                              <div
+                                onClick={() => {
+                                  sendAlert(data.store_id, data.id);
+                                }}
+                                className=" text-[#FF9800] cursor-pointer text-[16px] font-sstbold text-center  pb-[5px]"
+                              >
                                 إرسال تنبية
                               </div>
                             </div>

@@ -7,16 +7,26 @@ import moment from "moment";
 export default function Suspend() {
   const [listItems, setListItems] = useState([]);
   const [showReceipt, setshowReceipt] = useState("");
+  const [messageError, setMessageError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [alertShow, setAlertShow] = useState(false);
+  const [buttonClick, setButtonClick] = useState(false);
   const [userId, setUserId] = useState("");
+  const [orderId, setOrderId] = useState("");
+  const [receiptId, setReceiptId] = useState("");
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getData();
   }, []);
   const getData = async () => {
-    let params = { url: apiList.getAllTransfer };
-    let response = await ApiService.getData(params);
-    setListItems(response.result);
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.getAllTransfer, body: obj };
+    let response = await ApiService.postData(params);
+    setListItems(response.suspend);
   };
 
   const acceptCommitment = async (orderId, receiptId) => {
@@ -27,7 +37,29 @@ export default function Suspend() {
 
     let params = { url: apiList.acceptCommitment, body: obj };
     let response = await ApiService.postData(params);
-    alert("commitment accept successfully");
+    alert("Commitment accept successfully");
+  };
+  const rejectCommitment = async () => {
+    setButtonClick(true);
+    if (!message) {
+      setMessageError(true);
+      setButtonClick(false);
+      return;
+    }
+    //return;
+    const obj = {
+      receiptId: receiptId,
+      orderId: orderId,
+      message: message,
+    };
+
+    let params = { url: apiList.rejectCommitment, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      setAlertShow(false);
+      setButtonClick(false);
+      alert("Commitment reject successfully");
+    }
   };
   return (
     <div className="pb-[300px]">
@@ -217,7 +249,9 @@ export default function Suspend() {
                           <div>
                             <button
                               onClick={() => {
-                                // setAlertShow(true);
+                                setAlertShow(true);
+                                setOrderId(data.orderId);
+                                setReceiptId(data.paymnet_commitment[0].id);
                               }}
                               className="w-[148px] h-[58px] rounded-[6px] mt-[10px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
                             >
@@ -235,6 +269,49 @@ export default function Suspend() {
         })
       ) : (
         <div></div>
+      )}
+
+      {alertShow && (
+        <>
+          <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-[500px]  max-w-3xl">
+              <div className="relative bg-[#FAFAFA] rounded-[6px]   shadow-[0_1px_4px_1px_rgba(21,34,50,0.2)]">
+                <div className="flex flex-col p-[20px]">
+                  <div className="text-[#484848] mb-[10px] w-[100%] mt-[5px] text-[16px] font-sstbold  ">
+                    سبب الرفض
+                  </div>
+                  <div className=" w-[100%] mb-[30px] ">
+                    <textarea
+                      onChange={(e) => setMessage(e.target.value)}
+                      className={
+                        messageError
+                          ? "border-[#E80000] border-[1px] w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                          : " w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                      }
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="flex justify-center pb-[30px]">
+                  <button
+                    disabled={buttonClick}
+                    onClick={() => {
+                      rejectCommitment();
+                    }}
+                    className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#498A4A] w-[148px] h-[58px] font-sstbold ml-[10px]"
+                  >
+                    إرسال
+                  </button>
+                  <button
+                    onClick={() => setAlertShow(false)}
+                    className="ban text-[24px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

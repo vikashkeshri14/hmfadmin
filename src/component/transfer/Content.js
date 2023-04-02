@@ -32,15 +32,6 @@ export default function Content() {
                     onChange={onChange}
                     value={value}
                   />
-
-                  {/* 
-                  <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
                 </div>
               </div>
               <div className="w-[40%] bg-white rounded-[6px] mr-[10px] dashboard-users">

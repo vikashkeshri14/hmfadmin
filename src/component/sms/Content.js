@@ -20,15 +20,40 @@ export default function Content() {
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [showSure, setShowSure] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [initialdata, setinitialdata] = useState([]);
   useEffect(() => {
     getSms();
   }, []);
   const getSms = async () => {
-    let params = { url: apiList.getSms };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+
+    let params = { url: apiList.getSms, body: obj };
+    let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setTotalSms(response.result.length);
       setSmsList(response.result);
+      setinitialdata(response.result);
+    }
+  };
+
+  const searchData = async (text) => {
+    let search = initialdata;
+
+    if (search.length > 0) {
+      search = search.filter((data, i) => {
+        if (
+          data.username.indexOf(text) >= 0 ||
+          data.title.indexOf(text) >= 0 ||
+          !text
+        ) {
+          return data;
+        }
+      });
+      setSmsList(search);
     }
   };
   const addId = async () => {
@@ -110,11 +135,16 @@ export default function Content() {
                         <i className="bx bx-slider-alt"></i>
                       </div>
                       <input
-                        type="number"
+                        type="text"
                         id="contact-info-icon"
                         className="form-control text-[20px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
                         name="contact-icon"
                         placeholder="البحث"
+                        value={searchText}
+                        onChange={(e) => {
+                          setSearchText(e.target.value);
+                          searchData(e.target.value);
+                        }}
                       />
                       <div className="form-control-position top-[20px] right-[10px] w-[24px] h-[24px]">
                         <img src="../panel/app-assets/images/search.png" />

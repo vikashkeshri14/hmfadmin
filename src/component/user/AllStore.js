@@ -35,7 +35,6 @@ export default function AllStore(props) {
   const getAllStore = async () => {
     let params = { url: apiList.getAllStore };
     let response = await ApiService.getData(params);
-    console.log("call");
     setStore(response.result);
     setinitialstore(response.result);
   };
@@ -54,17 +53,27 @@ export default function AllStore(props) {
               }}
               className="text-[18px] cursor-pointer w-[50%]  justify-start p-[10px] font-sstbold text-right text-[#959494]"
             >
-              عرض المزيد
+              {showMoreStore ? "خلف" : " عرض المزيد"}
             </div>
           </div>
           <div className="row mt-[20px] pl-[15px] pr-[15px]  ">
-            <div className="overflow-x-auto overflow-y-hidden flex ">
+            <div
+              className={
+                showMoreStore
+                  ? "flex flex-wrap"
+                  : "overflow-x-auto overflow-y-hidden flex "
+              }
+            >
               {store.length > 0 &&
                 store.map((data, i) => {
                   return (
                     <div
                       key={i}
-                      className="w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                      className={
+                        showMoreStore
+                          ? "w-[205px] mt-[-44px] mb-[20px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                          : "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"
+                      }
                     >
                       <div
                         onClick={() => {

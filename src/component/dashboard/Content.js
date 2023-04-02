@@ -45,7 +45,8 @@ export default function Content() {
   useEffect(() => {
     getOrderDetails();
     getOrderCommitment();
-    getStorePendingCommitment();
+    //getStorePendingCommitment();
+    getDropCommitment();
     getTotalReport();
   }, []);
 
@@ -84,8 +85,13 @@ export default function Content() {
   };
 
   const getOrderDetails = async () => {
-    let params = { url: apiList.totalOrder };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.totalOrder, body: obj };
+    let response = await ApiService.postData(params);
+
     if (response) {
       if (response.totalOrder[0].total_order) {
         setTotalOrder(response.totalOrder[0].total_order);
@@ -110,8 +116,12 @@ export default function Content() {
     }
   };
   const getOrderCommitment = async () => {
-    let params = { url: apiList.totalOrderCommitment };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.totalOrderCommitment, body: obj };
+    let response = await ApiService.postData(params);
     if (response) {
       if (response.totalDropCommitmentOrderCommitment[0].total_order) {
         setTotalOrderDropCommitment(
@@ -142,6 +152,20 @@ export default function Content() {
           response.totalPaidOrderCommitment[0].total
         );
       }
+    }
+  };
+
+  const getDropCommitment = async () => {
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.getAllDropCommitment, body: obj };
+    let response = await ApiService.postData(params);
+    if (response.result.length > 0) {
+      let sortval = response.result.sort((a, b) => b.cnt - a.cnt);
+      setStorePendingCommitment(sortval);
+      setstoreValCommitment(sortval);
     }
   };
   const getStorePendingCommitment = async () => {
@@ -624,7 +648,7 @@ export default function Content() {
                         عرض المزيد
                       </div>
                     </div>
-                    <div className="flex justify-evenly">
+                    <div className="flex">
                       {storePendingCommitment.length > 0 &&
                         storePendingCommitment.map((data, i) => {
                           if (i < 3) {
@@ -634,9 +658,9 @@ export default function Content() {
                                   navigate("/store/" + data.store_id);
                                 }}
                                 key={i}
-                                className="w-[24%] justify-center flex flex-col align-items-center"
+                                className="w-[24%] justify-center ml-[10px] mt-[10px] flex flex-col align-items-center"
                               >
-                                <div className="avatar  top-[44px] mr-50 ">
+                                <div className="avatar top-[44px] mr-50">
                                   <img
                                     className="w-[88px] h-[88px] rounded-[44px]"
                                     src={config.imgUri + "/" + data.user_pic}

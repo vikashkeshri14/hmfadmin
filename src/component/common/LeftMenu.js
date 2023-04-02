@@ -8,6 +8,7 @@ export default function LeftMenu({ route }) {
   const navigate = useNavigate();
   useEffect(() => {
     setPathUrl(location.pathname);
+
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setModules(auth.modules);
   }, []);
@@ -73,13 +74,13 @@ export default function LeftMenu({ route }) {
           {modules.includes("users") && (
             <li
               className={
-                pathUrl == "/users"
+                pathUrl == "/users" || pathUrl.indexOf("store") > 0
                   ? "  h-[61px] flex  nav-item  active-menu-left "
                   : " h-[61px] flex  nav-item"
               }
             >
               <Link to="/users">
-                {pathUrl == "/users" ? (
+                {pathUrl == "/users" || pathUrl.indexOf("store") > 0 ? (
                   <img
                     className="h-[24px] w-[24px] ml-[24px]"
                     src={
@@ -98,7 +99,7 @@ export default function LeftMenu({ route }) {
                 )}
                 <span
                   className={
-                    pathUrl == "/users"
+                    pathUrl == "/users" || pathUrl.indexOf("store") > 0
                       ? "menu-title text-truncate text-[#ffffff] text-[16px] font-sstbold"
                       : "menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
                   }

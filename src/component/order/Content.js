@@ -44,8 +44,12 @@ export default function Content() {
   }, []);
 
   const getOrderDetails = async () => {
-    let params = { url: apiList.totalOrder };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: "",
+      to: "",
+    };
+    let params = { url: apiList.totalOrder, body: obj };
+    let response = await ApiService.postData(params);
     if (response) {
       if (response.totalOrder[0].total_order) {
         setTotalOrder(response.totalOrder[0].total_order);
