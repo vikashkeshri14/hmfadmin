@@ -74,5 +74,8 @@
   "tempbanUser": "/users/tempban",
   "ban": "/users/ban",
   "deleteAccount": "/users/deleteAccount",
-  "online": "/users/online"
+  "online": "/users/online",
+  "totalearning": "/earning/totalearning",
+  "totalearningbymonth": "/earning/totalearningbymonth",
+  "totalearningallbymonth": "/earning/totalearningallbymonth"
 }

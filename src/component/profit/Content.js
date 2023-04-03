@@ -1,11 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Barchart from "./Barchart";
 import Graph from "./Graph";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import * as ApiService from "../../config/config";
+import apiList from "../../config/apiList.json";
+import config from "../../config/config.json";
+import moment from "moment";
 export default function Content() {
   const [alertShow, setAlertShow] = useState(false);
   const [value, onChange] = useState([new Date(), new Date()]);
+  const [totalEarning, settotalEarning] = useState(0);
+  const [appleEarning, setappleEarning] = useState(0);
+  const [googleEarning, setgoogleEarning] = useState(0);
+  const [bankEarning, setbankEarning] = useState(0);
+  const [from, setFrom] = useState("")
+  const [to, setTo] = useState("")
+  const [tab, setTab] = useState("")
 
+
+  useEffect(() => {
+    getData();
+  }, [from, to]);
+  const getData = async () => {
+    // console.log(from)
+    const obj = {
+      from: from,
+      to: to,
+    };
+
+    let params = { url: apiList.totalearning, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      if (response.totalearning.length > 0) {
+        if (response.totalearning[0].total_order) {
+          settotalEarning(response.totalearning[0].total);
+        } else {
+          settotalEarning(0);
+        }
+      } else {
+        settotalEarning(0);
+      }
+      if (response.googleearning.length > 0) {
+        if (response.googleearning[0].total_order) {
+
+          setgoogleEarning(response.googleearning[0].total);
+        }
+      } else {
+        setgoogleEarning(0);
+      }
+      if (response.appleearning.length > 0) {
+        if (response.appleearning[0].total_order) {
+          setappleEarning(response.appleearning[0].total);
+        }
+      } else {
+        setappleEarning(0);
+      }
+      if (response.bankearning.length > 0) {
+        if (response.bankearning[0].total_order) {
+          setbankEarning(response.bankearning[0].total);
+        }
+      } else {
+        setbankEarning(0);
+      }
+
+    }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -21,13 +80,7 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
+
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
@@ -35,7 +88,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e)
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"))
+                        setTo(moment(e[1]).format("YYYY-MM-DD"))
+                      } else {
+                        setFrom("")
+                        setTo("")
+                      }
+                    }}
                     value={value}
                   />
                 </div>
@@ -47,33 +109,55 @@ export default function Content() {
                       <tr>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          className=" text-center  "
+                          className=" text-center cursor-pointer "
+                          onClick={() => {
+                            setTab("daily");
+                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
+                            setFrom(moment(new Date()).format("YYYY-MM-DD"))
+                          }}
                         >
-                          <div className="flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          <div className={tab == 'daily' ? "flex justify-center text-[#FF9800] text-[16px] font-sstbold " : "flex justify-center text-[#484848] text-[16px] font-sstbold "}>
                             يومي
                           </div>
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          className="  text-center  "
+                          className="  text-center cursor-pointer  "
+                          onClick={() => {
+                            setTab("weekly");
+                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
+                            setFrom(moment(new Date().setDate(new Date().getDate() - 7)).format("YYYY-MM-DD"))
+                          }}
+
                         >
-                          <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          <div className={tab == 'weekly' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
                             أسبوعي
                           </div>
                         </td>
                         <td
                           style={{ borderLeftWidth: 1 }}
-                          className=" text-center "
+                          className=" text-center cursor-pointer"
+                          onClick={() => {
+                            setTab("monthly");
+                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
+                            setFrom(moment(new Date().setDate(new Date().getDate() - 30)).format("YYYY-MM-DD"))
+                          }}
                         >
-                          <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          <div className={tab == 'monthly' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
                             شهري
                           </div>
                         </td>
                         <td
                           style={{ borderLeftWidth: 0 }}
-                          className=" text-center "
+                          className=" text-center cursor-pointer"
+                          onClick={() => {
+                            setTab("annual");
+                            //console.log(moment(new Date().setDate(new Date().getDate() - 365)).format("YYYY-MM-DD"))
+                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
+                            setFrom(moment(new Date().setDate(new Date().getDate() - 365)).format("YYYY-MM-DD"))
+                          }}
                         >
-                          <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                          <div className={tab == 'annual' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
                             سنوي
                           </div>
                         </td>
@@ -89,14 +173,14 @@ export default function Content() {
                 <div className=" mt-[10px]">
                   <div className="col-md-12 col-sm-12  rounded-[6px]">
                     <div className="row">
-                      <div className="col-md-4 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
+                      <div className="col-md-3 pr-[0px] col-sm-12 pl-[0px]  rounded-[6px]">
                         <div className="card mb-[10px] pb-[20px] pt-[20px]">
                           <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               إجمالي الأرباح
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              70,000 ريال
+                              {totalEarning} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
@@ -104,14 +188,14 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                      <div className="col-md-3 col-sm-12 rounded-[6px] pl-[0px]">
                         <div className="card mb-[10px] pb-[20px] pt-[20px]">
                           <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               الأرباح من قوقل
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              30,000 ريال
+                              {googleEarning} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
@@ -119,14 +203,29 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-4 col-sm-12 rounded-[6px] pl-[0px]">
+                      <div className="col-md-3 col-sm-12 rounded-[6px] pl-[0px]">
                         <div className="card mb-[10px] pb-[20px] pt-[20px]">
                           <div className="p-[10px]">
                             <div className="text-[#959494] text-center font-sstbold text-[18px]">
                               الأرباح من أبل
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              40,000 ريال
+                              {appleEarning} ريال
+                            </div>
+                            <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
+                              5,09% أعلى من الشهر الماضي
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-3 col-sm-12 rounded-[6px] pl-[0px]">
+                        <div className="card mb-[10px] pb-[20px] pt-[20px]">
+                          <div className="p-[10px]">
+                            <div className="text-[#959494] text-center font-sstbold text-[18px]">
+                              أرباح من التحويل المصرفي
+                            </div>
+                            <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
+                              {bankEarning} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
@@ -153,7 +252,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="">
-                    <Barchart />
+                    <Barchart from={from} to={to} />
                   </div>
                 </div>
                 <div className="w-[50%] mr-[20px] pr-[0px] bg-white rounded-[6px]">
@@ -168,7 +267,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="">
-                    <Graph />
+                    <Graph from={from} to={to} />
                   </div>
                 </div>
               </div>
