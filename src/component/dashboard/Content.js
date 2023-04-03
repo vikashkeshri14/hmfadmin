@@ -9,6 +9,7 @@ import config from "../../config/config.json";
 import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Link, useNavigate } from "react-router-dom";
+
 export default function Content() {
   const [totalOrder, setTotalOrder] = useState("0");
   const [totalPendingOrder, setTotalPendingOrder] = useState("0");
@@ -41,14 +42,15 @@ export default function Content() {
   const [moreCommitment, setmoreCommitment] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [storeValCommitment, setstoreValCommitment] = useState([]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
     getOrderDetails();
     getOrderCommitment();
-    //getStorePendingCommitment();
     getDropCommitment();
     getTotalReport();
-  }, []);
+  }, [from, to]);
 
   const searchStore = async (text) => {
     //setSearchText(text);
@@ -63,11 +65,12 @@ export default function Content() {
   };
   const getTotalReport = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.getTotalReport, body: obj };
     let response = await ApiService.postData(params);
+    //console.log(response);
     if (response) {
       let total =
         response.store[0].cnt + response.user[0].cnt + response.product[0].cnt;
@@ -77,7 +80,6 @@ export default function Content() {
         response.userresolve[0].cnt +
         response.productresolve[0].cnt;
       setTotalReportResolve(resolve);
-
       setProductReport(response.product[0].cnt);
       setStoreReport(response.store[0].cnt);
       setUserReport(response.user[0].cnt);
@@ -86,12 +88,17 @@ export default function Content() {
 
   const getOrderDetails = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
-
+    setTotalOrder(0);
+    setTotalPendingOrder(0);
+    setTotalAcceptOrder(0);
+    setTotalCancelOrder(0);
+    setTotalPaidOrder(0);
+    setTotalRejectAfterAcceptOrder(0);
     if (response) {
       if (response.totalOrder[0].total_order) {
         setTotalOrder(response.totalOrder[0].total_order);
@@ -117,11 +124,19 @@ export default function Content() {
   };
   const getOrderCommitment = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.totalOrderCommitment, body: obj };
     let response = await ApiService.postData(params);
+    setTotalOrderDropCommitment(0);
+    setTotalOrderDropCommitmentAmount(0);
+    setTotalOrderCommitment(0);
+    setTotalAmountOfCommitment(0);
+    setTotalPendingOrderCommitment(0);
+    setTotalAmountOfPendingCommitment(0);
+    setTotalPaidOrderCommitment(0);
+    setTotalAmountOfPaidCommitment(0);
     if (response) {
       if (response.totalDropCommitmentOrderCommitment[0].total_order) {
         setTotalOrderDropCommitment(
@@ -157,26 +172,22 @@ export default function Content() {
 
   const getDropCommitment = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.getAllDropCommitment, body: obj };
     let response = await ApiService.postData(params);
+    //console.log(response);
     if (response.result.length > 0) {
       let sortval = response.result.sort((a, b) => b.cnt - a.cnt);
       setStorePendingCommitment(sortval);
       setstoreValCommitment(sortval);
+    } else {
+      setStorePendingCommitment([]);
+      setstoreValCommitment([]);
     }
   };
-  const getStorePendingCommitment = async () => {
-    let params = { url: apiList.storePendingCommitment };
-    let response = await ApiService.getData(params);
-    if (response.storeCommitment.length > 0) {
-      let sortval = response.storeCommitment.sort((a, b) => b.cnt - a.cnt);
-      setStorePendingCommitment(sortval);
-      setstoreValCommitment(sortval);
-    }
-  };
+
   return (
     <div className="app-content content">
       <div className="content-overlay"></div>
@@ -214,6 +225,12 @@ export default function Content() {
                     <div
                       onClick={() => {
                         setRangeVal(1);
+                        setTo(
+                          moment(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ).format("YYYY-MM-DD")
+                        );
+                        setFrom(moment(new Date()).format("YYYY-MM-DD"));
                       }}
                       className={
                         rangeVal == "1"
@@ -227,6 +244,16 @@ export default function Content() {
                     <div
                       onClick={() => {
                         setRangeVal(7);
+                        setTo(
+                          moment(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ).format("YYYY-MM-DD")
+                        );
+                        setFrom(
+                          moment(
+                            new Date().setDate(new Date().getDate() - 7)
+                          ).format("YYYY-MM-DD")
+                        );
                       }}
                       className={
                         rangeVal == "7"
@@ -240,6 +267,16 @@ export default function Content() {
                     <div
                       onClick={() => {
                         setRangeVal(30);
+                        setTo(
+                          moment(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ).format("YYYY-MM-DD")
+                        );
+                        setFrom(
+                          moment(
+                            new Date().setDate(new Date().getDate() - 30)
+                          ).format("YYYY-MM-DD")
+                        );
                       }}
                       className={
                         rangeVal == "30"
@@ -253,6 +290,16 @@ export default function Content() {
                     <div
                       onClick={() => {
                         setRangeVal(365);
+                        setTo(
+                          moment(
+                            new Date().setDate(new Date().getDate() + 1)
+                          ).format("YYYY-MM-DD")
+                        );
+                        setFrom(
+                          moment(
+                            new Date().setDate(new Date().getDate() - 365)
+                          ).format("YYYY-MM-DD")
+                        );
                       }}
                       className={
                         rangeVal == "365"
@@ -267,7 +314,6 @@ export default function Content() {
               </div>
               <div className="w-[24%]   dashboard-users">
                 <div className="position-relative has-icon-right">
-                  {/*  */}
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
@@ -275,17 +321,18 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
-
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
                 </div>
               </div>
             </div>
@@ -295,10 +342,10 @@ export default function Content() {
                   <div className="w-[72%] flex-col h-[430px]  ">
                     <div className="w-[100%] justify-around flex">
                       <div className="w-[37%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                        <Graph range={rangeVal} />
+                        <Graph range={rangeVal} from={from} to={to} />
                       </div>
                       <div className="w-[60%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                        <Barchart range={rangeVal} />
+                        <Barchart range={rangeVal} from={from} to={to} />
                       </div>
                     </div>
                     <div className="w-[98%] mr-[10px] mt-[20px]">
@@ -393,7 +440,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
-                    <Chat range={rangeVal} />
+                    <Chat range={rangeVal} from={from} to={to} />
                   </div>
                 </div>
                 <div className="row flex justify-around mt-[30px]">
@@ -503,7 +550,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] mr-[10px] rounded-[6px] shadow p-[10px] bg-[#ffffff]">
-                    <GraphNext range={rangeVal} />
+                    <GraphNext range={rangeVal} from={from} to={to} />
                   </div>
                 </div>
                 <div className="flex mt-[30px]">

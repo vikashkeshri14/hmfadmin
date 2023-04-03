@@ -19,46 +19,48 @@ export default function Barchart(props) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
-    getData(props.range);
+    getData(props.range, props.from, props.to);
   }, [props]);
-  const getData = async (args) => {
+  const getData = async (args, from, to) => {
     const obj = {
       range: args,
+      from: from,
+      to: to,
     };
     let val;
-    let oderdata = [
-      { name: "12am", order: 0 },
-      { name: "1am", order: 0 },
-      { name: "2am", order: 0 },
-      { name: "3am", order: 0 },
-      { name: "4am", order: 0 },
-      { name: "5am", order: 0 },
-      { name: "6am", order: 0 },
-      { name: "7am", order: 0 },
-      { name: "8am", order: 0 },
-      { name: "9am", order: 0 },
-      { name: "10am", order: 0 },
-      { name: "11am", order: 0 },
-      { name: "12pm", order: 0 },
-      { name: "1pm", order: 0 },
-      { name: "2pm", order: 0 },
-      { name: "3pm", order: 0 },
-      { name: "4pm", order: 0 },
-      { name: "5pm", order: 0 },
-      { name: "6pm", order: 0 },
-      { name: "7pm", order: 0 },
-      { name: "8pm", order: 0 },
-      { name: "9pm", order: 0 },
-      { name: "10pm", order: 0 },
-      { name: "11pm", order: 0 },
-    ];
-
     let more = 2;
     let params = { url: apiList.numberOfOrderByRange, body: obj };
     let response = await ApiService.postData(params);
     //console.log(response);
     if (response) {
+      let oderdata = [
+        { name: "12am", order: 0 },
+        { name: "1am", order: 0 },
+        { name: "2am", order: 0 },
+        { name: "3am", order: 0 },
+        { name: "4am", order: 0 },
+        { name: "5am", order: 0 },
+        { name: "6am", order: 0 },
+        { name: "7am", order: 0 },
+        { name: "8am", order: 0 },
+        { name: "9am", order: 0 },
+        { name: "10am", order: 0 },
+        { name: "11am", order: 0 },
+        { name: "12pm", order: 0 },
+        { name: "1pm", order: 0 },
+        { name: "2pm", order: 0 },
+        { name: "3pm", order: 0 },
+        { name: "4pm", order: 0 },
+        { name: "5pm", order: 0 },
+        { name: "6pm", order: 0 },
+        { name: "7pm", order: 0 },
+        { name: "8pm", order: 0 },
+        { name: "9pm", order: 0 },
+        { name: "10pm", order: 0 },
+        { name: "11pm", order: 0 },
+      ];
       let valres = response.result;
+      //console.log(valres);
       for (let i = 0; i < response.result.length; i++) {
         switch (valres[i].hr) {
           case 0:
