@@ -11,9 +11,20 @@ export default function MostActiveUser(props) {
   const [users, setUsers] = useState([]);
   const [initialdata, setinitialdata] = useState([]);
   const [callInitial, setcallInitial] = useState(true);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const { showMoreActiveUser, setshowMoreActiveUser } = useContext(UserContext);
   useEffect(() => {
-    if (callInitial) {
+    let calldata = callInitial;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getMostActiveUser();
       setcallInitial(false);
     }
@@ -32,8 +43,12 @@ export default function MostActiveUser(props) {
     setUsers(search);
   };
   const getMostActiveUser = async () => {
-    let params = { url: apiList.getMostActiveUser };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+    let params = { url: apiList.getMostActiveUser, body: obj };
+    let response = await ApiService.postData(params);
     if (response.results.length > 0) {
       let result = response.results;
 

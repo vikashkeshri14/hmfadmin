@@ -8,12 +8,22 @@ export default function Piechart(props) {
     { name: "Store", value: 300 },
   ]);
   useEffect(() => {
-    setUser(props.user);
-    setStore(props.store);
-    setData([
-      { name: "User", value: props.user },
-      { name: "Store", value: props.store },
-    ]);
+    console.log(props.user);
+    if (props.user && props.store) {
+      setUser(props.user);
+      setStore(props.store);
+      setData([
+        { name: "User", value: props.user },
+        { name: "Store", value: props.store },
+      ]);
+    } else {
+      setUser(0);
+      setStore(0);
+      setData([
+        { name: "User", value: 0 },
+        { name: "Store", value: 0 },
+      ]);
+    }
   }, [props]);
   const COLORS = ["#60BA62", "#FF9800"];
   return (

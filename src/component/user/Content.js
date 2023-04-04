@@ -38,11 +38,13 @@ export default function Content() {
 
   const [onlineStore, setonlineStore] = useState(0);
   const [searchText, setSearchText] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     getUserAndStore();
     getOnlineUser();
     //  getDevice();
-  }, []);
+  }, [from, to]);
   const getOnlineUser = async () => {
     let params = { url: apiList.online };
     let response = await ApiService.getData(params);
@@ -50,15 +52,27 @@ export default function Content() {
     setonlineStore(response.store.length);
   };
   const getUserAndStore = async () => {
-    let params = { url: apiList.getUserAndStore };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to,
+    };
+    let params = { url: apiList.getUserAndStoreByDate, body: obj };
+    let response = await ApiService.postData(params);
     let store = response.store[0].cnt;
     let user = response.user[0].cnt;
     let sum = store + user;
-    let userper = Math.round((user / sum) * 100);
-    let storeper = 100 - userper;
-    setStoresPer(storeper);
-    setUsersPer(userper);
+    if (sum != 0) {
+      let userper = Math.round((user / sum) * 100);
+      let storeper = 100 - userper;
+      setStoresPer(storeper);
+      setUsersPer(userper);
+    } else {
+      let userper = 0;
+      let storeper = 0;
+      setStoresPer(storeper);
+      setUsersPer(userper);
+    }
+
     setStores(response.store[0].cnt);
     setUsers(response.user[0].cnt);
     setStoresDelete(response.storeDelete[0].cnt);
@@ -127,7 +141,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
                 </div>
@@ -197,7 +220,12 @@ export default function Content() {
                               </div>
                             </div>
                             <div className="col-md-4 col-sm-12">
-                              <Piechart user={usersPer} store={storesPer} />
+                              <Piechart
+                                user={usersPer}
+                                store={storesPer}
+                                from={from}
+                                to={to}
+                              />
                             </div>
                           </div>
                         </div>
@@ -303,7 +331,7 @@ export default function Content() {
                       <h4 className="p-[10px] text-[18px] font-sstbold text-[#959494]">
                         أوقات النشاط في التطبيق
                       </h4>
-                      <Graph />
+                      <Graph from={from} to={to} />
                     </div>
                   </div>
                 </div>
@@ -334,23 +362,39 @@ export default function Content() {
                   <>
                     <div className="row ">
                       <div className="col-md-6 col-sm-12 pl-[0px] ">
-                        <AllStore searchData={searchText} />
+                        <AllStore searchData={searchText} from={from} to={to} />
                       </div>
                       <div className="col-md-6 col-sm-12 pl-[0px] ">
-                        <AllUser searchData={searchText} />
+                        <AllUser searchData={searchText} from={from} to={to} />
                       </div>
                     </div>
                     <div className="row mt-[20px]">
-                      <MostActiveStore searchData={searchText} />
+                      <MostActiveStore
+                        searchData={searchText}
+                        from={from}
+                        to={to}
+                      />
                     </div>
                     <div className="row mt-[20px]">
-                      <MostActiveUser searchData={searchText} />
+                      <MostActiveUser
+                        searchData={searchText}
+                        from={from}
+                        to={to}
+                      />
                     </div>
                     <div className="row mt-[20px]">
-                      <MostRatedStore searchData={searchText} />
+                      <MostRatedStore
+                        searchData={searchText}
+                        from={from}
+                        to={to}
+                      />
                     </div>
                     <div className="row mt-[20px]">
-                      <LowestRatedStore searchData={searchText} />
+                      <LowestRatedStore
+                        searchData={searchText}
+                        from={from}
+                        to={to}
+                      />
                     </div>
                   </>
                 )}
@@ -358,7 +402,7 @@ export default function Content() {
                 <>
                   <div className="row mt-[20px]">
                     <div className="col-md-12 col-sm-12 pl-[0px] ">
-                      <AllStore searchData={searchText} />
+                      <AllStore searchData={searchText} from={from} to={to} />
                     </div>
                   </div>
                 </>
@@ -367,30 +411,38 @@ export default function Content() {
                 <>
                   <div className="row mt-[20px]">
                     <div className="col-md-12 col-sm-12 pl-[0px] ">
-                      <AllUser searchData={searchText} />
+                      <AllUser searchData={searchText} from={from} to={to} />
                     </div>
                   </div>
                 </>
               )}
               {showMoreActiveStore && (
                 <div className="row mt-[20px]">
-                  <MostActiveStore searchData={searchText} />
+                  <MostActiveStore
+                    searchData={searchText}
+                    from={from}
+                    to={to}
+                  />
                 </div>
               )}
               {showMoreActiveUser && (
                 <div className="row mt-[20px]">
-                  <MostActiveUser searchData={searchText} />
+                  <MostActiveUser searchData={searchText} from={from} to={to} />
                 </div>
               )}
               {showMoreRatedStore && (
                 <div className="row mt-[20px]">
-                  <MostRatedStore searchData={searchText} />
+                  <MostRatedStore searchData={searchText} from={from} to={to} />
                 </div>
               )}
 
               {showMoreLowestRatedStore && (
                 <div className="row mt-[20px]">
-                  <LowestRatedStore searchData={searchText} />
+                  <LowestRatedStore
+                    searchData={searchText}
+                    from={from}
+                    to={to}
+                  />
                 </div>
               )}
             </UserContext.Provider>

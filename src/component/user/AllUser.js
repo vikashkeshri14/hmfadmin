@@ -11,9 +11,20 @@ export default function AllUser(props) {
   const [users, setUsers] = useState([]);
   const [initialdata, setinitialdata] = useState([]);
   const [callAllUser, setcallAllUser] = useState(true);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const { showMoreUser, setshowMoreUser } = useContext(UserContext);
   useEffect(() => {
-    if (callAllUser) {
+    let calldata = callAllUser;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getAllUsers();
       setcallAllUser(false);
     }
@@ -32,10 +43,18 @@ export default function AllUser(props) {
     setUsers(search);
   };
   const getAllUsers = async () => {
-    let params = { url: apiList.getAllUser };
-    let response = await ApiService.getData(params);
-    setUsers(response.result);
-    setinitialdata(response.result);
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+    let params = { url: apiList.getAllUserByDate, body: obj };
+    let response = await ApiService.postData(params);
+    setUsers([]);
+    setinitialdata([]);
+    if (response.result.length > 0) {
+      setUsers(response.result);
+      setinitialdata(response.result);
+    }
   };
   return (
     <div className="bg-white rounded-[6px] pb-[10px]">

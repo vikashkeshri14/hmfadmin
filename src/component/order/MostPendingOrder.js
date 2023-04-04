@@ -33,7 +33,7 @@ export default function MostPendingOrder(props) {
   };
   const getMostRatedStore = async () => {
     let params = { url: apiList.getMostActiveStore };
-    let response = await ApiService.getData(params);
+    let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       let result = response.result;
       for (let i = 0; i < result.length; i++) {

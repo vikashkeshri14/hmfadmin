@@ -12,16 +12,28 @@ export default function AllStore(props) {
   const [store, setStore] = useState([]);
   const [initialstore, setinitialstore] = useState([]);
   const [callAllStore, setcallAllStore] = useState(true);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const { showMoreStore, setshowMoreStore } = useContext(UserContext);
   useEffect(() => {
-    if (callAllStore) {
+    let calldata = callAllStore;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+
+    if (calldata) {
       getAllStore();
       setcallAllStore(false);
     }
     if (props.searchData) {
       searchStore(props.searchData);
     }
-  }, [props]);
+  }, [props.searchData, props.from, props.to]);
   const searchStore = async (text) => {
     //setSearchText(text);
     let search = initialstore;
@@ -33,10 +45,19 @@ export default function AllStore(props) {
     setStore(search);
   };
   const getAllStore = async () => {
-    let params = { url: apiList.getAllStore };
-    let response = await ApiService.getData(params);
-    setStore(response.result);
-    setinitialstore(response.result);
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+
+    let params = { url: apiList.getAllStoreByDate, body: obj };
+    let response = await ApiService.postData(params);
+    setStore([]);
+    setinitialstore([]);
+    if (response.result.length > 0) {
+      setStore(response.result);
+      setinitialstore(response.result);
+    }
   };
 
   return (

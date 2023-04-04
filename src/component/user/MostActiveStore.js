@@ -14,9 +14,19 @@ export default function MostActiveStore(props) {
   const [callAllStore, setcallAllStore] = useState(true);
   const { showMoreActiveStore, setshowMoreActiveStore } =
     useContext(UserContext);
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
-    if (callAllStore) {
+    let calldata = callAllStore;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getMostRatedStore();
       setcallAllStore(false);
     }
@@ -36,8 +46,12 @@ export default function MostActiveStore(props) {
   };
 
   const getMostRatedStore = async () => {
-    let params = { url: apiList.getMostActiveStore };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+    let params = { url: apiList.getMostActiveStore, body: obj };
+    let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       let result = response.result;
       for (let i = 0; i < result.length; i++) {
