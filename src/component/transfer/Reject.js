@@ -4,7 +4,7 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 
-export default function Reject() {
+export default function Reject(props) {
   const [listItems, setListItems] = useState([]);
   const [showReceipt, setshowReceipt] = useState("");
   const [messageError, setMessageError] = useState(false);
@@ -19,11 +19,11 @@ export default function Reject() {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getData();
-  }, []);
+  }, [props]);
   const getData = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
     let params = { url: apiList.getAllTransfer, body: obj };
     let response = await ApiService.postData(params);
@@ -67,7 +67,10 @@ export default function Reject() {
       {listItems.length > 0 ? (
         listItems.map((data, i) => {
           return (
-            <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+            <div
+              key={i}
+              className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]"
+            >
               <table className="table mb-0">
                 <tbody>
                   <tr

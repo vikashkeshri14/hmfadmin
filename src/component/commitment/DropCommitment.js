@@ -87,6 +87,7 @@ export default function DropCommitment(props) {
               {data.map((data, i) => {
                 return (
                   <div
+                    key={i}
                     className={
                       moreDropCommitment
                         ? "w-[238px] mb-[20px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center"

@@ -13,7 +13,11 @@ import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import moment from "moment";
+
 export default function LineCharts() {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [value, onChange] = useState([new Date(), new Date()]);
   const [data, setData] = useState([
     {
@@ -149,11 +153,11 @@ export default function LineCharts() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [from, to]);
   const getData = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.paidandpendingcommitment, body: obj };
     let response = await ApiService.postData(params);
@@ -912,6 +916,7 @@ export default function LineCharts() {
             break;
         }
       }
+      //console.log(valres);
       setData(valres);
     }
   };
@@ -931,7 +936,16 @@ export default function LineCharts() {
                 calendarIcon=""
                 calendarClassName="border-0 "
                 className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                onChange={onChange}
+                onChange={(e) => {
+                  onChange(e);
+                  if (e != null) {
+                    setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                    setTo(moment(e[1]).format("YYYY-MM-DD"));
+                  } else {
+                    setFrom("");
+                    setTo("");
+                  }
+                }}
                 value={value}
               />
             </div>

@@ -14,6 +14,7 @@ import moment from "moment";
 
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
+  const [rangeVal, setRangeVal] = useState("");
 
   const [alertShow, setAlertShow] = useState(false);
   const [totalOrderCommitment, setTotalOrderCommitment] = useState("0");
@@ -138,34 +139,106 @@ export default function Content() {
                       <tbody>
                         <tr>
                           <td
+                            onClick={() => {
+                              setRangeVal(1);
+                              setTo(
+                                moment(
+                                  new Date().setDate(new Date().getDate() + 1)
+                                ).format("YYYY-MM-DD")
+                              );
+                              setFrom(moment(new Date()).format("YYYY-MM-DD"));
+                            }}
                             style={{ borderLeftWidth: 1 }}
-                            className=" text-center  "
+                            className=" text-center cursor-pointer  "
                           >
-                            <div className="flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                            <div
+                              className={
+                                rangeVal == "1"
+                                  ? "flex justify-center cursor-pointer text-[#FF9800] text-[16px] font-sstbold "
+                                  : "flex justify-center cursor-pointer text-[#484848] text-[16px] font-sstbold "
+                              }
+                            >
                               يومي
                             </div>
                           </td>
                           <td
                             style={{ borderLeftWidth: 1 }}
-                            className="  text-center  "
+                            className="  text-center cursor-pointer  "
+                            onClick={() => {
+                              setRangeVal(7);
+                              setTo(
+                                moment(
+                                  new Date().setDate(new Date().getDate() + 1)
+                                ).format("YYYY-MM-DD")
+                              );
+                              setFrom(
+                                moment(
+                                  new Date().setDate(new Date().getDate() - 7)
+                                ).format("YYYY-MM-DD")
+                              );
+                            }}
                           >
-                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                            <div
+                              className={
+                                rangeVal == "7"
+                                  ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                  : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                              }
+                            >
                               أسبوعي
                             </div>
                           </td>
                           <td
+                            onClick={() => {
+                              setRangeVal(30);
+                              setTo(
+                                moment(
+                                  new Date().setDate(new Date().getDate() + 1)
+                                ).format("YYYY-MM-DD")
+                              );
+                              setFrom(
+                                moment(
+                                  new Date().setDate(new Date().getDate() - 7)
+                                ).format("YYYY-MM-DD")
+                              );
+                            }}
                             style={{ borderLeftWidth: 1 }}
-                            className=" text-center "
+                            className=" text-center cursor-pointer "
                           >
-                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                            <div
+                              className={
+                                rangeVal == "30"
+                                  ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                  : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                              }
+                            >
                               شهري
                             </div>
                           </td>
                           <td
+                            onClick={() => {
+                              setRangeVal(365);
+                              setTo(
+                                moment(
+                                  new Date().setDate(new Date().getDate() + 1)
+                                ).format("YYYY-MM-DD")
+                              );
+                              setFrom(
+                                moment(
+                                  new Date().setDate(new Date().getDate() - 365)
+                                ).format("YYYY-MM-DD")
+                              );
+                            }}
                             style={{ borderLeftWidth: 0 }}
-                            className=" text-center "
+                            className=" cursor-pointer text-center "
                           >
-                            <div className=" flex justify-center text-[#484848] text-[16px] font-sstbold ">
+                            <div
+                              className={
+                                rangeVal == "365"
+                                  ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                  : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                              }
+                            >
                               سنوي
                             </div>
                           </td>
