@@ -3,9 +3,9 @@ import React, { useEffect, useState, useContext } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
-
 import { Link, useNavigate } from "react-router-dom";
 import { OrderContext } from "../../contexts/OrderContext";
+import moment from "moment";
 export default function MostRequestedStore(props) {
   const navigate = useNavigate();
   const [store, setStore] = useState([]);
@@ -13,8 +13,21 @@ export default function MostRequestedStore(props) {
   const [initialcall, setinitialcall] = useState(true);
   const { moreRequestedStore, setmoreRequestedStore } =
     useContext(OrderContext);
+
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getMostRatedStore();
       setinitialcall(false);
     }
@@ -34,8 +47,14 @@ export default function MostRequestedStore(props) {
     }
   };
   const getMostRatedStore = async () => {
-    let params = { url: apiList.getMostActiveStore };
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+
+    let params = { url: apiList.getMostActiveStore, body: obj };
     let response = await ApiService.postData(params);
+    //console.log(obj)
     if (response.result.length > 0) {
       let result = response.result;
       for (let i = 0; i < result.length; i++) {
@@ -49,6 +68,10 @@ export default function MostRequestedStore(props) {
       }
       setStore(result);
       setinitialdata(result);
+    } else {
+
+      setStore([]);
+      setinitialdata([]);
     }
   };
   return (
@@ -81,7 +104,7 @@ export default function MostRequestedStore(props) {
               store.map((data, i) => {
                 return (
                   <div
-                    key={i}
+                    key={data.id}
                     className={
                       moreRequestedStore
                         ? "w-[205px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col mb-[20px] align-items-center"

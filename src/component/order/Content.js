@@ -33,7 +33,8 @@ export default function Content() {
   const [moreRequestOrder, setmoreRequestOrder] = useState(false);
 
   const [searchText, setSearchText] = useState("");
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [
     totalRejectAfterAcceptOrderValue,
     setTotalRejectAfterAcceptOrderValue,
@@ -41,15 +42,28 @@ export default function Content() {
 
   useEffect(() => {
     getOrderDetails();
-  }, []);
+  }, [from, to]);
 
   const getOrderDetails = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
+    setTotalOrder(0)
+    setTotalOrderValue(0)
+    setTotalPendingOrder(0)
+    setTotalPendingOrderValue(0)
+    setTotalAcceptOrderValue(0)
+    setTotalCancelOrderValue(0)
+    setTotalPaidOrder(0)
+    setTotalPaidOrderValue(0)
+    setTotalRejectAfterAcceptOrder(0)
+    setTotalRejectAfterAcceptOrderValue(0)
+
+
+
     if (response) {
       if (response.totalOrder[0].total_order) {
         setTotalOrder(response.totalOrder[0].total_order);
@@ -125,7 +139,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
                 </div>
@@ -347,7 +370,7 @@ export default function Content() {
                 </div>
                 <div className="row flex justify-evenly mt-[10px]">
                   <div className="bg-white w-[49%] rounded-[6px]">
-                    <BarGraph />
+                    <BarGraph from={from} to={to} />
                   </div>
                   <div className="bg-white w-[49%] rounded-[6px]">
                     <div className="relative">
@@ -369,12 +392,12 @@ export default function Content() {
             >
               <div className="row mt-[20px]">
                 {!morePendingStore && !moreRequestOrder && (
-                  <MostRequestedStore searchData={searchText} />
+                  <MostRequestedStore searchData={searchText} from={from} to={to} />
                 )}
               </div>
               <div className="row mt-[20px]">
                 {!moreRequestedStore && !moreRequestOrder && (
-                  <MostPendingOrder searchData={searchText} />
+                  <MostPendingOrder searchData={searchText} from={from} to={to} />
                 )}
               </div>
 
@@ -388,7 +411,7 @@ export default function Content() {
                     </div>
                   </div>
 
-                  <RequestedOrder searchData={searchText} />
+                  <RequestedOrder searchData={searchText} from={from} to={to} />
                 </>
               )}
             </OrderContext.Provider>

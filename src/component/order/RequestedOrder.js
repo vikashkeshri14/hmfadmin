@@ -16,18 +16,29 @@ export default function RequestedOrder(props) {
   const [initialdata, setinitialdata] = useState([]);
   const [initialcall, setinitialcall] = useState(true);
   const { moreRequestOrder, setmoreRequestOrder } = useContext(OrderContext);
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     //if (initialcall) {
     getAllRequest();
     //    setinitialdata(false)
     //  }
-  }, [moreRequestOrder]);
+    if (props.from && props.to) {
+      setFrom(props.from); setTo(props.to);
+    }
+  }, [moreRequestOrder, props]);
   const getAllRequest = async () => {
-    let params = { url: apiList.allRequestedOrder };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to
+    }
+    console.log(obj)
+    let params = { url: apiList.allRequestedOrder, body: obj };
+    let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setRequested(response.result);
+    } else {
+      setRequested([]);
     }
   };
   return (
@@ -67,7 +78,7 @@ export default function RequestedOrder(props) {
           if (moreRequestOrder == false) {
             if (i < 10) {
               return (
-                <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+                <div key={data.id} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
                   <table className="table mb-0">
                     <tbody>
                       <tr
@@ -159,10 +170,10 @@ export default function RequestedOrder(props) {
                               reject == "1"
                                 ? "flex justify-center text-[#E80000] text-[20px] font-sstbold "
                                 : pending == "1"
-                                ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
-                                : accept == "1"
-                                ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
-                                : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
+                                  ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
+                                  : accept == "1"
+                                    ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
+                                    : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
                             }
                           >
                             {status}
@@ -339,7 +350,7 @@ export default function RequestedOrder(props) {
                                   </div>
                                 ) : (
                                   <div
-                                    key={i}
+                                    key={l}
                                     className="py-2 px-2 bg-[#F7EAD7] flex flex-col self-end rounded-[27px] h-min-[69px] m-1 mr-[30px] mb-3 w-[70%] relative"
                                   >
                                     <img
@@ -392,7 +403,7 @@ export default function RequestedOrder(props) {
             }
           } else {
             return (
-              <div className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+              <div key={data.id} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
                 <table className="table mb-0">
                   <tbody>
                     <tr
@@ -480,10 +491,10 @@ export default function RequestedOrder(props) {
                             reject == "1"
                               ? "flex justify-center text-[#E80000] text-[20px] font-sstbold "
                               : pending == "1"
-                              ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
-                              : accept == "1"
-                              ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
-                              : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
+                                ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
+                                : accept == "1"
+                                  ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
+                                  : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
                           }
                         >
                           {status}
@@ -573,7 +584,7 @@ export default function RequestedOrder(props) {
                         >
                           {data.orderItem.map((items, k) => {
                             return (
-                              <div key={k} className="flex flex-row  mt-2">
+                              <div key={items.id} className="flex flex-row  mt-2">
                                 <div className="basis-[68%] flex flex-row justify-start">
                                   <div className="pl-1 pr-1 flex text-left text-[15px] ">
                                     {items.product_name}
@@ -619,7 +630,7 @@ export default function RequestedOrder(props) {
                               return data.user_id == chatVal.receiverId ? (
                                 <div
                                   className="py-2 px-2 bg-[#E9F2E9] flex flex-col self-start rounded-[27px] h-min-[69px] m-1 ml-[30px] mb-3 w-[70%] relative"
-                                  key={l}
+                                  key={chatVal.id}
                                 >
                                   <img
                                     className="w-[39px] h-[27px] absolute bottom-[-1px] right-[-12px]"
@@ -660,7 +671,7 @@ export default function RequestedOrder(props) {
                                 </div>
                               ) : (
                                 <div
-                                  key={i}
+                                  key={chatVal.id}
                                   className="py-2 px-2 bg-[#F7EAD7] flex flex-col self-end rounded-[27px] h-min-[69px] m-1 mr-[30px] mb-3 w-[70%] relative"
                                 >
                                   <img

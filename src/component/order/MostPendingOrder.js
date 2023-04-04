@@ -6,14 +6,27 @@ import config from "../../config/config.json";
 import { UserContext } from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { OrderContext } from "../../contexts/OrderContext";
+import moment from "moment";
+
 export default function MostPendingOrder(props) {
   const navigate = useNavigate();
   const [store, setStore] = useState([]);
   const [initialdata, setinitialdata] = useState([]);
   const [initialcall, setinitialcall] = useState(true);
   const { morePendingStore, setmorePendingStore } = useContext(OrderContext);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getMostRatedStore();
       setinitialcall(false);
     }
@@ -32,7 +45,11 @@ export default function MostPendingOrder(props) {
     }
   };
   const getMostRatedStore = async () => {
-    let params = { url: apiList.getMostActiveStore };
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+    let params = { url: apiList.getMostActiveStore, body: obj };
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       let result = response.result;
@@ -49,6 +66,10 @@ export default function MostPendingOrder(props) {
 
       setStore(fil_res);
       setinitialdata(fil_res);
+    } else {
+
+      setStore([]);
+      setinitialdata([]);
     }
   };
   return (
@@ -79,7 +100,7 @@ export default function MostPendingOrder(props) {
               store.map((data, i) => {
                 return (
                   <div
-                    key={i}
+                    key={data.username}
                     className={
                       morePendingStore
                         ? "w-[238px] mt-[-44px] flex-none ml-[10px] mr-[10px] justify-center mb-[20px] flex flex-col align-items-center"
