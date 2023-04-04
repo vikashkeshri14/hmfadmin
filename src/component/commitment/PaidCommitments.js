@@ -4,16 +4,28 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { CommitmentContext } from "../../contexts/CommitmentContext";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function PaidCommitments(props) {
   const navigate = useNavigate();
   const [paidList, setPaidList] = useState([]);
   const [initialdata, setinitialdata] = useState([]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [initialcall, setinitialcall] = useState(true);
   const { morePaidCommitment, setmorePaidCommitment } =
     useContext(CommitmentContext);
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getPaidList();
       setinitialcall(false);
     }
@@ -31,8 +43,8 @@ export default function PaidCommitments(props) {
   };
   const getPaidList = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
     let params = { url: apiList.storePaidCommitment, body: obj };
     let response = await ApiService.postData(params);

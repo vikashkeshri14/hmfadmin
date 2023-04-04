@@ -2,8 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+
 import { CommitmentContext } from "../../contexts/CommitmentContext";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
 export default function DropCommitment(props) {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -11,8 +13,19 @@ export default function DropCommitment(props) {
   const [initialcall, setinitialcall] = useState(true);
   const { moreDropCommitment, setmoreDropCommitment } =
     useContext(CommitmentContext);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getDropCommitment();
       setinitialcall(false);
     }
@@ -31,14 +44,17 @@ export default function DropCommitment(props) {
   };
   const getDropCommitment = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
     let params = { url: apiList.getAllDropCommitment, body: obj };
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setData(response.result);
       setinitialdata(response.result);
+    } else {
+      setData([]);
+      setinitialdata([]);
     }
   };
   return (

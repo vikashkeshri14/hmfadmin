@@ -10,6 +10,7 @@ import PaidCommitments from "./PaidCommitments";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import DropCommitment from "./DropCommitment";
 import { CommitmentContext } from "../../contexts/CommitmentContext";
+import moment from "moment";
 
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -32,15 +33,25 @@ export default function Content() {
   const [totalAmountDropCommitment, settotalAmountDropCommitment] =
     useState("0");
   const [searchText, setSearchText] = useState("");
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     getOrderCommitment();
-  }, []);
+  }, [from, to]);
   const getOrderCommitment = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
+    setTotalOrderCommitment(0);
+    setTotalAmountOfCommitment(0);
+    setTotalPendingOrderCommitment(0);
+    setTotalAmountOfPendingCommitment(0);
+    setTotalPaidOrderCommitment(0);
+    setTotalAmountOfPaidCommitment(0);
+    settotalDropCommitment(0);
+    settotalAmountDropCommitment(0);
+
     let params = { url: apiList.totalOrderCommitment, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
@@ -174,7 +185,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
                 </div>
@@ -375,7 +395,7 @@ export default function Content() {
                 }}
               >
                 {!morePendingCommitment && !morePaidCommitment && (
-                  <DropCommitment searchData={searchText} />
+                  <DropCommitment searchData={searchText} from={from} to={to} />
                 )}
               </CommitmentContext.Provider>
             </div>
@@ -392,13 +412,21 @@ export default function Content() {
             >
               {!moreDropCommitment && !morePaidCommitment && (
                 <div className="row mt-[20px]">
-                  <PendingCommitments searchData={searchText} />
+                  <PendingCommitments
+                    from={from}
+                    to={to}
+                    searchData={searchText}
+                  />
                 </div>
               )}
               {!moreDropCommitment && !morePendingCommitment && (
                 <div className="row mt-[20px]">
                   <div className="col-md-12 col-sm-12 pl-[0px] ">
-                    <PaidCommitments searchData={searchText} />
+                    <PaidCommitments
+                      from={from}
+                      to={to}
+                      searchData={searchText}
+                    />
                   </div>
                 </div>
               )}

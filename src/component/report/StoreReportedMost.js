@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
+import moment from "moment";
 import { ReportContext } from "../../contexts/ReportContext";
 import { Link, useNavigate } from "react-router-dom";
 export default function StoreReportedMost(props) {
@@ -14,9 +15,19 @@ export default function StoreReportedMost(props) {
 
   const { moreMostReportStore, setmoreMostReportStore } =
     useContext(ReportContext);
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       getMostReported();
       setinitialcall(false);
     }
@@ -41,15 +52,19 @@ export default function StoreReportedMost(props) {
   };
   const getMostReported = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
+    //console.log(obj);
     let params = { url: apiList.getMostReported, body: obj };
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       let result = response.result;
       setStore(result);
       setinitialdata(result);
+    } else {
+      setStore([]);
+      setinitialdata([]);
     }
   };
   return (

@@ -14,15 +14,20 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { Squares } from "react-activity";
 import "react-activity/dist/library.css";
-export default function Graph() {
+export default function Graph(props) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
+    // console.log(props);
     graphChange();
-  }, []);
+  }, [props]);
   const graphChange = async () => {
-    let params = { url: apiList.getSmsByHr };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: props.from,
+      to: props.to,
+    };
+    let params = { url: apiList.getSmsByHr, body: obj };
+    let response = await ApiService.postData(params);
     if (response) {
       let valres = [];
       let res = response.result;

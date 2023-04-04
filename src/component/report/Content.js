@@ -30,18 +30,21 @@ export default function Content() {
   const [messageError, setMessageError] = useState(false);
   const [userType, setuserType] = useState("");
   const [userId, setUserId] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     getAllReport();
     ///getDevice();
-  }, []);
+  }, [from, to]);
   const getAllReport = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
+
     let params = { url: apiList.getTotalReport, body: obj };
     let response = await ApiService.postData(params);
-
+    console.log(response);
     if (response) {
       let total =
         response.store[0].cnt + response.user[0].cnt + response.product[0].cnt;
@@ -91,9 +94,7 @@ export default function Content() {
     let response = await ApiService.postData(params);
     if (response) {
       setShowModal(false);
-      // setShowDetail("");
       alert("Report resolve successfully");
-      // getNewReport();
     }
   };
 
@@ -136,19 +137,22 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
+
                   <div>
                     <DateRangePicker
                       calendarIcon=""
                       calendarClassName="border-0 "
                       className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                      onChange={onChange}
+                      onChange={(e) => {
+                        onChange(e);
+                        if (e != null) {
+                          setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                          setTo(moment(e[1]).format("YYYY-MM-DD"));
+                        } else {
+                          setFrom("");
+                          setTo("");
+                        }
+                      }}
                       value={value}
                     />
                   </div>
@@ -281,7 +285,7 @@ export default function Content() {
                   <div className="col-md-6  col-sm-12 pl-[0px]">
                     <div className="mb-[10px] bg-white h-[423px] rounded-[6px] pb-[10px]">
                       <div className="relative">
-                        <Graph />
+                        <Graph from={from} to={to} />
                       </div>
                     </div>
                   </div>
@@ -309,25 +313,43 @@ export default function Content() {
                 !moreMostReportStore &&
                 !moreMostReportUser && (
                   <div className="row mt-[20px]">
-                    <NewReport searchData={searchText} model={!showModal} />
+                    <NewReport
+                      searchData={searchText}
+                      from={from}
+                      to={to}
+                      model={!showModal}
+                    />
                   </div>
                 )}
               {!moreNewReport &&
                 !moreMostReportStore &&
                 !moreMostReportUser && (
                   <div className="row mt-[20px]">
-                    <ReportPending searchData={searchText} model={!showModal} />
+                    <ReportPending
+                      from={from}
+                      to={to}
+                      searchData={searchText}
+                      model={!showModal}
+                    />
                   </div>
                 )}
 
               {!moreNewReport && !morePendingReport && !moreMostReportUser && (
                 <div className="row mt-[20px]">
-                  <StoreReportedMost searchData={searchText} />
+                  <StoreReportedMost
+                    from={from}
+                    to={to}
+                    searchData={searchText}
+                  />
                 </div>
               )}
               {!moreNewReport && !moreMostReportStore && !morePendingReport && (
                 <div className="row mt-[20px]">
-                  <UserMostReported searchData={searchText} />
+                  <UserMostReported
+                    from={from}
+                    to={to}
+                    searchData={searchText}
+                  />
                 </div>
               )}
             </ReportContext.Provider>

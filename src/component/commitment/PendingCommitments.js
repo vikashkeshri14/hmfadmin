@@ -5,10 +5,12 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { CommitmentContext } from "../../contexts/CommitmentContext";
 import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function PendingCommitments(props) {
   const navigate = useNavigate();
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [pendingList, setPendingList] = useState([]);
   const [userId, setUserId] = useState("");
   const [initialdata, setinitialdata] = useState([]);
@@ -16,7 +18,16 @@ export default function PendingCommitments(props) {
   const { morePendingCommitment, setmorePendingCommitment } =
     useContext(CommitmentContext);
   useEffect(() => {
-    if (initialcall) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata) {
       const auth = JSON.parse(localStorage.getItem("loginUser"));
       setUserId(auth.id);
 
@@ -39,8 +50,8 @@ export default function PendingCommitments(props) {
 
   const getPendingList = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
     let params = { url: apiList.storePendingCommitment, body: obj };
     let response = await ApiService.postData(params);

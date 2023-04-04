@@ -21,9 +21,20 @@ export default function ReportPending(props) {
     userId,
     setUserId,
   } = useContext(ReportContext);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
   useEffect(() => {
-    if (initialcall || props.model) {
+    let calldata = initialcall;
+    if (moment(props.from).unix() != moment(from).unix()) {
+      calldata = true;
+      setFrom(props.from);
+    }
+    if (moment(props.to).unix() != moment(to).unix()) {
+      calldata = true;
+      setTo(props.to);
+    }
+    if (calldata || props.model) {
       setShowDetail("");
       getNewReport();
       setinitialcall(false);
@@ -50,8 +61,8 @@ export default function ReportPending(props) {
   };
   const getNewReport = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: props.from,
+      to: props.to,
     };
     let params = { url: apiList.getReportDetails, body: obj };
     let response = await ApiService.postData(params);

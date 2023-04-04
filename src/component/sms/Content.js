@@ -3,8 +3,8 @@ import Graph from "./Graph";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-
 import SmsList from "./SmsList";
+import moment from "moment";
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
   const [totalSms, setTotalSms] = useState("0");
@@ -22,13 +22,15 @@ export default function Content() {
   const [showSure, setShowSure] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [initialdata, setinitialdata] = useState([]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     getSms();
-  }, []);
+  }, [from, to]);
   const getSms = async () => {
     const obj = {
-      from: "",
-      to: "",
+      from: from,
+      to: to,
     };
 
     let params = { url: apiList.getSms, body: obj };
@@ -37,6 +39,10 @@ export default function Content() {
       setTotalSms(response.result.length);
       setSmsList(response.result);
       setinitialdata(response.result);
+    } else {
+      setTotalSms(0);
+      setSmsList([]);
+      setinitialdata([]);
     }
   };
 
@@ -163,7 +169,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
                   {/* <input
@@ -241,7 +256,7 @@ export default function Content() {
                   <div className="text-[#959494] text-[18px] font-sstbold pt-[10px] pr-[20px] ">
                     معدل إرسال الرسائل
                   </div>
-                  <Graph />
+                  <Graph from={from} to={to} />
                 </div>
               </div>
             </div>
