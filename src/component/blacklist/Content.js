@@ -6,6 +6,7 @@ import config from "../../config/config.json";
 import { Squares } from "react-activity";
 import "react-activity/dist/library.css";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import moment from "moment";
 
 export default function Content() {
   const [totalBanList, setTotalBanList] = useState([]);
@@ -18,34 +19,51 @@ export default function Content() {
   const [alwaysBanList, setAlwaysBanList] = useState(0);
 
   const [value, onChange] = useState([new Date(), new Date()]);
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   useEffect(() => {
     permanentban();
     tempban();
     deletedban();
     totalban();
-  }, []);
+  }, [from, to]);
   const totalban = async () => {
-    let params = { url: apiList.totalban };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to
+    }
+    let params = { url: apiList.totalban, body: obj };
+    let response = await ApiService.postData(params);
     setTotalBanList(response.result);
     //console.log(response.result);
   };
   const permanentban = async () => {
-    let params = { url: apiList.permanentban };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to
+    }
+    let params = { url: apiList.permanentban, body: obj };
+    let response = await ApiService.postData(params);
     setAlwaysBan(response.result.length);
     setAlwaysBanList(response.result);
   };
   const tempban = async () => {
-    let params = { url: apiList.tempban };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to
+    }
+    let params = { url: apiList.tempban, body: obj };
+    let response = await ApiService.postData(params);
     setTempBan(response.result.length);
     setTempBanList(response.result);
   };
   const deletedban = async () => {
-    let params = { url: apiList.deletedban };
-    let response = await ApiService.getData(params);
+    const obj = {
+      from: from,
+      to: to
+    }
+    let params = { url: apiList.deletedban, body: obj };
+    let response = await ApiService.postData(params);
     setDeleteBan(response.result.length);
     setDeleteBanList(response.result);
   };
@@ -81,14 +99,7 @@ export default function Content() {
 
               <div className="w-[24%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  {/* 
-                  <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
+
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
@@ -97,7 +108,16 @@ export default function Content() {
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
                     value={value}
                   />
                 </div>
