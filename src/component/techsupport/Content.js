@@ -232,9 +232,10 @@ export default function Content() {
                         >
                           <div
                             onClick={() => {
-                              alert("hi");
+                              //alert("d");
+                              setShowChatArray("");
                             }}
-                            className="self-end pt-[40px] pl-[30px]"
+                            className="self-end zindex-1 pt-[40px] pl-[30px]"
                           >
                             <img
                               src="../panel/app-assets/images/close-circle.png"
