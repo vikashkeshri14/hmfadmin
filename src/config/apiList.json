@@ -59,6 +59,7 @@
   "totalban": "/common/totalban",
   "banByStatusByHr": "/common/banByStatusByHr",
   "getTechSupportList": "/common/getTechSupportList",
+  "sendChat": "/common/sendChat",
   "addTeam": "/team/addTeam",
   "getTeam": "/team/getTeam",
   "getTeamById": "/team/getTeamById",
