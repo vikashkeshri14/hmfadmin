@@ -24,6 +24,11 @@ export default function Content() {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getTechSupport();
+    return () => {
+      console.log("hi");
+      // 👇️ clear timeout when the component unmounts
+      clearInterval(intervalId.current);
+    };
   }, []);
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
