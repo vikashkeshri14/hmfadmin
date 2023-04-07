@@ -60,6 +60,8 @@
   "banByStatusByHr": "/common/banByStatusByHr",
   "getTechSupportList": "/common/getTechSupportList",
   "sendChat": "/common/sendChat",
+  "getLastSeen": "/common/getLastSeen",
+  "deleteChat": "/common/deleteChat",
   "addTeam": "/team/addTeam",
   "getTeam": "/team/getTeam",
   "getTeamById": "/team/getTeamById",

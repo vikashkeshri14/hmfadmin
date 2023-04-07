@@ -13,9 +13,11 @@ export default function Chat(props) {
     getTeam();
   }, []);
   const getTeam = async () => {
-    let params = { url: apiList.getTeam };
-    let response = await ApiService.getData(params);
-    setTeam(response.result);
+    let params = { url: apiList.getLastSeen };
+    let response = await ApiService.postData(params);
+    if (response.result.length > 0) {
+      setTeam(response.result);
+    }
   };
   return (
     <div>
@@ -34,24 +36,29 @@ export default function Chat(props) {
                   <div className="m-0 mr-50 w-[25%]">
                     <img
                       className="w-[60px] h-[60px] rounded-[30px]"
-                      src="../../../panel/app-assets/images/user-profile.png"
+                      src={config.imgUri + "/" + data.user_pic}
                       alt="sidebar user image"
                     />
                   </div>
                   <div className="chat-sidebar-name w-[48%]">
                     <h6 className="mb-0 text-[16px] font-sstbold text-[#484848]">
-                      {data.name}
+                      {data.username}
                     </h6>
                     <span className="text-muted text-[12px] font-sstbold text-[#959494]">
-                      {data.job_title}
+                      {data.user_type == "1" ? "User" : "Store"}
                     </span>
                   </div>
-                  <div className="chat-sidebar-name text-right w-[22%]">
-                    <div className="text-center">
-                      <i className="ficon bx bx-chat"></i>
+                  <div className="chat-sidebar-name flex flex-col justify-center  w-[25%]">
+                    <div className="flex self-center justify-center">
+                      <img
+                        src={
+                          config.domainUrl + "/panel/app-assets/images/chat.png"
+                        }
+                        className="h-[28.8px] self-center  w-[28.8px]"
+                      />
                     </div>
                     <span className="text-muted text-[12px] font-sstroman text-[#959494]">
-                      قبل ساعة
+                      {moment(data.created_at).fromNow()}
                     </span>
                   </div>
                 </div>

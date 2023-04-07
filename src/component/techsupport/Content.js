@@ -14,18 +14,24 @@ export default function Content() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState("");
   const [userId, setUserId] = useState("");
-  const [showChatArray, setShowChatArray] = useState("");
+  const [showChatArray, setShowChatArray] = useState({});
+  const [showchatTrue, setshowchatTrue] = useState(false);
   const [messageError, setMessageError] = useState(false);
+  const bottomRef = useRef(null);
+  let intervalId = useRef(null);
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getTechSupport();
   }, []);
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [showChatArray]);
   const sendChat = async (id) => {
     if (!chat) {
       return;
     }
-
     const obj = {
       reply_id: userId,
       sender_id: id,
@@ -41,8 +47,14 @@ export default function Content() {
   const getTechSupport = async () => {
     let params = { url: apiList.getTechSupportList };
     let response = await ApiService.postData(params);
-
     setTechList(response.result);
+    if (showChatArray.hasOwnProperty("id")) {
+      response.result.map((data, i) => {
+        if (data.id == showChatArray.id) {
+          setShowChatArray(data);
+        }
+      });
+    }
   };
   const checkedOnChange = async (args, event) => {
     let countValue = countChecked;
@@ -58,14 +70,66 @@ export default function Content() {
     }
     setCountChecked(countValue);
   };
-  const chatshow = async (id) => {
-    let chatId = showChatArray;
-    // let techlist = techList;
-    if (showChatArray == id) {
-      setShowChatArray("");
-      //setTechList(techlist);
+
+  const deleteChat = async () => {
+    if (window.confirm("Do you want to delete the chat?")) {
+      const obj = {
+        id: countChecked,
+      };
+
+      let params = { url: apiList.deleteChat, body: obj };
+      let response = await ApiService.postData(params);
+      if (response) {
+        console.log(response);
+        setCountChecked([]);
+        setCheckedTrash(false);
+        getTechSupport();
+      }
     } else {
-      setShowChatArray(id);
+      console.log(countChecked);
+    }
+  };
+  const chatshow = async (data) => {
+    if (showChatArray.hasOwnProperty("id")) {
+      if (showChatArray.sender_id == data.sender_id) {
+        setShowChatArray({});
+        setshowchatTrue(false);
+        clearInterval(intervalId.current);
+      } else {
+        clearInterval(intervalId.current);
+        setShowChatArray(data);
+        setshowchatTrue(true);
+        intervalId.current = setInterval(async () => {
+          let params = { url: apiList.getTechSupportList };
+          let response = await ApiService.postData(params);
+          setTechList(response.result);
+          //console.log(showChatArray);
+          if (data.hasOwnProperty("id")) {
+            response.result.map((item, i) => {
+              if (data.id == item.id) {
+                setShowChatArray(item);
+              }
+            });
+          }
+        }, 1500);
+      }
+    } else {
+      setShowChatArray(data);
+      intervalId.current = setInterval(async () => {
+        let params = { url: apiList.getTechSupportList };
+        let response = await ApiService.postData(params);
+        setTechList(response.result);
+        console.log(showChatArray);
+        if (data.hasOwnProperty("id")) {
+          response.result.map((item, i) => {
+            if (data.id == item.id) {
+              setShowChatArray(item);
+            }
+          });
+        }
+      }, 1500);
+
+      setshowchatTrue(true);
     }
   };
   return (
@@ -114,7 +178,12 @@ export default function Content() {
               </div>
               <div className="w-[15%] flex mr-[10px] justify-center">
                 {checkedTrash && (
-                  <button className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] ">
+                  <button
+                    onClick={() => {
+                      deleteChat();
+                    }}
+                    className="w-[249px] h-[62px] rounded-[6px] bg-[#959494] text-[#ffffff] font-sstbold text-[24px] "
+                  >
                     <div className="flex justify-center">
                       <div>
                         <img
@@ -147,9 +216,9 @@ export default function Content() {
               </div>
             </div>
             <div className="row  mb-[10px] pl-[15px] pr-[15px]  ">
-              <div className="flex min-h-[1300px] flex-wrap">
+              <div className="flex flex-wrap">
                 {techList.map((data, i) => {
-                  console.log(data.showchat);
+                  //   console.log(data.showchat);
                   return (
                     <div key={i} className="relative">
                       <div className="w-[153px]  mt-[10px] rounded-[6px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
@@ -174,7 +243,7 @@ export default function Content() {
                                   {data.cnt != 0 ? (
                                     <div
                                       onClick={() => {
-                                        chatshow(data.sender_id);
+                                        chatshow(data);
                                       }}
                                       className="flex bg-[rgb(232,0,0,0.36)] justify-center h-[23px] w-[23px] rounded-full"
                                     >
@@ -185,13 +254,16 @@ export default function Content() {
                                   ) : (
                                     <div
                                       onClick={() => {
-                                        chatshow(data.sender_id);
+                                        chatshow(data);
                                       }}
                                       className="flex  justify-center h-[23px] w-[23px] "
                                     >
                                       <div className="text-center">
                                         <img
-                                          src="../../../panel/app-assets/images/support.png"
+                                          src={
+                                            config.domainUrl +
+                                            "/panel/app-assets/images/support.png"
+                                          }
                                           className="h-[28.8px] ml-[30px] w-[28.8px]"
                                         />
                                       </div>
@@ -216,135 +288,138 @@ export default function Content() {
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={
-                          showChatArray == data.sender_id
-                            ? "absolute w-full"
-                            : "hidden w-full"
-                        }
-                      >
-                        <div
-                          style={{
-                            background:
-                              "url('../panel/app-assets/images/chat_back.png') no-repeat ",
-                          }}
-                          className="h-[610px]  flex flex-col  w-[439px]"
-                        >
-                          <div
-                            onClick={() => {
-                              //alert("d");
-                              setShowChatArray("");
-                            }}
-                            className="self-end zindex-1 pt-[40px] pl-[30px]"
-                          >
-                            <img
-                              src="../panel/app-assets/images/close-circle.png"
-                              className="w-[40px] h-[40px]"
-                            />
-                          </div>
-                          <div className="text-[16px] font-sstbold text-[#484848] text-center pt-[0px]">
-                            {data.username}
-                          </div>
-                          <div className="text-[16px] font-sstbold text-[#484848] text-center pt-[0px]">
-                            #{data.sender_id}
-                          </div>
-                          <div className="chat-start overflow-y-scroll mb-[40px] p-[20px] flex flex-col">
-                            {data.chat.map((reply, k) => {
-                              return reply.reply_id != null ? (
-                                <div
-                                  key={k}
-                                  className="py-2 px-2 bg-[#E9F2E9] flex flex-col self-start rounded-[27px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative"
-                                >
-                                  <img
-                                    className="w-[39px] h-[27px] absolute bottom-[-3px] right-[-12px]"
-                                    src={
-                                      config.domainUrl +
-                                      "/panel/app-assets/images/mesreceive.png"
-                                    }
-                                  />
-                                  <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
-                                    {reply.message}
-                                  </div>
-                                  <div className="flex-row flex justify-end pr-[20px]">
-                                    <div className="pl-[10px] ">
-                                      <div className="text-[10px] leading-[20px] text-[#959494] text-right">
-                                        {moment(reply.created_at).fromNow()}
-                                      </div>
-                                    </div>
-                                    <div>
-                                      <img
-                                        className="h-[7px] w-[10px] mt-[8px]"
-                                        src={
-                                          config.domainUrl +
-                                          "/panel/app-assets/images/unread.png"
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              ) : (
-                                <div
-                                  key={k}
-                                  className="py-2 px-2 bg-[#F7EAD7] flex flex-col self-end rounded-[27px] h-min-[69px] m-1 mr-[50px] mb-3 w-[70%] relative"
-                                >
-                                  <img
-                                    className="w-[39px] h-[27px]  absolute bottom-[-3px] left-[-11px]"
-                                    src={
-                                      config.domainUrl +
-                                      "/panel/app-assets/images/messend.png"
-                                    }
-                                  />
-                                  <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
-                                    {reply.message}
-                                  </div>
-                                  <div className="flex flex-row justify-end pr-[20px]">
-                                    <div className="pl-[10px] flex">
-                                      <div className="text-[10px] pr-[10px] leading-[20px] text-[#959494] text-left">
-                                        {moment(reply.created_at).fromNow()}
-                                      </div>
-                                    </div>
-                                    <div className=" flex">
-                                      <img
-                                        className="h-[7px]  w-[10px] mt-[8px]"
-                                        src={
-                                          config.domainUrl +
-                                          "/panel/app-assets/images/unread.png"
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                          <div className="absolute flex self-center right-[20px]  bottom-[20px]">
-                            <div className="position-relative self-center  has-icon-left">
-                              <div
-                                onClick={() => {
-                                  sendChat(data.sender_id);
-                                }}
-                                className="absolute zindex-1 top-[20px] left-[20px] w-[24px] h-[24px]"
-                              >
-                                <i className="bx rotate-180 text-[30px] bxs-send"></i>
-                              </div>
-                              <input
-                                type="text"
-                                id="contact-info-icon"
-                                className="form-control self-center text-[20px] rounded-[12px] bg-[#FAFAFA]  w-[394px] font-sstroman h-[72px] border-0 "
-                                name="contact-icon"
-                                placeholder="send"
-                                value={chat}
-                                onChange={(e) => setChat(e.target.value)}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   );
                 })}
               </div>
             </div>
+            {showchatTrue && (
+              <div className=" w-full relative overflow-hidden mr-[40px]">
+                <div
+                  style={{
+                    background:
+                      "url('../panel/app-assets/images/chat_back.png') no-repeat ",
+                  }}
+                  className="h-[650px]  flex flex-col  w-[439px]"
+                >
+                  <div
+                    onClick={() => {
+                      //alert("d");
+                      clearInterval(intervalId.current);
+                      setShowChatArray({});
+                      setshowchatTrue(false);
+                    }}
+                    className="self-end zindex-1 pt-[40px] pl-[30px]"
+                  >
+                    <img
+                      src="../panel/app-assets/images/close-circle.png"
+                      className="w-[40px] h-[40px]"
+                    />
+                  </div>
+                  <div className="text-[16px] font-sstbold text-[#484848] text-center pt-[0px]">
+                    {showChatArray.username}
+                  </div>
+                  <div className="text-[16px] font-sstbold text-[#484848] text-center pt-[0px]">
+                    #{showChatArray.sender_id}
+                  </div>
+                  <div
+                    id="chat-scroll"
+                    className="chat-start  overflow-y-auto overflow-x-hidden  mb-[60px] p-[20px] flex flex-col"
+                  >
+                    {showChatArray.chat.map((reply, k) => {
+                      return reply.reply_id != null ? (
+                        <div
+                          key={k}
+                          className="py-2  px-2 bg-[#E9F2E9] flex flex-col self-start rounded-[27px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative"
+                        >
+                          <img
+                            className="w-[39px] h-[27px] absolute bottom-[-3px] right-[-12px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/mesreceive.png"
+                            }
+                          />
+                          <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
+                            {reply.message}
+                          </div>
+                          <div className="flex-row flex justify-end pr-[20px]">
+                            <div className="pl-[10px] ">
+                              <div className="text-[10px] leading-[20px] text-[#959494] text-right">
+                                {moment(reply.created_at).fromNow()}
+                              </div>
+                            </div>
+                            <div>
+                              {reply.is_seen == 1 ? (
+                                <img
+                                  className="h-[7px] w-[10px] mt-[8px]"
+                                  src={
+                                    config.domainUrl +
+                                    "/panel/app-assets/images/read.png"
+                                  }
+                                />
+                              ) : (
+                                <img
+                                  className="h-[7px] w-[10px] mt-[8px]"
+                                  src={
+                                    config.domainUrl +
+                                    "/panel/app-assets/images/unread.png"
+                                  }
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          key={k}
+                          className="py-2  px-2 bg-[#F7EAD7] flex flex-col self-end rounded-[27px] h-min-[69px] m-1 mr-[50px] mb-3 w-[70%] relative"
+                        >
+                          <img
+                            className="w-[39px] h-[27px]  absolute bottom-[-3px] left-[-11px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/messend.png"
+                            }
+                          />
+                          <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
+                            {reply.message}
+                          </div>
+                          <div className="flex flex-row justify-end pr-[20px]">
+                            <div className="pl-[10px] flex">
+                              <div className="text-[10px] pr-[10px] leading-[20px] text-[#959494] text-left">
+                                {moment(reply.created_at).fromNow()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div ref={bottomRef} />
+                  </div>
+                  <div className="absolute flex self-center right-[20px]  bottom-[20px]">
+                    <div className="position-relative self-center  has-icon-left">
+                      <div
+                        onClick={() => {
+                          sendChat(showChatArray.sender_id);
+                        }}
+                        className="absolute zindex-1 top-[20px] left-[20px] w-[24px] h-[24px]"
+                      >
+                        <i className="bx rotate-180 text-[30px] bxs-send"></i>
+                      </div>
+                      <input
+                        type="text"
+                        id="contact-info-icon"
+                        className="form-control self-center text-[20px] rounded-[12px] bg-[#FAFAFA]  w-[394px] font-sstroman h-[72px] border-0 "
+                        name="contact-icon"
+                        placeholder="send"
+                        value={chat}
+                        onChange={(e) => setChat(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             {showModal && (
               <>
                 <div className="justify-center items-center flex   fixed inset-0 z-50 outline-none focus:outline-none">
