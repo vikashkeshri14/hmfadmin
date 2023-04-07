@@ -62,6 +62,7 @@
   "sendChat": "/common/sendChat",
   "getLastSeen": "/common/getLastSeen",
   "deleteChat": "/common/deleteChat",
+  "sendMessage": "/common/sendMessage",
   "addTeam": "/team/addTeam",
   "getTeam": "/team/getTeam",
   "getTeamById": "/team/getTeamById",

@@ -14,6 +14,7 @@ export default function Content() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState("");
   const [userId, setUserId] = useState("");
+  const [type, setType] = useState("2");
   const [showChatArray, setShowChatArray] = useState({});
   const [showchatTrue, setshowchatTrue] = useState(false);
   const [messageError, setMessageError] = useState(false);
@@ -70,7 +71,23 @@ export default function Content() {
     }
     setCountChecked(countValue);
   };
-
+  const sendMessage = async () => {
+    if (!message) {
+      setMessageError(true);
+      return;
+    }
+    setMessageError(false);
+    const obj = {
+      message: message,
+      userType: type,
+      reply_id: userId,
+    };
+    let params = { url: apiList.sendMessage, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      getTechSupport();
+    }
+  };
   const deleteChat = async () => {
     if (window.confirm("Do you want to delete the chat?")) {
       const obj = {
@@ -446,7 +463,7 @@ export default function Content() {
                                       className="form-control bg-[#EBEBEB] h-[49px]"
                                       id="basicSelect"
                                       onChange={(e) => {
-                                        // setType(e.target.value);
+                                        setType(e.target.value);
                                       }}
                                     >
                                       <option attr="store" value="2">
@@ -484,7 +501,7 @@ export default function Content() {
                                 <div class="col-sm-12 mt-[20px] d-flex justify-center">
                                   <button
                                     onClick={() => {
-                                      //senSms();
+                                      sendMessage();
                                     }}
                                     type="button"
                                     class="btn hover:text-[#707070] send bg-[#959494] text-[24px] w-[148px] h-[58px] rounded-[6px] font-sstbold text-[#ffffff] mr-1"
