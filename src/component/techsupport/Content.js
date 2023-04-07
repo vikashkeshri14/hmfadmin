@@ -99,13 +99,18 @@ export default function Content() {
       let params = { url: apiList.deleteChat, body: obj };
       let response = await ApiService.postData(params);
       if (response) {
-        console.log(response);
+        var uncheck = document.getElementsByTagName("cn");
+        for (var i = 0; i < uncheck.length; i++) {
+          if (uncheck[i].type == "checkbox") {
+            uncheck[i].checked = false;
+          }
+        }
+
+        // isAllCheck = !isAllCheck;
         setCountChecked([]);
         setCheckedTrash(false);
         getTechSupport();
       }
-    } else {
-      console.log(countChecked);
     }
   };
   const chatshow = async (data) => {
@@ -250,6 +255,7 @@ export default function Content() {
                                     <input
                                       id="checked-checkbox"
                                       type="checkbox"
+                                      name="cn"
                                       value=""
                                       className="w-4 h-4 rounded"
                                       onChange={(event) =>
