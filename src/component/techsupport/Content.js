@@ -85,6 +85,8 @@ export default function Content() {
     let params = { url: apiList.sendMessage, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
+      setMessage("");
+      setShowModal(false);
       getTechSupport();
     }
   };
