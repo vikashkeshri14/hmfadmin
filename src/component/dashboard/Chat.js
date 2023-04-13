@@ -158,13 +158,13 @@ export default function Chat(props) {
         </ul>
       </div>
       {showchatTrue && (
-        <div className="fixed top-[20%] left-[10%]">
+        <div className="fixed top-[17%] left-[10%]">
           <div
             style={{
               background:
                 "url('../panel/app-assets/images/chat-user.png') no-repeat ",
             }}
-            className="h-[685px] relative  flex flex-col  w-[511px]"
+            className="h-[500px] relative  flex flex-col  w-[511px]"
           >
             <div
               onClick={() => {
@@ -188,13 +188,13 @@ export default function Chat(props) {
             </div>
             <div
               id="chat-scroll"
-              className="chat-start  overflow-y-auto overflow-x-hidden  mb-[60px] p-[20px] flex flex-col"
+              className="chat-start  overflow-y-auto z-[100px] overflow-x-hidden  mb-[60px] p-[20px] flex flex-col"
             >
               {showChatArray.chat.map((reply, k) => {
                 return reply.reply_id != null ? (
                   <div
                     key={k}
-                    className="py-1  px-1 bg-[#F9F9F9] flex flex-col self-start rounded-[6px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative"
+                    className="py-[5px]  px-[5px] bg-[#F9F9F9] flex flex-col self-start rounded-[6px] h-min-[69px] m-1 ml-[30px] mb-[20px] w-[70%] relative"
                   >
                     <img
                       className="w-[39px] h-[27px] absolute bottom-[-5px] right-[-0px]"
@@ -206,7 +206,7 @@ export default function Chat(props) {
                     <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
                       {reply.message}
                     </div>
-                    <div className="flex-row flex justify-end pr-[20px]">
+                    {/* <div className="flex-row flex justify-end pr-[20px]">
                       <div className="pl-[10px] ">
                         <div className="text-[10px] leading-[20px] text-[#959494] text-right">
                           {moment(reply.created_at).fromNow()}
@@ -231,12 +231,12 @@ export default function Chat(props) {
                           />
                         )}
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 ) : (
                   <div
                     key={k}
-                    className="py-1  px-1 bg-[#ffffff] flex flex-col self-end rounded-[6px] h-min-[69px] m-1 mr-[50px] mb-3 w-[70%] relative"
+                    className="py-[5px]  px-[5px] bg-[#ffffff] flex flex-col self-end rounded-[6px] h-min-[69px] m-1 mr-[50px] mb-3 w-[70%] relative"
                   >
                     <img
                       className="w-[39px] h-[27px]  absolute bottom-[-5px] left-[-0px]"
@@ -248,13 +248,13 @@ export default function Chat(props) {
                     <div className="text-[#484848] leading-[20px] text-left text-[14px] pl-[10px] pr-[10px] mb-3">
                       {reply.message}
                     </div>
-                    <div className="flex flex-row justify-end pr-[20px]">
+                    {/* <div className="flex flex-row justify-end pr-[20px]">
                       <div className="pl-[10px] flex">
                         <div className="text-[10px] pr-[10px] leading-[20px] text-[#959494] text-left">
                           {moment(reply.created_at).fromNow()}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 );
               })}
