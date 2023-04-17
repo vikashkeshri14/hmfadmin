@@ -8,10 +8,14 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import DatePicker from "react-datepicker";
+
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Content() {
   const [totalOrder, setTotalOrder] = useState("0");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [totalPendingOrder, setTotalPendingOrder] = useState("0");
   const [totalAcceptOrder, setTotalAcceptOrder] = useState("0");
   const [totalCancelOrder, setTotalCancelOrder] = useState("0");
@@ -50,7 +54,7 @@ export default function Content() {
     getOrderCommitment();
     getDropCommitment();
     getTotalReport();
-  }, [from, to]);
+  }, [startDate, endDate]);
 
   const searchStore = async (text) => {
     //setSearchText(text);
@@ -65,8 +69,8 @@ export default function Content() {
   };
   const getTotalReport = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.getTotalReport, body: obj };
     let response = await ApiService.postData(params);
@@ -88,8 +92,8 @@ export default function Content() {
 
   const getOrderDetails = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
@@ -124,8 +128,8 @@ export default function Content() {
   };
   const getOrderCommitment = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.totalOrderCommitment, body: obj };
     let response = await ApiService.postData(params);
@@ -172,8 +176,8 @@ export default function Content() {
 
   const getDropCommitment = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.getAllDropCommitment, body: obj };
     let response = await ApiService.postData(params);
@@ -195,8 +199,8 @@ export default function Content() {
         <div className="content-header row"></div>
         <div className="content-body">
           <section id="dashboard-analytics">
-            <div className="row flex justify-around">
-              <div className="w-[34%] dashboard-users">
+            <div className=" flex ">
+              <div className="w-[25%] mr-[0px] ml-[10px] dashboard-users">
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative has-icon-left">
@@ -219,7 +223,7 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="w-[34%]  dashboard-users">
+              <div className="w-[38%] mr-[10px] ml-[10px]   dashboard-users">
                 <div className="row">
                   <div className="bg-[#ffffff] flex  h-[62px] shadow rounded-[6px]">
                     <div
@@ -312,12 +316,12 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="w-[24%]   dashboard-users">
+              <div className="w-[20%]   dashboard-users">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
+                  {/* <DateRangePicker
                     calendarIcon=""
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
@@ -332,6 +336,50 @@ export default function Content() {
                       }
                     }}
                     value={value}
+                  /> */}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="w-[20%] mr-[10px]  dashboard-users">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+                  {/* <DateRangePicker
+                    calendarIcon=""
+                    calendarClassName="border-0 "
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    onChange={(e) => {
+                      onChange(e);
+                      if (e != null) {
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
+                      } else {
+                        setFrom("");
+                        setTo("");
+                      }
+                    }}
+                    value={value}
+                  /> */}
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -342,10 +390,14 @@ export default function Content() {
                   <div className="w-[72%] flex-col h-[430px]  ">
                     <div className="w-[100%] justify-around flex">
                       <div className="w-[37%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                        <Graph range={rangeVal} from={from} to={to} />
+                        <Graph range={rangeVal} from={startDate} to={endDate} />
                       </div>
                       <div className="w-[60%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                        <Barchart range={rangeVal} from={from} to={to} />
+                        <Barchart
+                          range={rangeVal}
+                          from={startDate}
+                          to={endDate}
+                        />
                       </div>
                     </div>
                     <div className="w-[98%] mr-[10px] mt-[20px]">
@@ -440,7 +492,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
-                    <Chat range={rangeVal} from={from} to={to} />
+                    <Chat range={rangeVal} from={startDate} to={endDate} />
                   </div>
                 </div>
                 <div className="row flex justify-around mt-[30px]">
@@ -550,7 +602,7 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] mr-[10px] rounded-[6px] shadow p-[10px] bg-[#ffffff]">
-                    <GraphNext range={rangeVal} from={from} to={to} />
+                    <GraphNext range={rangeVal} from={startDate} to={endDate} />
                   </div>
                 </div>
                 <div className="flex mt-[30px]">

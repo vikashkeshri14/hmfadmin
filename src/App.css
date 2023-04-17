@@ -19,25 +19,39 @@
 
 .gradient-yellow {
   background: rgb(255, 152, 0);
-  background: linear-gradient(90deg, rgba(255, 152, 0, 1) 1%, rgba(255, 255, 255, 1) 93%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 152, 0, 1) 1%,
+    rgba(255, 255, 255, 1) 93%
+  );
 }
 
 .gradient-purple {
   background: rgb(157, 64, 173);
-  background: linear-gradient(90deg, rgba(157, 64, 173, 1) 1%, rgba(255, 255, 255, 1) 93%);
+  background: linear-gradient(
+    90deg,
+    rgba(157, 64, 173, 1) 1%,
+    rgba(255, 255, 255, 1) 93%
+  );
 }
 
 .gradient-green {
   background: rgb(96, 186, 98);
-  background: linear-gradient(90deg, rgba(96, 186, 98, 1) 1%, rgba(255, 255, 255, 1) 93%);
+  background: linear-gradient(
+    90deg,
+    rgba(96, 186, 98, 1) 1%,
+    rgba(255, 255, 255, 1) 93%
+  );
 }
 
 .active-menu-left {
   background-color: #498a4a;
-  background: linear-gradient(90deg,
-      rgba(73, 138, 74, 1) 0%,
-      rgba(73, 138, 74, 1) 92%,
-      rgba(96, 186, 98, 0.8113620448179272) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(73, 138, 74, 1) 0%,
+    rgba(73, 138, 74, 1) 92%,
+    rgba(96, 186, 98, 0.8113620448179272) 100%
+  );
 }
 
 /* .App-header {
@@ -109,7 +123,7 @@ html .navbar-sticky .app-content .content-wrapper {
 
 @import "react-date-range/dist/styles.css";
 @import "react-date-range/dist/theme/default.css";
-
+@import "react-datepicker/dist/react-datepicker.css";
 
 .react-daterange-picker__wrapper,
 .react-daterange-picker__wrapper {
