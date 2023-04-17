@@ -6,6 +6,7 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [suspend, setSuspend] = useState(true);
@@ -15,7 +16,8 @@ export default function Content() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [rangeVal, setRangeVal] = useState("");
-
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -24,26 +26,38 @@ export default function Content() {
         <div className="content-body">
           <section className="sms-management">
             <div className="row flex mr-[5px] ">
-              <div className="w-[24%]  dashboard-users ">
+              <div className="w-[16%]  dashboard-users ">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="w-[16%] mr-[10px]  dashboard-users ">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -229,9 +243,9 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            {suspend && <Suspend from={from} to={to} />}
-            {rejected && <Reject from={from} to={to} />}
-            {accepted && <Accept from={from} to={to} />}
+            {suspend && <Suspend from={startDate} to={endDate} />}
+            {rejected && <Reject from={startDate} to={endDate} />}
+            {accepted && <Accept from={startDate} to={endDate} />}
           </section>
         </div>
       </div>

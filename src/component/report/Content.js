@@ -11,6 +11,7 @@ import StoreReportedMost from "./StoreReportedMost";
 import UserMostReported from "./UserMostReported";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { ReportContext } from "../../contexts/ReportContext";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [totalReport, settotalReport] = useState(0);
@@ -32,14 +33,16 @@ export default function Content() {
   const [userId, setUserId] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getAllReport();
     ///getDevice();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const getAllReport = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
 
     let params = { url: apiList.getTotalReport, body: obj };
@@ -132,45 +135,45 @@ export default function Content() {
                 </div>
               </div>
 
-              <div className="w-[24%]  dashboard-users mr-[10px]">
+              <div className="w-[17%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
 
                   <div>
-                    <DateRangePicker
-                      calendarIcon=""
-                      calendarClassName="border-0 "
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      selectsStart
+                      startDate={startDate}
+                      dateFormat="yyyy/dd/MM"
+                      endDate={endDate}
+                      placeholderText="From Date"
                       className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                      onChange={(e) => {
-                        onChange(e);
-                        if (e != null) {
-                          setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                          setTo(moment(e[1]).format("YYYY-MM-DD"));
-                        } else {
-                          setFrom("");
-                          setTo("");
-                        }
-                      }}
-                      value={value}
                     />
                   </div>
                 </div>
               </div>
-              <div className="w-[10%]  dashboard-users mr-[10px]">
+              <div className="w-[17%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
-                    <i className="ficon bx bxs-stopwatch text-[24px] pl-[10px]"></i>
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
-                    dir="ltr"
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstbold h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder=" 07 : 12  pm"
-                  />
+
+                  <div>
+                    <DatePicker
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                      selectsEnd
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={startDate}
+                      dateFormat="yyyy/dd/MM"
+                      placeholderText="To Date"
+                      className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="w-[27.5%] flex justify-end  dashboard-users mr-[10px]">
@@ -285,7 +288,7 @@ export default function Content() {
                   <div className="col-md-6  col-sm-12 pl-[0px]">
                     <div className="mb-[10px] bg-white h-[423px] rounded-[6px] pb-[10px]">
                       <div className="relative">
-                        <Graph from={from} to={to} />
+                        <Graph from={startDate} to={endDate} />
                       </div>
                     </div>
                   </div>
@@ -315,8 +318,8 @@ export default function Content() {
                   <div className="row mt-[20px]">
                     <NewReport
                       searchData={searchText}
-                      from={from}
-                      to={to}
+                      from={startDate}
+                      to={endDate}
                       model={!showModal}
                     />
                   </div>
@@ -326,8 +329,8 @@ export default function Content() {
                 !moreMostReportUser && (
                   <div className="row mt-[20px]">
                     <ReportPending
-                      from={from}
-                      to={to}
+                      from={startDate}
+                      to={endDate}
                       searchData={searchText}
                       model={!showModal}
                     />
@@ -337,8 +340,8 @@ export default function Content() {
               {!moreNewReport && !morePendingReport && !moreMostReportUser && (
                 <div className="row mt-[20px]">
                   <StoreReportedMost
-                    from={from}
-                    to={to}
+                    from={startDate}
+                    to={endDate}
                     searchData={searchText}
                   />
                 </div>
@@ -346,8 +349,8 @@ export default function Content() {
               {!moreNewReport && !moreMostReportStore && !morePendingReport && (
                 <div className="row mt-[20px]">
                   <UserMostReported
-                    from={from}
-                    to={to}
+                    from={startDate}
+                    to={endDate}
                     searchData={searchText}
                   />
                 </div>

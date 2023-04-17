@@ -29,12 +29,12 @@ export default function Commitment(props) {
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
-    setFrom(moment(props.dateRange[0]).format("YYYY-MM-DD"));
-    setTo(moment(props.dateRange[1]).format("YYYY-MM-DD"));
+    setFrom(moment(props.from).format("YYYY-MM-DD"));
+    setTo(moment(props.to).format("YYYY-MM-DD"));
     getAllCommitment(
       props.storeId,
-      moment(props.dateRange[0]).format("YYYY-MM-DD"),
-      moment(props.dateRange[1]).format("YYYY-MM-DD")
+      moment(props.from).format("YYYY-MM-DD"),
+      moment(props.to).format("YYYY-MM-DD")
     );
   }, [props]);
   const sendAlert = async (sendTo, orderId) => {

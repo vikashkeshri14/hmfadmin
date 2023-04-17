@@ -13,6 +13,8 @@ import MostActiveUser from "./MostActiveUser";
 import MostRatedStore from "./MostRatedStore";
 import LowestRatedStore from "./LowestRatedStore";
 import MostRatedUser from "./MostRatedUser";
+import DatePicker from "react-datepicker";
+
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { UserContext } from "../../contexts/UserContext";
 export default function Content() {
@@ -40,11 +42,13 @@ export default function Content() {
   const [searchText, setSearchText] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getUserAndStore();
     getOnlineUser();
     //  getDevice();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const getOnlineUser = async () => {
     let params = { url: apiList.online };
     let response = await ApiService.getData(params);
@@ -53,8 +57,8 @@ export default function Content() {
   };
   const getUserAndStore = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.getUserAndStoreByDate, body: obj };
     let response = await ApiService.postData(params);
@@ -137,21 +141,35 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
+
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  />
+                </div>
+              </div>
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -223,8 +241,8 @@ export default function Content() {
                               <Piechart
                                 user={usersPer}
                                 store={storesPer}
-                                from={from}
-                                to={to}
+                                from={startDate}
+                                to={endDate}
                               />
                             </div>
                           </div>
@@ -331,7 +349,7 @@ export default function Content() {
                       <h4 className="p-[10px] text-[18px] font-sstbold text-[#959494]">
                         أوقات النشاط في التطبيق
                       </h4>
-                      <Graph from={from} to={to} />
+                      <Graph from={startDate} to={endDate} />
                     </div>
                   </div>
                 </div>
@@ -362,38 +380,46 @@ export default function Content() {
                   <>
                     <div className="row ">
                       <div className="col-md-6 col-sm-12 pl-[0px] ">
-                        <AllStore searchData={searchText} from={from} to={to} />
+                        <AllStore
+                          searchData={searchText}
+                          from={startDate}
+                          to={endDate}
+                        />
                       </div>
                       <div className="col-md-6 col-sm-12 pl-[0px] ">
-                        <AllUser searchData={searchText} from={from} to={to} />
+                        <AllUser
+                          searchData={searchText}
+                          from={startDate}
+                          to={endDate}
+                        />
                       </div>
                     </div>
                     <div className="row mt-[20px]">
                       <MostActiveStore
                         searchData={searchText}
-                        from={from}
-                        to={to}
+                        from={startDate}
+                        to={endDate}
                       />
                     </div>
                     <div className="row mt-[20px]">
                       <MostActiveUser
                         searchData={searchText}
-                        from={from}
-                        to={to}
+                        from={startDate}
+                        to={endDate}
                       />
                     </div>
                     <div className="row mt-[20px]">
                       <MostRatedStore
                         searchData={searchText}
-                        from={from}
-                        to={to}
+                        from={startDate}
+                        to={endDate}
                       />
                     </div>
                     <div className="row mt-[20px]">
                       <LowestRatedStore
                         searchData={searchText}
-                        from={from}
-                        to={to}
+                        from={startDate}
+                        to={endDate}
                       />
                     </div>
                   </>
@@ -402,7 +428,11 @@ export default function Content() {
                 <>
                   <div className="row mt-[20px]">
                     <div className="col-md-12 col-sm-12 pl-[0px] ">
-                      <AllStore searchData={searchText} from={from} to={to} />
+                      <AllStore
+                        searchData={searchText}
+                        from={startDate}
+                        to={endDate}
+                      />
                     </div>
                   </div>
                 </>
@@ -411,7 +441,11 @@ export default function Content() {
                 <>
                   <div className="row mt-[20px]">
                     <div className="col-md-12 col-sm-12 pl-[0px] ">
-                      <AllUser searchData={searchText} from={from} to={to} />
+                      <AllUser
+                        searchData={searchText}
+                        from={startDate}
+                        to={endDate}
+                      />
                     </div>
                   </div>
                 </>
@@ -420,19 +454,27 @@ export default function Content() {
                 <div className="row mt-[20px]">
                   <MostActiveStore
                     searchData={searchText}
-                    from={from}
-                    to={to}
+                    from={startDate}
+                    to={endDate}
                   />
                 </div>
               )}
               {showMoreActiveUser && (
                 <div className="row mt-[20px]">
-                  <MostActiveUser searchData={searchText} from={from} to={to} />
+                  <MostActiveUser
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 </div>
               )}
               {showMoreRatedStore && (
                 <div className="row mt-[20px]">
-                  <MostRatedStore searchData={searchText} from={from} to={to} />
+                  <MostRatedStore
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 </div>
               )}
 
@@ -440,8 +482,8 @@ export default function Content() {
                 <div className="row mt-[20px]">
                   <LowestRatedStore
                     searchData={searchText}
-                    from={from}
-                    to={to}
+                    from={startDate}
+                    to={endDate}
                   />
                 </div>
               )}

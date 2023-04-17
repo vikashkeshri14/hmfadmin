@@ -7,6 +7,7 @@ import { Squares } from "react-activity";
 import "react-activity/dist/library.css";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [totalBanList, setTotalBanList] = useState([]);
@@ -34,16 +35,18 @@ export default function Content() {
   const [showMoreAlways, setshowMoreAlways] = useState(false);
 
   const [showMoreDelete, setshowMoreDelete] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     permanentban();
     tempban();
     deletedban();
     totalban();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const totalban = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.totalban, body: obj };
     let response = await ApiService.postData(params);
@@ -53,8 +56,8 @@ export default function Content() {
   };
   const permanentban = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.permanentban, body: obj };
     let response = await ApiService.postData(params);
@@ -64,8 +67,8 @@ export default function Content() {
   };
   const tempban = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.tempban, body: obj };
     let response = await ApiService.postData(params);
@@ -75,8 +78,8 @@ export default function Content() {
   };
   const deletedban = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.deletedban, body: obj };
     let response = await ApiService.postData(params);
@@ -160,21 +163,35 @@ export default function Content() {
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
 
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>

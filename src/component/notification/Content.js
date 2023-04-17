@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -22,15 +23,17 @@ export default function Content() {
   const [initialdata, setinitialdata] = useState([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setUserId(auth.id);
     getAlert();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const getAlert = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
 
     let params = { url: apiList.getAlert, body: obj };
@@ -114,7 +117,7 @@ export default function Content() {
             className={alertShow ? "blur-sm sms-management" : "sms-management"}
           >
             <div className="row flex ">
-              <div className="w-[34%] mr-[15px] dashboard-users">
+              <div className="w-[28%] mr-[15px] dashboard-users">
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative has-icon-left">
@@ -141,32 +144,45 @@ export default function Content() {
                 </div>
               </div>
 
-              <div className="w-[24%]  dashboard-users mr-[10px]">
+              <div className="w-[16%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
 
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="w-[16%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
 
-              <div className="w-[37.5%] flex justify-end  dashboard-users mr-[10px]">
+              <div className="w-[35.5%] flex justify-end  dashboard-users mr-[10px]">
                 <button
                   onClick={() => {
                     setAlertShow(true);

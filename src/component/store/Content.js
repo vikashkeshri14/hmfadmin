@@ -15,6 +15,8 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import DatePicker from "react-datepicker";
+
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 export default function Content() {
   const params = useParams();
@@ -38,7 +40,8 @@ export default function Content() {
   const [perblocked, setPerBlocked] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false);
   const [banMessage, setbanMessage] = useState("");
-
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [storeId, setStoreId] = useState("");
   const [state, setState] = useState([
     {
@@ -60,80 +63,77 @@ export default function Content() {
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
       setStoreDetails(response.result[0]);
-
     }
   };
 
   const deleteAccount = async () => {
     const obj = {
-      userId: storeId
+      userId: storeId,
     };
 
     let params = { url: apiList.deleteAccount, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       alert("User deleted successfully");
-      setDeleteShow(false)
+      setDeleteShow(false);
     }
-  }
+  };
 
   const cancelBan = async () => {
     const obj = {
-      userId: storeId
+      userId: storeId,
     };
 
     let params = { url: apiList.cancelban, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       alert("User ban successfully cancel");
-      showBan(false)
+      showBan(false);
     }
-  }
+  };
 
   const perBan = async () => {
     if (!banMessage) {
       alert("please enter the message");
-      return
+      return;
     }
     const obj = {
       userId: storeId,
-      message: banMessage
+      message: banMessage,
     };
 
     let params = { url: apiList.ban, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
-      alert("User successfully ban")
+      alert("User successfully ban");
       setBlocked(false);
-      setbanMessage("")
-      showBan(false)
+      setbanMessage("");
+      showBan(false);
     }
-  }
+  };
 
   const tempBan = async () => {
     if (!banMessage) {
       alert("please enter the message");
-      return
+      return;
     }
     const obj = {
       userId: storeId,
       message: banMessage,
       from: moment(state[0].startDate).format("YYYY-MM-DD"),
-      to: moment(state[0].endDate).format("YYYY-MM-DD")
+      to: moment(state[0].endDate).format("YYYY-MM-DD"),
     };
 
     let params = { url: apiList.tempbanUser, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
-      alert("User successfully ban")
+      alert("User successfully ban");
       setPerBlocked(false);
       setMinHeight(false);
-      setbanMessage("")
-      showBan(false)
+      setbanMessage("");
+      showBan(false);
     }
-
-
-  }
+  };
   return (
     <div className="app-content  content">
       <div className="content-overlay "></div>
@@ -178,20 +178,36 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
                   <div>
-                    <DateRangePicker
-                      calendarIcon=""
-                      calendarClassName="border-0 "
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      selectsStart
+                      startDate={startDate}
+                      dateFormat="yyyy/dd/MM"
+                      endDate={endDate}
+                      placeholderText="From Date"
                       className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                      onChange={onChange}
-                      value={value}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+                  <div>
+                    <DatePicker
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                      selectsEnd
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={startDate}
+                      dateFormat="yyyy/dd/MM"
+                      placeholderText="To Date"
+                      className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                     />
                   </div>
                 </div>
@@ -302,9 +318,9 @@ export default function Content() {
                           src={
                             productShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/shop-green.png"
+                                "/panel/app-assets/images/shop-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/shop-grey.png"
+                                "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -341,9 +357,9 @@ export default function Content() {
                           src={
                             commitmentShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/commitment-green.png"
+                                "/panel/app-assets/images/commitment-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/commitment.png"
+                                "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -380,9 +396,9 @@ export default function Content() {
                           src={
                             receiveShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/incoming-green.png"
+                                "/panel/app-assets/images/incoming-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/receive-grey.png"
+                                "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -419,9 +435,9 @@ export default function Content() {
                           src={
                             outgoingShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/outgoing-green.png"
+                                "/panel/app-assets/images/outgoing-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/send.png"
+                                "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -464,9 +480,9 @@ export default function Content() {
                           src={
                             infoShow || infoShowOutgoing || infoShowIncoming
                               ? config.domainUrl +
-                              "/panel/app-assets/images/info-green.png"
+                                "/panel/app-assets/images/info-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/info-grey.png"
+                                "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -561,9 +577,9 @@ export default function Content() {
                           src={
                             conversationShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/chat-green.png"
+                                "/panel/app-assets/images/chat-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/chat.png"
+                                "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -733,11 +749,14 @@ export default function Content() {
               </div>
             </div>
           </section>
-          <section id="product " className={minheight ? "min-h-[600px]" : "min-h-[400px]"}>
+          <section
+            id="product "
+            className={minheight ? "min-h-[600px]" : "min-h-[400px]"}
+          >
             {productShow && <Products storeId={storeId} />}
 
             {commitmentShow && (
-              <Commitment storeId={storeId} dateRange={value} />
+              <Commitment storeId={storeId} from={startDate} to={endDate} />
             )}
             {receiveShow && <OrderReceive storeId={storeId} />}
             {outgoingShow && <OutgoingOrder storeId={storeId} />}
@@ -780,22 +799,26 @@ export default function Content() {
                   سبب الحظر
                 </div>
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea onChange={(e) => {
-                    setbanMessage(e.target.value)
-                  }} className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "></textarea>
+                  <textarea
+                    onChange={(e) => {
+                      setbanMessage(e.target.value);
+                    }}
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                  ></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
                   <button
                     onClick={() => {
                       perBan();
                     }}
-                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حظر
                   </button>
                   <button
                     onClick={() => {
                       setBlocked(false);
-                      setbanMessage("")
+                      setbanMessage("");
                     }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
                   >
@@ -834,7 +857,6 @@ export default function Content() {
                 <div className="mr-[30px] ml-[30px]"></div>
                 <div dir="ltr" className="flex justify-center">
                   <DateRange
-
                     editableDateInputs={true}
                     onChange={(item) => setState([item.selection])}
                     moveRangeOnFirstSelection={false}
@@ -847,24 +869,26 @@ export default function Content() {
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
                   <textarea
                     onChange={(e) => {
-                      setbanMessage(e.target.value)
+                      setbanMessage(e.target.value);
                     }}
-                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] ">
-
-                  </textarea>
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                  ></textarea>
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
-                  <button onClick={() => {
-                    tempBan();
-                  }} className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button
+                    onClick={() => {
+                      tempBan();
+                    }}
+                    className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حظر
                   </button>
                   <button
                     onClick={() => {
                       setPerBlocked(false);
                       setMinHeight(false);
-                      setbanMessage("")
+                      setbanMessage("");
                     }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
                   >
@@ -907,7 +931,8 @@ export default function Content() {
                     onClick={() => {
                       deleteAccount();
                     }}
-                    className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حذف
                   </button>
                   <button

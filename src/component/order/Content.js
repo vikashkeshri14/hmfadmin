@@ -11,6 +11,7 @@ import MostPendingOrder from "./MostPendingOrder";
 import RequestedOrder from "./RequestedOrder";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { OrderContext } from "../../contexts/OrderContext";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -35,6 +36,8 @@ export default function Content() {
   const [searchText, setSearchText] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [
     totalRejectAfterAcceptOrderValue,
     setTotalRejectAfterAcceptOrderValue,
@@ -42,27 +45,25 @@ export default function Content() {
 
   useEffect(() => {
     getOrderDetails();
-  }, [from, to]);
+  }, [startDate, endDate]);
 
   const getOrderDetails = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
-    setTotalOrder(0)
-    setTotalOrderValue(0)
-    setTotalPendingOrder(0)
-    setTotalPendingOrderValue(0)
-    setTotalAcceptOrderValue(0)
-    setTotalCancelOrderValue(0)
-    setTotalPaidOrder(0)
-    setTotalPaidOrderValue(0)
-    setTotalRejectAfterAcceptOrder(0)
-    setTotalRejectAfterAcceptOrderValue(0)
-
-
+    setTotalOrder(0);
+    setTotalOrderValue(0);
+    setTotalPendingOrder(0);
+    setTotalPendingOrderValue(0);
+    setTotalAcceptOrderValue(0);
+    setTotalCancelOrderValue(0);
+    setTotalPaidOrder(0);
+    setTotalPaidOrderValue(0);
+    setTotalRejectAfterAcceptOrder(0);
+    setTotalRejectAfterAcceptOrderValue(0);
 
     if (response) {
       if (response.totalOrder[0].total_order) {
@@ -135,21 +136,34 @@ export default function Content() {
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
 
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
+                  </div>
+
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -370,7 +384,7 @@ export default function Content() {
                 </div>
                 <div className="row flex justify-evenly mt-[10px]">
                   <div className="bg-white w-[49%] rounded-[6px]">
-                    <BarGraph from={from} to={to} />
+                    <BarGraph from={startDate} to={endDate} />
                   </div>
                   <div className="bg-white w-[49%] rounded-[6px]">
                     <div className="relative">
@@ -392,12 +406,20 @@ export default function Content() {
             >
               <div className="row mt-[20px]">
                 {!morePendingStore && !moreRequestOrder && (
-                  <MostRequestedStore searchData={searchText} from={from} to={to} />
+                  <MostRequestedStore
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 )}
               </div>
               <div className="row mt-[20px]">
                 {!moreRequestedStore && !moreRequestOrder && (
-                  <MostPendingOrder searchData={searchText} from={from} to={to} />
+                  <MostPendingOrder
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 )}
               </div>
 
@@ -411,7 +433,11 @@ export default function Content() {
                     </div>
                   </div>
 
-                  <RequestedOrder searchData={searchText} from={from} to={to} />
+                  <RequestedOrder
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 </>
               )}
             </OrderContext.Provider>

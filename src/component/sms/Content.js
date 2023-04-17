@@ -5,6 +5,8 @@ import apiList from "../../config/apiList.json";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import SmsList from "./SmsList";
 import moment from "moment";
+import DatePicker from "react-datepicker";
+
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
   const [totalSms, setTotalSms] = useState("0");
@@ -24,13 +26,15 @@ export default function Content() {
   const [initialdata, setinitialdata] = useState([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getSms();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const getSms = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
 
     let params = { url: apiList.getSms, body: obj };
@@ -160,48 +164,38 @@ export default function Content() {
                 </div>
               </div>
 
-              <div className="w-[24%]  dashboard-users mr-[10px]">
+              <div className="w-[17%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
                   />
-                  {/* <input
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder="16/12/2022 - 16/12/2022"
-                  /> */}
                 </div>
               </div>
-              <div className="w-[10%]  dashboard-users mr-[10px]">
+              <div className="w-[17%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
-                  <div className="absolute top-[20px] left-0">
-                    <i className="ficon bx bxs-stopwatch text-[24px] pl-[10px]"></i>
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  <input
-                    dir="ltr"
-                    type="number"
-                    id="contact-info-icon"
-                    className="form-control text-[16px] font-sstbold h-[62px] border-0 shadow-sm rounded-[6px]"
-                    name="contact-icon"
-                    placeholder=" 07 : 12  pm"
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -256,7 +250,7 @@ export default function Content() {
                   <div className="text-[#959494] text-[18px] font-sstbold pt-[10px] pr-[20px] ">
                     معدل إرسال الرسائل
                   </div>
-                  <Graph from={from} to={to} />
+                  <Graph from={startDate} to={endDate} />
                 </div>
               </div>
             </div>

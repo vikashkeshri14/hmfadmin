@@ -4,6 +4,7 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -18,6 +19,8 @@ export default function Content() {
   const [showChatArray, setShowChatArray] = useState({});
   const [showchatTrue, setshowchatTrue] = useState(false);
   const [messageError, setMessageError] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const bottomRef = useRef(null);
   let intervalId = useRef(null);
   useEffect(() => {
@@ -169,7 +172,7 @@ export default function Content() {
         <div className="content-body">
           <section className="sms-management">
             <div className="row flex ">
-              <div className="w-[34%] mr-[15px] dashboard-users">
+              <div className="w-[25%] mr-[15px] dashboard-users">
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative has-icon-left">
@@ -191,17 +194,38 @@ export default function Content() {
                 </div>
               </div>
 
-              <div className="w-[24%]  dashboard-users mr-[10px]">
+              <div className="w-[16%]  dashboard-users mr-[10px]">
                 <div className="position-relative has-icon-right">
                   <div className="absolute top-[20px] zindex-1 left-0">
                     <i className="ficon bx bxs-calendar  text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control  text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={onChange}
-                    value={value}
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
+                  />
+                </div>
+              </div>
+              <div className="w-[16%]  dashboard-users mr-[10px]">
+                <div className="position-relative has-icon-right">
+                  <div className="absolute top-[20px] zindex-1 left-0">
+                    <i className="ficon bx bxs-calendar  text-[24px] pl-[10px]"></i>
+                  </div>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>

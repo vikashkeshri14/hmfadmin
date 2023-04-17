@@ -11,6 +11,7 @@ import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import DropCommitment from "./DropCommitment";
 import { CommitmentContext } from "../../contexts/CommitmentContext";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
 export default function Content() {
   const [value, onChange] = useState([new Date(), new Date()]);
@@ -36,13 +37,15 @@ export default function Content() {
   const [searchText, setSearchText] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getOrderCommitment();
-  }, [from, to]);
+  }, [startDate, endDate]);
   const getOrderCommitment = async () => {
     const obj = {
-      from: from,
-      to: to,
+      from: startDate,
+      to: endDate,
     };
     setTotalOrderCommitment(0);
     setTotalAmountOfCommitment(0);
@@ -254,21 +257,34 @@ export default function Content() {
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar zindex-1 text-[24px] pl-[10px]"></i>
                   </div>
-                  <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    endDate={endDate}
+                    placeholderText="From Date"
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
+                  />
+                </div>
+              </div>
+
+              <div className="w-[24%]  dashboard-users mr-[10px]">
+                <div className="position-relative  has-icon-right">
+                  <div className="absolute zindex-1 top-[20px] left-0">
+                    <i className="ficon bx bxs-calendar zindex-1 text-[24px] pl-[10px]"></i>
+                  </div>
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    dateFormat="yyyy/dd/MM"
+                    placeholderText="To Date"
+                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
               </div>
@@ -468,7 +484,11 @@ export default function Content() {
                 }}
               >
                 {!morePendingCommitment && !morePaidCommitment && (
-                  <DropCommitment searchData={searchText} from={from} to={to} />
+                  <DropCommitment
+                    searchData={searchText}
+                    from={startDate}
+                    to={endDate}
+                  />
                 )}
               </CommitmentContext.Provider>
             </div>
@@ -486,8 +506,8 @@ export default function Content() {
               {!moreDropCommitment && !morePaidCommitment && (
                 <div className="row mt-[20px]">
                   <PendingCommitments
-                    from={from}
-                    to={to}
+                    from={startDate}
+                    to={endDate}
                     searchData={searchText}
                   />
                 </div>
@@ -496,8 +516,8 @@ export default function Content() {
                 <div className="row mt-[20px]">
                   <div className="col-md-12 col-sm-12 pl-[0px] ">
                     <PaidCommitments
-                      from={from}
-                      to={to}
+                      from={startDate}
+                      to={endDate}
                       searchData={searchText}
                     />
                   </div>
