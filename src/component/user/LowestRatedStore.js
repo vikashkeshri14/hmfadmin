@@ -25,7 +25,7 @@ export default function LowestRatedStore(props) {
       calldata = true;
       setTo(props.to);
     }
-    if (calldata) {
+    if (callInitial) {
       getMostRatedStore();
       setcallInitial(false);
     }

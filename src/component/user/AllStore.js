@@ -26,7 +26,7 @@ export default function AllStore(props) {
       setTo(props.to);
     }
 
-    if (calldata) {
+    if (callAllStore) {
       getAllStore();
       setcallAllStore(false);
     }

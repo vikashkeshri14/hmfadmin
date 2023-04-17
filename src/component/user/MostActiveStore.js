@@ -26,7 +26,7 @@ export default function MostActiveStore(props) {
       calldata = true;
       setTo(props.to);
     }
-    if (calldata) {
+    if (callAllStore) {
       getMostRatedStore();
       setcallAllStore(false);
     }

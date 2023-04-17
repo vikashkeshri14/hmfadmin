@@ -24,7 +24,7 @@ export default function MostActiveUser(props) {
       calldata = true;
       setTo(props.to);
     }
-    if (calldata) {
+    if (callInitial) {
       getMostActiveUser();
       setcallInitial(false);
     }

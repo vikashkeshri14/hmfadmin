@@ -13,10 +13,9 @@ export default function Content() {
   const [appleEarning, setappleEarning] = useState(0);
   const [googleEarning, setgoogleEarning] = useState(0);
   const [bankEarning, setbankEarning] = useState(0);
-  const [from, setFrom] = useState("")
-  const [to, setTo] = useState("")
-  const [tab, setTab] = useState("")
-
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [tab, setTab] = useState("");
 
   useEffect(() => {
     getData();
@@ -42,7 +41,6 @@ export default function Content() {
       }
       if (response.googleearning.length > 0) {
         if (response.googleearning[0].total_order) {
-
           setgoogleEarning(response.googleearning[0].total);
         }
       } else {
@@ -62,7 +60,6 @@ export default function Content() {
       } else {
         setbankEarning(0);
       }
-
     }
   };
   return (
@@ -89,13 +86,13 @@ export default function Content() {
                     calendarClassName="border-0 "
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                     onChange={(e) => {
-                      onChange(e)
+                      onChange(e);
                       if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"))
-                        setTo(moment(e[1]).format("YYYY-MM-DD"))
+                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
+                        setTo(moment(e[1]).format("YYYY-MM-DD"));
                       } else {
-                        setFrom("")
-                        setTo("")
+                        setFrom("");
+                        setTo("");
                       }
                     }}
                     value={value}
@@ -112,11 +109,21 @@ export default function Content() {
                           className=" text-center cursor-pointer "
                           onClick={() => {
                             setTab("daily");
-                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
-                            setFrom(moment(new Date()).format("YYYY-MM-DD"))
+                            setTo(
+                              moment(
+                                new Date().setDate(new Date().getDate() + 1)
+                              ).format("YYYY-MM-DD")
+                            );
+                            setFrom(moment(new Date()).format("YYYY-MM-DD"));
                           }}
                         >
-                          <div className={tab == 'daily' ? "flex justify-center text-[#FF9800] text-[16px] font-sstbold " : "flex justify-center text-[#484848] text-[16px] font-sstbold "}>
+                          <div
+                            className={
+                              tab == "daily"
+                                ? "flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                : "flex justify-center text-[#484848] text-[16px] font-sstbold "
+                            }
+                          >
                             يومي
                           </div>
                         </td>
@@ -125,12 +132,25 @@ export default function Content() {
                           className="  text-center cursor-pointer  "
                           onClick={() => {
                             setTab("weekly");
-                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
-                            setFrom(moment(new Date().setDate(new Date().getDate() - 7)).format("YYYY-MM-DD"))
+                            setTo(
+                              moment(
+                                new Date().setDate(new Date().getDate() + 1)
+                              ).format("YYYY-MM-DD")
+                            );
+                            setFrom(
+                              moment(
+                                new Date().setDate(new Date().getDate() - 7)
+                              ).format("YYYY-MM-DD")
+                            );
                           }}
-
                         >
-                          <div className={tab == 'weekly' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
+                          <div
+                            className={
+                              tab == "weekly"
+                                ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                            }
+                          >
                             أسبوعي
                           </div>
                         </td>
@@ -139,11 +159,25 @@ export default function Content() {
                           className=" text-center cursor-pointer"
                           onClick={() => {
                             setTab("monthly");
-                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
-                            setFrom(moment(new Date().setDate(new Date().getDate() - 30)).format("YYYY-MM-DD"))
+                            setTo(
+                              moment(
+                                new Date().setDate(new Date().getDate() + 1)
+                              ).format("YYYY-MM-DD")
+                            );
+                            setFrom(
+                              moment(
+                                new Date().setDate(new Date().getDate() - 30)
+                              ).format("YYYY-MM-DD")
+                            );
                           }}
                         >
-                          <div className={tab == 'monthly' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
+                          <div
+                            className={
+                              tab == "monthly"
+                                ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                            }
+                          >
                             شهري
                           </div>
                         </td>
@@ -153,11 +187,25 @@ export default function Content() {
                           onClick={() => {
                             setTab("annual");
                             //console.log(moment(new Date().setDate(new Date().getDate() - 365)).format("YYYY-MM-DD"))
-                            setTo(moment(new Date().setDate(new Date().getDate() + 1)).format("YYYY-MM-DD"))
-                            setFrom(moment(new Date().setDate(new Date().getDate() - 365)).format("YYYY-MM-DD"))
+                            setTo(
+                              moment(
+                                new Date().setDate(new Date().getDate() + 1)
+                              ).format("YYYY-MM-DD")
+                            );
+                            setFrom(
+                              moment(
+                                new Date().setDate(new Date().getDate() - 365)
+                              ).format("YYYY-MM-DD")
+                            );
                           }}
                         >
-                          <div className={tab == 'annual' ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold " : " flex justify-center text-[#484848] text-[16px] font-sstbold "}>
+                          <div
+                            className={
+                              tab == "annual"
+                                ? " flex justify-center text-[#FF9800] text-[16px] font-sstbold "
+                                : " flex justify-center text-[#484848] text-[16px] font-sstbold "
+                            }
+                          >
                             سنوي
                           </div>
                         </td>
@@ -180,7 +228,8 @@ export default function Content() {
                               إجمالي الأرباح
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              {totalEarning} ريال
+                              {(totalEarning * config.commitmentRate) / 100}{" "}
+                              ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
@@ -225,7 +274,7 @@ export default function Content() {
                               أرباح من التحويل المصرفي
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              {bankEarning} ريال
+                              {(bankEarning * config.commitmentRate) / 100} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي

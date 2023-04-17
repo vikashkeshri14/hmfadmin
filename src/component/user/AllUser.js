@@ -24,7 +24,7 @@ export default function AllUser(props) {
       calldata = true;
       setTo(props.to);
     }
-    if (calldata) {
+    if (callAllUser) {
       getAllUsers();
       setcallAllUser(false);
     }
