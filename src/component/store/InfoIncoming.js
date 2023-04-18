@@ -62,7 +62,7 @@ export default function InfoIncoming(props) {
                       className="  text-center w-[25%]"
                     >
                       <div className=" flex justify-center text-[#959494] text-[18px] font-sstbold ">
-                        بلاغات المنتجات
+                        بلاغات المتجر
                       </div>
                       <div className="text-[#AD0000] text-center text-[35px] font-sstbold ">
                         {storeReport.length}
