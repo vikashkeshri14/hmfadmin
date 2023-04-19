@@ -13,6 +13,8 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { Squares } from "react-activity";
+import moment from "moment";
+
 import "react-activity/dist/library.css";
 export default function Graph(props) {
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ export default function Graph(props) {
     };
     let params = { url: apiList.numberOfOrderByStatus, body: obj };
     let response = await ApiService.postData(params);
-    // console.log(obj);
+    console.log(obj);
     if (response) {
       let val;
 

@@ -23,12 +23,12 @@ export default function Content() {
 
   useEffect(() => {
     getData();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, from, to]);
   const getData = async () => {
     // console.log(from)
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
 
     let params = { url: apiList.totalearning, body: obj };
@@ -118,6 +118,18 @@ export default function Content() {
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
+              </div>
+              <div className="w-[2%] mr-[10px]  dashboard-users">
+                {(startDate || endDate) && (
+                  <i
+                    onClick={() => {
+                      setStartDate(null);
+                      setEndDate(null);
+                    }}
+                    className="ficon mt-[20px] bx bx-window-close
+ text-[24px] pl-[10px]"
+                  ></i>
+                )}
               </div>
               <div className="w-[40%] bg-white rounded-[6px] mr-[10px]  dashboard-users">
                 <div className="pt-[5px] pb-[5px]    ">
@@ -321,7 +333,10 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="">
-                    <Barchart from={startDate} to={endDate} />
+                    <Barchart
+                      from={startDate ? startDate : from}
+                      to={endDate ? endDate : to}
+                    />
                   </div>
                 </div>
                 <div className="w-[50%] mr-[20px] pr-[0px] bg-white rounded-[6px]">
@@ -336,7 +351,10 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="">
-                    <Graph from={startDate} to={endDate} />
+                    <Graph
+                      from={startDate ? startDate : from}
+                      to={endDate ? endDate : to}
+                    />
                   </div>
                 </div>
               </div>

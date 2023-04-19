@@ -61,6 +61,18 @@ export default function Content() {
                   />
                 </div>
               </div>
+              <div className="w-[2%] mr-[10px]  dashboard-users">
+                {(startDate || endDate) && (
+                  <i
+                    onClick={() => {
+                      setStartDate(null);
+                      setEndDate(null);
+                    }}
+                    className="ficon mt-[20px] bx bx-window-close
+ text-[24px] pl-[10px]"
+                  ></i>
+                )}
+              </div>
               <div className="w-[40%] bg-white rounded-[6px] mr-[10px] dashboard-users">
                 <div className="pt-[5px] pb-[5px]">
                   <table className=" w-full h-[52px] mb-[0px]">
@@ -128,7 +140,7 @@ export default function Content() {
                             );
                             setFrom(
                               moment(
-                                new Date().setDate(new Date().getDate() - 7)
+                                new Date().setDate(new Date().getDate() - 30)
                               ).format("YYYY-MM-DD")
                             );
                           }}
@@ -243,9 +255,24 @@ export default function Content() {
                 </div>
               </div>
             </div>
-            {suspend && <Suspend from={startDate} to={endDate} />}
-            {rejected && <Reject from={startDate} to={endDate} />}
-            {accepted && <Accept from={startDate} to={endDate} />}
+            {suspend && (
+              <Suspend
+                from={startDate ? startDate : from}
+                to={endDate ? endDate : to}
+              />
+            )}
+            {rejected && (
+              <Reject
+                from={startDate ? startDate : from}
+                to={endDate ? endDate : to}
+              />
+            )}
+            {accepted && (
+              <Accept
+                from={startDate ? startDate : from}
+                to={endDate ? endDate : to}
+              />
+            )}
           </section>
         </div>
       </div>

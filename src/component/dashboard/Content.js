@@ -69,8 +69,8 @@ export default function Content() {
   };
   const getTotalReport = async () => {
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
     let params = { url: apiList.getTotalReport, body: obj };
     let response = await ApiService.postData(params);
@@ -92,8 +92,8 @@ export default function Content() {
 
   const getOrderDetails = async () => {
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
@@ -128,8 +128,8 @@ export default function Content() {
   };
   const getOrderCommitment = async () => {
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
     let params = { url: apiList.totalOrderCommitment, body: obj };
     let response = await ApiService.postData(params);
@@ -176,8 +176,8 @@ export default function Content() {
 
   const getDropCommitment = async () => {
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
     let params = { url: apiList.getAllDropCommitment, body: obj };
     let response = await ApiService.postData(params);
@@ -238,8 +238,8 @@ export default function Content() {
                       }}
                       className={
                         rangeVal == "1"
-                          ? "pl-[30px] cursor-pointer text-[#FF9800] daily text-[16px] font-sstbold justify-center self-center  pr-[30px]"
-                          : "pl-[30px] cursor-pointer daily text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[30px]"
+                          ? "pl-[15px] cursor-pointer text-[#FF9800] daily text-[16px] font-sstbold justify-center self-center  pr-[15px]"
+                          : "pl-[15px] cursor-pointer daily text-[16px] font-sstbold justify-center self-center text-[#484848] pr-[15px]"
                       }
                     >
                       يومي
@@ -316,27 +316,12 @@ export default function Content() {
                   </div>
                 </div>
               </div>
-              <div className="w-[20%]   dashboard-users">
+              <div className="w-[22%]   dashboard-users">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
-                  /> */}
+
                   <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -349,27 +334,12 @@ export default function Content() {
                   />
                 </div>
               </div>
-              <div className="w-[20%] mr-[10px]  dashboard-users">
+              <div className="w-[22%] mr-[10px]  dashboard-users">
                 <div className="position-relative has-icon-right">
                   <div className="absolute zindex-1 top-[20px] left-0">
                     <i className="ficon bx bxs-calendar text-[24px] pl-[10px]"></i>
                   </div>
-                  {/* <DateRangePicker
-                    calendarIcon=""
-                    calendarClassName="border-0 "
-                    className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
-                    onChange={(e) => {
-                      onChange(e);
-                      if (e != null) {
-                        setFrom(moment(e[0]).format("YYYY-MM-DD"));
-                        setTo(moment(e[1]).format("YYYY-MM-DD"));
-                      } else {
-                        setFrom("");
-                        setTo("");
-                      }
-                    }}
-                    value={value}
-                  /> */}
+
                   <DatePicker
                     selected={endDate}
                     onChange={(date) => setEndDate(date)}
@@ -383,6 +353,18 @@ export default function Content() {
                   />
                 </div>
               </div>
+              <div className="w-[2%] mr-[10px]  dashboard-users">
+                {(startDate || endDate) && (
+                  <i
+                    onClick={() => {
+                      setStartDate(null);
+                      setEndDate(null);
+                    }}
+                    className="ficon mt-[20px] bx bx-window-close
+ text-[24px] pl-[10px]"
+                  ></i>
+                )}
+              </div>
             </div>
             {!moreCommitment && (
               <>
@@ -390,13 +372,17 @@ export default function Content() {
                   <div className="w-[72%] flex-col h-[430px]  ">
                     <div className="w-[100%] justify-around flex">
                       <div className="w-[37%] bg-white p-[10px] rounded-[6px] dashboard-users">
-                        <Graph range={rangeVal} from={startDate} to={endDate} />
+                        <Graph
+                          range={rangeVal}
+                          from={startDate ? startDate : from}
+                          to={endDate ? endDate : to}
+                        />
                       </div>
                       <div className="w-[60%] bg-white p-[10px] rounded-[6px] dashboard-users">
                         <Barchart
                           range={rangeVal}
-                          from={startDate}
-                          to={endDate}
+                          from={startDate ? startDate : from}
+                          to={endDate ? endDate : to}
                         />
                       </div>
                     </div>
@@ -492,7 +478,11 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
-                    <Chat range={rangeVal} from={startDate} to={endDate} />
+                    <Chat
+                      range={rangeVal}
+                      from={startDate ? startDate : from}
+                      to={endDate ? endDate : to}
+                    />
                   </div>
                 </div>
                 <div className="row flex justify-around mt-[30px]">
@@ -602,7 +592,11 @@ export default function Content() {
                     </div>
                   </div>
                   <div className="w-[27%] mr-[10px] rounded-[6px] shadow p-[10px] bg-[#ffffff]">
-                    <GraphNext range={rangeVal} from={startDate} to={endDate} />
+                    <GraphNext
+                      range={rangeVal}
+                      from={startDate ? startDate : from}
+                      to={endDate ? endDate : to}
+                    />
                   </div>
                 </div>
                 <div className="flex mt-[30px]">

@@ -41,12 +41,13 @@ export default function Content() {
   const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getOrderCommitment();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, rangeVal]);
   const getOrderCommitment = async () => {
     const obj = {
-      from: startDate,
-      to: endDate,
+      from: startDate ? startDate : from,
+      to: endDate ? endDate : to,
     };
+
     setTotalOrderCommitment(0);
     setTotalAmountOfCommitment(0);
     setTotalPendingOrderCommitment(0);
@@ -201,7 +202,7 @@ export default function Content() {
                               );
                               setFrom(
                                 moment(
-                                  new Date().setDate(new Date().getDate() - 7)
+                                  new Date().setDate(new Date().getDate() - 30)
                                 ).format("YYYY-MM-DD")
                               );
                             }}
@@ -287,6 +288,18 @@ export default function Content() {
                     className="form-control text-[16px] font-sstroman h-[62px] border-0 shadow rounded-[6px]"
                   />
                 </div>
+              </div>
+              <div className="w-[2%] mr-[10px]  dashboard-users">
+                {(startDate || endDate) && (
+                  <i
+                    onClick={() => {
+                      setStartDate(null);
+                      setEndDate(null);
+                    }}
+                    className="ficon mt-[20px] bx bx-window-close
+ text-[24px] pl-[10px]"
+                  ></i>
+                )}
               </div>
             </div>
             {!moreDropCommitment &&
@@ -486,8 +499,8 @@ export default function Content() {
                 {!morePendingCommitment && !morePaidCommitment && (
                   <DropCommitment
                     searchData={searchText}
-                    from={startDate}
-                    to={endDate}
+                    from={startDate ? startDate : from}
+                    to={endDate ? endDate : to}
                   />
                 )}
               </CommitmentContext.Provider>
@@ -506,8 +519,8 @@ export default function Content() {
               {!moreDropCommitment && !morePaidCommitment && (
                 <div className="row mt-[20px]">
                   <PendingCommitments
-                    from={startDate}
-                    to={endDate}
+                    from={startDate ? startDate : from}
+                    to={endDate ? endDate : to}
                     searchData={searchText}
                   />
                 </div>
@@ -516,8 +529,8 @@ export default function Content() {
                 <div className="row mt-[20px]">
                   <div className="col-md-12 col-sm-12 pl-[0px] ">
                     <PaidCommitments
-                      from={startDate}
-                      to={endDate}
+                      from={startDate ? startDate : from}
+                      to={endDate ? endDate : to}
                       searchData={searchText}
                     />
                   </div>
