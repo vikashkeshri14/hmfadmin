@@ -5,11 +5,14 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import { Squares } from "react-activity";
 import "react-activity/dist/library.css";
+import { Link, useNavigate } from "react-router-dom";
+
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 
 export default function Content() {
+  const navigate = useNavigate();
   const [totalBanList, setTotalBanList] = useState([]);
   const [tempBan, setTempBan] = useState(0);
   const [deleteBan, setDeleteBan] = useState(0);
@@ -76,6 +79,20 @@ export default function Content() {
     setTempBanList(response.result);
     setsearchTempBanList(response.result);
   };
+  const removeban = async (id) => {
+    const obj = {
+      userId: id
+    }
+    let params = { url: apiList.cancelban, body: obj };
+    let response = await ApiService.postData(params);
+    if (response) {
+      permanentban();
+      tempban();
+      deletedban();
+      totalban();
+      alert("Successfully remove from ban!")
+    }
+  }
   const deletedban = async () => {
     const obj = {
       from: startDate,
@@ -309,7 +326,14 @@ export default function Content() {
                                 <div className="w-[100%] bg-[#F9F9F9]">
                                   <div className="flex pb-[5px]">
                                     <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                      <div className="flex justify-center mt-[10px]">
+                                      <div onClick={() => {
+                                        if (data.user_type == 2) {
+                                          navigate("/store/" + data.id);
+                                        } else {
+                                          navigate("/user/" + data.id);
+                                        }
+
+                                      }} className="flex cursor-pointer justify-center mt-[10px]">
                                         <img
                                           className="w-[66px] h-[66px] rounded-[33px]"
                                           src={
@@ -328,7 +352,9 @@ export default function Content() {
                                         <div className="border-t-[1px]"></div>
                                       </div>
                                       <div className="flex mb-[10px]">
-                                        <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        <div onClick={() => {
+                                          removeban(data.id)
+                                        }} className="w-full cursor-pointer text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
                                           إزالة الحظر
                                         </div>
                                       </div>
@@ -382,7 +408,14 @@ export default function Content() {
                                 <div className="w-[100%] bg-[#F9F9F9]">
                                   <div className="flex pb-[5px]">
                                     <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                      <div className="flex justify-center mt-[10px]">
+                                      <div onClick={() => {
+                                        if (data.user_type == 2) {
+                                          navigate("/store/" + data.id);
+                                        } else {
+                                          navigate("/user/" + data.id);
+                                        }
+
+                                      }} className="flex cursor-pointer justify-center mt-[10px]">
                                         <img
                                           className="w-[66px] h-[66px] rounded-[33px]"
                                           src={
@@ -401,7 +434,9 @@ export default function Content() {
                                         <div className="border-t-[1px]"></div>
                                       </div>
                                       <div className="flex mb-[10px]">
-                                        <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        <div onClick={() => {
+                                          removeban(data.id)
+                                        }} className="w-full cursor-pointer text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
                                           إزالة الحظر
                                         </div>
                                       </div>
@@ -457,7 +492,14 @@ export default function Content() {
                                 <div className="w-[100%] bg-[#F9F9F9]">
                                   <div className="flex pb-[5px]">
                                     <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                      <div className="flex justify-center mt-[10px]">
+                                      <div onClick={() => {
+                                        if (data.user_type == 2) {
+                                          navigate("/store/" + data.id);
+                                        } else {
+                                          navigate("/user/" + data.id);
+                                        }
+
+                                      }} className="flex cursor-pointer justify-center mt-[10px]">
                                         <img
                                           className="w-[66px] h-[66px] rounded-[33px]"
                                           src={
@@ -476,7 +518,9 @@ export default function Content() {
                                         <div className="border-t-[1px]"></div>
                                       </div>
                                       <div className="flex mb-[10px]">
-                                        <div className="w-full text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
+                                        <div onClick={() => {
+                                          removeban(data.id)
+                                        }} className="w-full cursor-pointer text-[#E80000] text-[18px] font-sstbold text-center  pb-[5px]">
                                           إزالة الحظر
                                         </div>
                                       </div>
@@ -532,7 +576,14 @@ export default function Content() {
                                 <div className="w-[100%] bg-[#F9F9F9]">
                                   <div className="flex pb-[20px] pt-[20px]">
                                     <div className="w-full flex-col pr-[5px] pl-[5px]">
-                                      <div className="flex justify-center mt-[10px]">
+                                      <div onClick={() => {
+                                        if (data.user_type == 2) {
+                                          navigate("/store/" + data.id);
+                                        } else {
+                                          navigate("/user/" + data.id);
+                                        }
+
+                                      }} className="flex cursor-pointer justify-center mt-[10px]">
                                         <img
                                           className="w-[66px] h-[66px] rounded-[33px]"
                                           src={

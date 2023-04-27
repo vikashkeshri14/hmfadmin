@@ -104,8 +104,8 @@ export default function Chat(props) {
         <h1 className="text-[#959494] text-[18px] font-sstbold pt-[20px] pr-[15px]">
           أخر ظهور للأعضاء
         </h1>
-        <ul className="chat-sidebar-list p-[10px]">
-          {team.length > 0 &&
+        <ul className="chat-sidebar-list h-[730px] flex flex-col  justify-center self-center p-[10px]">
+          {/* {team.length > 0 &&
             team.map((data, i) => {
               return (
                 <li
@@ -154,7 +154,8 @@ export default function Chat(props) {
                   </div>
                 </li>
               );
-            })}
+            })} */}
+          <li className="flex justify-center font-sstbold text-[25px]  text-[#FF9800]">Under maintainance</li>
         </ul>
       </div>
       {showchatTrue && (

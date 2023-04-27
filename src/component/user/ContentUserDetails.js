@@ -415,13 +415,20 @@ export default function ContentUserDetails() {
                       <div onClick={() => {
                         showBan((ban) => !ban);
                       }} className="flex justify-end cursor-pointer mr-[20px] self-center">
-                        <img
+                        {storeDetails != null && (storeDetails.status == 0 || storeDetails.status == 2) ? <img
+                          src={
+                            config.domainUrl +
+                            "/panel/app-assets/images/warning-red.png"
+                          }
+                          className="h-[24px] w-[24px]"
+                        /> : <img
                           src={
                             config.domainUrl +
                             "/panel/app-assets/images/danger.png"
                           }
                           className="h-[24px] w-[24px]"
-                        />
+                        />}
+
                       </div>
                       <div
                         onClick={() => {
@@ -431,13 +438,20 @@ export default function ContentUserDetails() {
                         }}
                         className="flex justify-end cursor-pointer mr-[20px] self-center"
                       >
-                        <img
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/trash.png"
-                          }
-                          className="h-[24px] w-[24px]"
-                        />
+                        {storeDetails != null && (storeDetails.status == 3) ?
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/bin.png"
+                            }
+                            className="h-[24px] w-[24px]"
+                          /> : <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/trash.png"
+                            }
+                            className="h-[24px] w-[24px]"
+                          />}
                       </div>
                     </div>
                     <div

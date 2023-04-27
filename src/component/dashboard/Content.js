@@ -477,7 +477,7 @@ export default function Content() {
                       </div>
                     </div>
                   </div>
-                  <div className="w-[27%] h-[790px] overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
+                  <div className="w-[27%]  overflow-scroll  dashboard-users rounded-[6px] shadow bg-white">
                     <Chat
                       range={rangeVal}
                       from={startDate ? startDate : from}
