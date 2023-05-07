@@ -9,7 +9,7 @@ export default function Header() {
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("loginUser"));
     setLoginUser(auth);
-    //console.log(auth);
+    console.log(auth);
     if (auth == null) {
       setAuthFails(true);
     }
@@ -45,10 +45,7 @@ export default function Header() {
                       <span>
                         <img
                           className="w-[68px] h-[68px] rounded-[34px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/users.png"
-                          }
+                          src={config.imgUri + "/" + loginUser.pic}
                           alt="avatar"
                         />
                       </span>
