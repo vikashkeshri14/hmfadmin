@@ -652,11 +652,10 @@ export default function Content() {
                 </div>
                 <div className=" border-t-[1px] p-[10px]">
                   <div className="flex justify-evenly">
-                    <div className="text-[15px] w-[50%] p-[10px] font-sstmedium text-[#959494]">
-                      نصنع الحلا و الاكلات الشعبية وكل ماتودتجربته من انواع
-                      الحلا
+                    <div className="text-[15px] w-[70%] p-[10px] font-sstmedium text-[#959494]">
+                      {storeDetails != null && storeDetails.store_description}
                     </div>
-                    <div className="text-[18px] w-[50%] flex  justify-end p-[10px] font-sstbold text-right text-[#959494]">
+                    <div className="text-[18px] w-[30%] flex  justify-end p-[10px] font-sstbold text-right text-[#959494]">
                       <div className="mr-[10px] text-[#484848] font-sstbold text-[16px] text-left ml-[10px]">
                         {storeDetails != null && storeDetails.mobile
                           ? storeDetails.mobile
