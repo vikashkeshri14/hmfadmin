@@ -53,74 +53,72 @@ export default function ContentUserDetails() {
   };
   const deleteAccount = async () => {
     const obj = {
-      userId: userId
+      userId: userId,
     };
 
     let params = { url: apiList.deleteAccount, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       alert("User deleted successfully");
-      setDeleteShow(false)
+      setDeleteShow(false);
     }
-  }
+  };
 
   const cancelBan = async () => {
     const obj = {
-      userId: userId
+      userId: userId,
     };
 
     let params = { url: apiList.cancelban, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
       alert("User ban successfully cancel");
-      showBan(false)
+      showBan(false);
     }
-  }
+  };
 
   const perBan = async () => {
     if (!banMessage) {
       alert("please enter the message");
-      return
+      return;
     }
     const obj = {
       userId: userId,
-      message: banMessage
+      message: banMessage,
     };
 
     let params = { url: apiList.ban, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
-      alert("User successfully ban")
+      alert("User successfully ban");
       setBlocked(false);
-      setbanMessage("")
-      showBan(false)
+      setbanMessage("");
+      showBan(false);
     }
-  }
+  };
 
   const tempBan = async () => {
     if (!banMessage) {
       alert("please enter the message");
-      return
+      return;
     }
     const obj = {
       userId: userId,
       message: banMessage,
       from: moment(state[0].startDate).format("YYYY-MM-DD"),
-      to: moment(state[0].endDate).format("YYYY-MM-DD")
+      to: moment(state[0].endDate).format("YYYY-MM-DD"),
     };
 
     let params = { url: apiList.tempbanUser, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
-      alert("User successfully ban")
+      alert("User successfully ban");
       setPerBlocked(false);
       setMinHeight(false);
-      setbanMessage("")
-      showBan(false)
+      setbanMessage("");
+      showBan(false);
     }
-
-
-  }
+  };
   return (
     <div className="app-content content ">
       <div className="content-overlay"></div>
@@ -412,23 +410,31 @@ export default function ContentUserDetails() {
                   </div>
                   <div className="w-full p-[15px] pr-[0px]">
                     <div className=" self-center flex justify-end h-[66px] pl-[10px]">
-                      <div onClick={() => {
-                        showBan((ban) => !ban);
-                      }} className="flex justify-end cursor-pointer mr-[20px] self-center">
-                        {storeDetails != null && (storeDetails.status == 0 || storeDetails.status == 2) ? <img
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/warning-red.png"
-                          }
-                          className="h-[24px] w-[24px]"
-                        /> : <img
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/danger.png"
-                          }
-                          className="h-[24px] w-[24px]"
-                        />}
-
+                      <div
+                        onClick={() => {
+                          showBan((ban) => !ban);
+                        }}
+                        className="flex justify-end cursor-pointer mr-[20px] self-center"
+                      >
+                        {storeDetails != null &&
+                        (storeDetails.status == 0 ||
+                          storeDetails.status == 2) ? (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/warning-red.png"
+                            }
+                            className="h-[24px] w-[24px]"
+                          />
+                        ) : (
+                          <img
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/danger.png"
+                            }
+                            className="h-[24px] w-[24px]"
+                          />
+                        )}
                       </div>
                       <div
                         onClick={() => {
@@ -438,20 +444,23 @@ export default function ContentUserDetails() {
                         }}
                         className="flex justify-end cursor-pointer mr-[20px] self-center"
                       >
-                        {storeDetails != null && (storeDetails.status == 3) ?
+                        {storeDetails != null && storeDetails.status == 3 ? (
                           <img
                             src={
                               config.domainUrl +
                               "/panel/app-assets/images/bin.png"
                             }
                             className="h-[24px] w-[24px]"
-                          /> : <img
+                          />
+                        ) : (
+                          <img
                             src={
                               config.domainUrl +
                               "/panel/app-assets/images/trash.png"
                             }
                             className="h-[24px] w-[24px]"
-                          />}
+                          />
+                        )}
                       </div>
                     </div>
                     <div
@@ -468,7 +477,7 @@ export default function ContentUserDetails() {
                           setDeleteShow(false);
                           setMinHeight(true);
                         }}
-                        className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                        className="p-[10px] cursor-pointer temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
                       >
                         حظر مؤقت
                       </div>
@@ -479,7 +488,7 @@ export default function ContentUserDetails() {
                           setBlocked(true);
                           setDeleteShow(false);
                         }}
-                        className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                        className=" p-[10px] cursor-pointer permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
                       >
                         حظر دائم
                       </div>
@@ -488,7 +497,7 @@ export default function ContentUserDetails() {
                         onClick={() => {
                           cancelBan();
                         }}
-                        className="cancel-ban p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                        className="cancel-ban cursor-pointer p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                       >
                         إلغاء الحظر
                       </div>
@@ -499,7 +508,10 @@ export default function ContentUserDetails() {
               </div>
             </div>
           </section>
-          <section id="userDetails" className={minheight ? "min-h-[600px]" : "min-h-[400px]"}>
+          <section
+            id="userDetails"
+            className={minheight ? "min-h-[600px]" : "min-h-[400px]"}
+          >
             {orderHistory && <OrderHistory userId={userId} />}
             {infoOutgoingReport && <InfoOutgoingReport userId={userId} />}
             {infoIncomingReport && <InfoIncomingReport userId={userId} />}
@@ -535,22 +547,26 @@ export default function ContentUserDetails() {
                   سبب الحظر
                 </div>
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
-                  <textarea onChange={(e) => {
-                    setbanMessage(e.target.value)
-                  }} className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "></textarea>
+                  <textarea
+                    onChange={(e) => {
+                      setbanMessage(e.target.value);
+                    }}
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                  ></textarea>
                 </fieldset>
                 <div className="flex justify-center pb-[30px]">
                   <button
                     onClick={() => {
                       perBan();
                     }}
-                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                    className="ban text-[24px] ml-[10px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حظر
                   </button>
                   <button
                     onClick={() => {
                       setBlocked(false);
-                      setbanMessage("")
+                      setbanMessage("");
                     }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold "
                   >
@@ -589,7 +605,6 @@ export default function ContentUserDetails() {
                 <div className="mr-[30px] ml-[30px]"></div>
                 <div dir="ltr" className="flex justify-center">
                   <DateRange
-
                     editableDateInputs={true}
                     onChange={(item) => setState([item.selection])}
                     moveRangeOnFirstSelection={false}
@@ -602,24 +617,26 @@ export default function ContentUserDetails() {
                 <fieldset className=" mb-[30px] ml-[30px] mr-[30px]">
                   <textarea
                     onChange={(e) => {
-                      setbanMessage(e.target.value)
+                      setbanMessage(e.target.value);
                     }}
-                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] ">
-
-                  </textarea>
+                    className="w-full rounded-[6px] h-[155px] bg-[#EBEBEB] text-[#484848] "
+                  ></textarea>
                 </fieldset>
 
                 <div className="flex justify-center pb-[30px]">
-                  <button onClick={() => {
-                    tempBan();
-                  }} className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button
+                    onClick={() => {
+                      tempBan();
+                    }}
+                    className="ban text-[24px] ml-[20px] rounded-[6px] bg-[#959494] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حظر
                   </button>
                   <button
                     onClick={() => {
                       setPerBlocked(false);
                       setMinHeight(false);
-                      setbanMessage("")
+                      setbanMessage("");
                     }}
                     className="cancellation text-[24px] rounded-[6px] text-[#ffffff] bg-[#959494] w-[148px] h-[58px] font-sstbold ml-[10px]"
                   >
@@ -650,16 +667,20 @@ export default function ContentUserDetails() {
                   />
                 </div>
                 <div className="text-[#484848] text-[20px] font-sstbold text-center">
-                  {storeDetails.username}                </div>
+                  {storeDetails.username}{" "}
+                </div>
                 <div className="text-[#959494] mt-[5px] text-[20px] font-sstroman text-center">
                   #{storeDetails.id}
                 </div>
                 <div className="mr-[30px] ml-[30px]"></div>
 
                 <div className="flex justify-center mt-[30px] pb-[30px]">
-                  <button onClick={() => {
-                    deleteAccount()
-                  }} className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold ">
+                  <button
+                    onClick={() => {
+                      deleteAccount();
+                    }}
+                    className="ban text-[24px] rounded-[6px] bg-[#959494] ml-[10px] text-[#ffffff] w-[148px] h-[58px] font-sstbold "
+                  >
                     حذف
                   </button>
                   <button

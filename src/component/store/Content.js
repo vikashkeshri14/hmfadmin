@@ -318,9 +318,9 @@ export default function Content() {
                           src={
                             productShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/shop-green.png"
+                                "/panel/app-assets/images/shop-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/shop-grey.png"
+                                "/panel/app-assets/images/shop-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -357,9 +357,9 @@ export default function Content() {
                           src={
                             commitmentShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/commitment-green.png"
+                                "/panel/app-assets/images/commitment-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/commitment.png"
+                                "/panel/app-assets/images/commitment.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -396,9 +396,9 @@ export default function Content() {
                           src={
                             receiveShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/incoming-green.png"
+                                "/panel/app-assets/images/incoming-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/receive-grey.png"
+                                "/panel/app-assets/images/receive-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -435,9 +435,9 @@ export default function Content() {
                           src={
                             outgoingShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/outgoing-green.png"
+                                "/panel/app-assets/images/outgoing-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/send.png"
+                                "/panel/app-assets/images/send.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -480,9 +480,9 @@ export default function Content() {
                           src={
                             infoShow || infoShowOutgoing || infoShowIncoming
                               ? config.domainUrl +
-                              "/panel/app-assets/images/info-green.png"
+                                "/panel/app-assets/images/info-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/info-grey.png"
+                                "/panel/app-assets/images/info-grey.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -577,9 +577,9 @@ export default function Content() {
                           src={
                             conversationShow
                               ? config.domainUrl +
-                              "/panel/app-assets/images/chat-green.png"
+                                "/panel/app-assets/images/chat-green.png"
                               : config.domainUrl +
-                              "/panel/app-assets/images/chat.png"
+                                "/panel/app-assets/images/chat.png"
                           }
                           className="h-[24px] self-center w-[24px]"
                         />
@@ -678,20 +678,25 @@ export default function Content() {
                         }}
                         className="mr-[10px] cursor-pointer ml-[10px]"
                       >
-                        {storeDetails != null && (storeDetails.status == 0 || storeDetails.status == 2) ? <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/warning-red.png"
-                          }
-                        /> : <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/danger.png"
-                          }
-                        />}
-
+                        {storeDetails != null &&
+                        (storeDetails.status == 0 ||
+                          storeDetails.status == 2) ? (
+                          <img
+                            className="h-[24px] w-[24px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/warning-red.png"
+                            }
+                          />
+                        ) : (
+                          <img
+                            className="h-[24px] w-[24px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/danger.png"
+                            }
+                          />
+                        )}
                       </div>
 
                       <div
@@ -702,20 +707,23 @@ export default function Content() {
                         }}
                         className="mr-[10px] cursor-pointer "
                       >
-                        {storeDetails != null && storeDetails.status == 3 ? <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/bin.png"
-                          }
-                        /> : <img
-                          className="h-[24px] w-[24px]"
-                          src={
-                            config.domainUrl +
-                            "/panel/app-assets/images/trash.png"
-                          }
-                        />}
-
+                        {storeDetails != null && storeDetails.status == 3 ? (
+                          <img
+                            className="h-[24px] w-[24px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/bin.png"
+                            }
+                          />
+                        ) : (
+                          <img
+                            className="h-[24px] w-[24px]"
+                            src={
+                              config.domainUrl +
+                              "/panel/app-assets/images/trash.png"
+                            }
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -734,7 +742,7 @@ export default function Content() {
                       setDeleteShow(false);
                       setMinHeight(true);
                     }}
-                    className="p-[10px] temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
+                    className="p-[10px] cursor-pointer temprorary-ban text-[#484848] text-[18px] font-sstbold text-center"
                   >
                     حظر مؤقت
                   </div>
@@ -745,7 +753,7 @@ export default function Content() {
                       setBlocked(true);
                       setDeleteShow(false);
                     }}
-                    className=" p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
+                    className=" cursor-pointer p-[10px] permanent-ban text-[#484848] text-[18px] font-sstbold text-center"
                   >
                     حظر دائم
                   </div>
@@ -754,7 +762,7 @@ export default function Content() {
                     onClick={() => {
                       cancelBan();
                     }}
-                    className="cancel-ban p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
+                    className="cancel-ban cursor-pointer p-[10px] text-[#484848] text-[18px] font-sstbold incoming-conversation text-center"
                   >
                     إلغاء الحظر
                   </div>
