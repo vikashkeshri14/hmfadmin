@@ -105,7 +105,7 @@ export default function StoreReportedMost(props) {
                               onClick={() => {
                                 navigate("/store/" + data.store.id);
                               }}
-                              className="flex justify-center mt-[10px]"
+                              className="flex cursor-pointer justify-center mt-[10px]"
                             >
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
@@ -143,7 +143,7 @@ export default function StoreReportedMost(props) {
                                 onClick={() => {
                                   navigate("/store/" + data.store.id);
                                 }}
-                                className="flex justify-center mt-[10px]"
+                                className="flex cursor-pointer justify-center mt-[10px]"
                               >
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"

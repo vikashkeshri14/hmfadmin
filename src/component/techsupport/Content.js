@@ -5,8 +5,11 @@ import config from "../../config/config.json";
 import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import DatePicker from "react-datepicker";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Content() {
+  const navigate = useNavigate();
+
   const [value, onChange] = useState([new Date(), new Date()]);
   const [checkedTrash, setCheckedTrash] = useState(false);
   const [techList, setTechList] = useState([]);
@@ -28,7 +31,7 @@ export default function Content() {
     setUserId(auth.id);
     getTechSupport();
     return () => {
-      console.log("hi");
+      //    console.log("hi");
       // 👇️ clear timeout when the component unmounts
       clearInterval(intervalId.current);
     };
@@ -271,7 +274,7 @@ export default function Content() {
             <div className="row  mb-[10px] pl-[15px] pr-[15px]  ">
               <div className="flex flex-wrap">
                 {techList.map((data, i) => {
-                  //   console.log(data.showchat);
+                  //  console.log(data);
                   return (
                     <div key={i} className="relative">
                       <div className="w-[153px]  mt-[10px] rounded-[6px] flex-none ml-[10px] mr-[10px] justify-center flex flex-col align-items-center">
@@ -325,7 +328,16 @@ export default function Content() {
                                   )}
                                 </div>
                               </div>
-                              <div className="flex justify-center mt-[10px]">
+                              <div
+                                onClick={() => {
+                                  if (data.user_type == "1") {
+                                    navigate("/user/" + data.sender_id);
+                                  } else {
+                                    navigate("/store/" + data.sender_id);
+                                  }
+                                }}
+                                className="flex cursor-pointer justify-center mt-[10px]"
+                              >
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
                                   src={config.imgUri + "/" + data.user_pic}

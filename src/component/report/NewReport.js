@@ -5,7 +5,10 @@ import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
 import { ReportContext } from "../../contexts/ReportContext";
+import { useNavigate } from "react-router-dom";
 export default function NewReport(props) {
+  const navigate = useNavigate();
+
   const [store, setStore] = useState([]);
   const [showdetail, setShowDetail] = useState("");
   const [initialdata, setinitialdata] = useState([]);
@@ -174,7 +177,16 @@ export default function NewReport(props) {
                       <div className="w-[100%] bg-[#F9F9F9]">
                         <div className="flex pb-[5px]">
                           <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                            <div className="flex justify-center mt-[10px]">
+                            <div
+                              onClick={() => {
+                                if (data.reported_from.user_type == "1") {
+                                  navigate("/user/" + data.reported_from.id);
+                                } else {
+                                  navigate("/store/" + data.reported_from.id);
+                                }
+                              }}
+                              className="flex cursor-pointer justify-center mt-[10px]"
+                            >
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
                                 src={
@@ -203,7 +215,16 @@ export default function NewReport(props) {
                             />
                           </div>
                           <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                            <div className="flex justify-center mt-[10px]">
+                            <div
+                              onClick={() => {
+                                if (data.reported_to.user_type == "1") {
+                                  navigate("/user/" + data.reported_to.id);
+                                } else {
+                                  navigate("/store/" + data.reported_to.id);
+                                }
+                              }}
+                              className="flex justify-center mt-[10px]"
+                            >
                               <img
                                 className="w-[66px] h-[66px] rounded-[33px]"
                                 src={
@@ -372,7 +393,16 @@ export default function NewReport(props) {
                         <div className="w-[100%] bg-[#F9F9F9]">
                           <div className="flex pb-[5px]">
                             <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
+                              <div
+                                onClick={() => {
+                                  if (data.reported_from.user_type == "1") {
+                                    navigate("/user/" + data.reported_from.id);
+                                  } else {
+                                    navigate("/store/" + data.reported_from.id);
+                                  }
+                                }}
+                                className="flex cursor-pointer justify-center mt-[10px]"
+                              >
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
                                   src={
@@ -401,7 +431,16 @@ export default function NewReport(props) {
                               />
                             </div>
                             <div className="w-[38%] flex-col pr-[5px] pl-[5px]">
-                              <div className="flex justify-center mt-[10px]">
+                              <div
+                                onClick={() => {
+                                  if (data.reported_to.user_type == "1") {
+                                    navigate("/user/" + data.reported_to.id);
+                                  } else {
+                                    navigate("/store/" + data.reported_to.id);
+                                  }
+                                }}
+                                className="flex cursor-pointer justify-center mt-[10px]"
+                              >
                                 <img
                                   className="w-[66px] h-[66px] rounded-[33px]"
                                   src={

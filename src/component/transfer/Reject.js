@@ -3,8 +3,11 @@ import * as ApiService from "../../config/config";
 import apiList from "../../config/apiList.json";
 import config from "../../config/config.json";
 import moment from "moment";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Reject(props) {
+  const navigate = useNavigate();
+
   const [listItems, setListItems] = useState([]);
   const [showReceipt, setshowReceipt] = useState("");
   const [messageError, setMessageError] = useState(false);
@@ -85,7 +88,16 @@ export default function Reject(props) {
                     >
                       <div className="flex w-full">
                         <div className="flex-col">
-                          <div className=" flex justify-center ">
+                          <div
+                            onClick={() => {
+                              if (data.user_type == "1") {
+                                navigate("/user/" + data.sender_id);
+                              } else {
+                                navigate("/store/" + data.sender_id);
+                              }
+                            }}
+                            className="cursor-pointer flex justify-center "
+                          >
                             <img
                               className="w-[60px] h-[60px] rounded-[44px]"
                               src={config.imgUri + "/" + data.user_pic}

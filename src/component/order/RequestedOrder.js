@@ -7,6 +7,7 @@ import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 import { OrderContext } from "../../contexts/OrderContext";
 export default function RequestedOrder(props) {
+  const navigate = useNavigate();
   const [requested, setRequested] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loadChat, setLoadChat] = useState([]);
@@ -24,15 +25,16 @@ export default function RequestedOrder(props) {
     //    setinitialdata(false)
     //  }
     if (props.from && props.to) {
-      setFrom(props.from); setTo(props.to);
+      setFrom(props.from);
+      setTo(props.to);
     }
   }, [moreRequestOrder, props]);
   const getAllRequest = async () => {
     const obj = {
       from: from,
-      to: to
-    }
-    console.log(obj)
+      to: to,
+    };
+    // console.log(obj)
     let params = { url: apiList.allRequestedOrder, body: obj };
     let response = await ApiService.postData(params);
     if (response.result.length > 0) {
@@ -78,7 +80,10 @@ export default function RequestedOrder(props) {
           if (moreRequestOrder == false) {
             if (i < 10) {
               return (
-                <div key={data.id} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+                <div
+                  key={data.id}
+                  className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]"
+                >
                   <table className="table mb-0">
                     <tbody>
                       <tr
@@ -93,7 +98,12 @@ export default function RequestedOrder(props) {
                         >
                           <div className="flex w-full">
                             <div className="flex-col">
-                              <div className=" flex justify-center ">
+                              <div
+                                onClick={() => {
+                                  navigate("/user/" + data.user.id);
+                                }}
+                                className=" flex cursor-pointer justify-center "
+                              >
                                 <img
                                   className="w-[60px] h-[60px] rounded-[44px]"
                                   src={config.imgUri + "/" + data.user.user_pic}
@@ -114,7 +124,12 @@ export default function RequestedOrder(props) {
                               />
                             </div>
                             <div className="flex-col">
-                              <div className=" flex justify-center ">
+                              <div
+                                onClick={() => {
+                                  navigate("/store/" + data.store.id);
+                                }}
+                                className=" cursor-pointer flex justify-center "
+                              >
                                 <img
                                   className="w-[60px] h-[60px] rounded-[44px]"
                                   src={
@@ -170,10 +185,10 @@ export default function RequestedOrder(props) {
                               reject == "1"
                                 ? "flex justify-center text-[#E80000] text-[20px] font-sstbold "
                                 : pending == "1"
-                                  ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
-                                  : accept == "1"
-                                    ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
-                                    : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
+                                ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
+                                : accept == "1"
+                                ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
+                                : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
                             }
                           >
                             {status}
@@ -403,7 +418,10 @@ export default function RequestedOrder(props) {
             }
           } else {
             return (
-              <div key={data.id} className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]">
+              <div
+                key={data.id}
+                className="row p-[10px]  bg-white rounded-[6px] mr-[0px] mt-[10px]"
+              >
                 <table className="table mb-0">
                   <tbody>
                     <tr
@@ -491,10 +509,10 @@ export default function RequestedOrder(props) {
                             reject == "1"
                               ? "flex justify-center text-[#E80000] text-[20px] font-sstbold "
                               : pending == "1"
-                                ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
-                                : accept == "1"
-                                  ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
-                                  : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
+                              ? "flex justify-center text-[#FF9800] text-[20px] font-sstbold "
+                              : accept == "1"
+                              ? "flex justify-center text-[#AAD0AB] text-[20px] font-sstbold "
+                              : "flex justify-center text-[#60BA62] text-[20px] font-sstbold "
                           }
                         >
                           {status}
@@ -584,7 +602,10 @@ export default function RequestedOrder(props) {
                         >
                           {data.orderItem.map((items, k) => {
                             return (
-                              <div key={items.id} className="flex flex-row  mt-2">
+                              <div
+                                key={items.id}
+                                className="flex flex-row  mt-2"
+                              >
                                 <div className="basis-[68%] flex flex-row justify-start">
                                   <div className="pl-1 pr-1 flex text-left text-[15px] ">
                                     {items.product_name}
