@@ -104,7 +104,7 @@ export default function PaidCommitments(props) {
                           {data.username}
                         </div>
                         <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                          #{data.id}
+                          #{data.store_id}
                         </div>
                         <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
                           <div className="border-t-[1px]"></div>

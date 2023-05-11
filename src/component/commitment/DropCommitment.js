@@ -114,7 +114,7 @@ export default function DropCommitment(props) {
                           </h6>
                         </div>
                         <div className="text-muted pb-[10px] mt-[10px] text-center text-[16px] font-sstroman  text-[#959494]">
-                          #{data.user_id}
+                          #{data.store_id}
                         </div>
                         <div className="pl-[20px]  pr-[20px]">
                           <div className="text-[#9D40AD] pb-[10px] pt-[10px] text-center  border-t-[1px] text-[18px] font-sstbold">

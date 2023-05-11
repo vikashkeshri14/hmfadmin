@@ -63,7 +63,7 @@ export default function PendingCommitments(props) {
       userId: userId,
       sendTo: sendTo,
       user_type: "2",
-      message: "Please pay the commitment for orderId :: " + orderId,
+      message: "لديك التزام جديد بقيمة  " + orderId,
       orderId: orderId,
     };
     let params = { url: apiList.sendAlert, body: obj };
@@ -127,7 +127,7 @@ export default function PendingCommitments(props) {
                             {data.username}
                           </div>
                           <div className="text-[#959494] text-[16px] font-sstroman text-center mt-[5px]">
-                            #{data.id}
+                            #{data.store_id}
                           </div>
                           <div className="pl-[20px] mt-[10px] mb-[10px] pr-[20px]">
                             <div className="border-t-[1px]"></div>

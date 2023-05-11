@@ -96,6 +96,8 @@ export default function Content() {
       sendTo: actualId,
       message: message,
     };
+    console.log(obj);
+    //return;
     let params = { url: apiList.addAlert, body: obj };
     let response = await ApiService.postData(params);
     if (response) {
