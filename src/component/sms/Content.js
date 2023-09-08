@@ -316,7 +316,7 @@ export default function Content() {
                                       }}
                                     >
                                       <option attr="store" value="2">
-                                        محددة
+                                        متاجر
                                       </option>
                                       <option attr="user" value="1">
                                         المستخدمين

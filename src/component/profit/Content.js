@@ -260,8 +260,8 @@ export default function Content() {
                               إجمالي الأرباح
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              {(totalEarning * config.commitmentRate) / 100}{" "}
-                              ريال
+                              {/*(totalEarning * config.commitmentRate) / 100*/}
+                              {totalEarning} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
@@ -306,7 +306,8 @@ export default function Content() {
                               أرباح من التحويل المصرفي
                             </div>
                             <div className="text-[#498A4A] pb-[5px] pt-[5px] text-center font-sstbold text-[35px]">
-                              {(bankEarning * config.commitmentRate) / 100} ريال
+                              {/*(bankEarning * config.commitmentRate) / 100*/}
+                              {bankEarning} ريال
                             </div>
                             <div className="text-[#60BA62] text-center font-sstbold text-[16px]">
                               5,09% أعلى من الشهر الماضي
