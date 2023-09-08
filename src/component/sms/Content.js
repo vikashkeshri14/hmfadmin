@@ -104,10 +104,10 @@ export default function Content() {
       return;
     }
     setMessageError(false);
-    if (actualId.length == 0) {
-      alert("please add the ids");
-      return;
-    }
+    // if (actualId.length == 0) {
+    //   alert("please add the ids");
+    //   return;
+    // }
     setShowModal(false);
     setShowSure(true);
   };
