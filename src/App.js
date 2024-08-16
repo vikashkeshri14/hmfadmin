@@ -19,33 +19,105 @@ import BlackList from "./screen/blacklist/BlackList";
 import Transfer from "./screen/transfer/Transfer";
 import Categories from "./screen/categories/Categories";
 import EditManagement from "./screen/management/EditManagement";
+import UserPayment from "./screen/user/UserPayment";
+import Settings from "./screen/user/Settings";
 
 function App() {
   return (
     <Router basename={"/panel"}>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/transfer" element={<Transfer />} />
-        <Route path="/user-details" element={<UserDetails />} />
-        <Route path="/store/:slug" element={<Store />} />
-        <Route path="/user/:slug" element={<UserDetails />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/report" element={<Report />} />
-        <Route path="/sms" element={<Sms />} />
-        <Route path="/tech-support" element={<TechSupport />} />
-        <Route path="/notification" element={<Notification />} />
-        <Route path="/commitment" element={<Commitment />} />
-        <Route path="/profit" element={<Profit />} />
-        <Route path="/management" element={<Management />} />
-        <Route path="/add-management" element={<AddManagement />} />
-        <Route path="/edit-management/:slug" element={<EditManagement />} />
-
-        <Route path="/blacklist" element={<BlackList />} />
-        <Route path="/categories" element={<Categories />} />
+        <Route
+          path="/"
+          element={<Login />}
+        />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+        <Route
+          path="/forget-password"
+          element={<ForgetPassword />}
+        />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+        <Route
+          path="/users"
+          element={<Users />}
+        />
+        <Route
+          path="/transfer"
+          element={<Transfer />}
+        />
+        <Route
+          path="/user-details"
+          element={<UserDetails />}
+        />
+        <Route
+          path="/store/:slug"
+          element={<Store />}
+        />
+        <Route
+          path="/user/:slug"
+          element={<UserDetails />}
+        />
+        <Route
+          path="/order"
+          element={<Order />}
+        />
+        <Route
+          path="/report"
+          element={<Report />}
+        />
+        <Route
+          path="/sms"
+          element={<Sms />}
+        />
+        <Route
+          path="/tech-support"
+          element={<TechSupport />}
+        />
+        <Route
+          path="/notification"
+          element={<Notification />}
+        />
+        <Route
+          path="/commitment"
+          element={<Commitment />}
+        />
+        <Route
+          path="/profit"
+          element={<Profit />}
+        />
+        <Route
+          path="/management"
+          element={<Management />}
+        />
+        <Route
+          path="/add-management"
+          element={<AddManagement />}
+        />
+        <Route
+          path="/edit-management/:slug"
+          element={<EditManagement />}
+        />
+        <Route
+          path="/blacklist"
+          element={<BlackList />}
+        />
+        <Route
+          path="/user-payment"
+          element={<UserPayment />}
+        />
+        <Route
+          path="/user-settings"
+          element={<Settings />}
+        />
+        <Route
+          path="/categories"
+          element={<Categories />}
+        />
       </Routes>
     </Router>
   );

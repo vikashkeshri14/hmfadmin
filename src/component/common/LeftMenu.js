@@ -542,6 +542,37 @@ export default function LeftMenu({ route }) {
             </li>
           )}
 
+          <li className=" h-[61px] flex  nav-item">
+            <Link to="/user-payment">
+              <img
+                className="h-[24px] w-[24px] ml-[24px]"
+                src={
+                  config.domainUrl + "/panel/app-assets/images/inheritance.png"
+                }
+              />
+              <span
+                className="menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
+                data-i18n="Logout"
+              >
+                User Payment
+              </span>
+            </Link>
+          </li>
+          <li className=" h-[61px] flex  nav-item">
+            <Link to="/user-settings">
+              <img
+                className="h-[24px] w-[24px] ml-[24px]"
+                src={config.domainUrl + "/panel/app-assets/images/settings.png"}
+              />
+              <span
+                className="menu-title text-truncate text-[#484848] text-[16px] font-sstbold"
+                data-i18n="Logout"
+              >
+                Settings
+              </span>
+            </Link>
+          </li>
+
           <li
             onClick={() => {
               logoutClick();
