@@ -35,6 +35,7 @@
   "getAllReportByUser": "/stores/getAllReportByUser",
   "getReportStoreResolveById": "/stores/getReportStoreResolveById",
   "getReportProductById": "/stores/getReportProductById",
+  "getStoreByOrderId": "/stores/getStoreByOrderId",
   "numberOfAccpetedAndPaidByHr": "/orders/numberOfAccpetedAndPaidByHr",
   "allRequestedOrder": "/orders/allRequestedOrder",
   "getUserPaymentOrder": "/orders/getUserPaymentOrder",
