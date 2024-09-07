@@ -52,6 +52,7 @@ export default function Content() {
       from: startDate,
       to: endDate,
     };
+    //console.log(obj);
     let params = { url: apiList.totalOrder, body: obj };
     let response = await ApiService.postData(params);
     setTotalOrder(0);
